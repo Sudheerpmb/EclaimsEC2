@@ -1,0 +1,78 @@
+@charset "utf-8";
+/* CSS Document */
+
+ .tabs input[type=radio] {
+	position: absolute;
+	left: -9999px;
+}
+.tabs {
+	width: 50%;
+	float: none;
+	list-style: none;
+	position: relative;
+	padding: 0;
+	margin:auto;
+}
+.tabs p { font-size:12px;}
+.tabs,#tab:after {
+	content:"";
+	clear:both;
+	display:;
+}
+.tabs li {
+	display:inline-block;
+	vertical-align:top;
+}
+.tabs #tab  {
+	display: block;
+	padding: 12px 20px;
+	border-radius: 2px 2px 0 0;
+	color: #025eab;
+	font-size: 15px;
+	font-weight: normal;
+	background: #dedede;
+	cursor: pointer;
+	position: relative;
+	top: 3px;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.tabs label:hover {
+	background: rgba(255, 255, 255, 0.5);
+	top: 0;
+}
+ [id^=tab]:checked + label {
+ background: #fff !important;
+ color: #616060 !important;
+ top: 0 !important;
+ overflow:hidden !important;
+ cursor:pointer !important;
+ display: block;
+}
+ [id^=tab]:checked ~ [id^=tab-content] {
+ display: block !important;
+ overflow:hidden !important;
+ cursor:pointer !important;
+}
+.tab-content {
+	z-index: 2;
+	display: none;
+	text-align: left;
+	width: 100%;
+	
+	line-height: 140%;
+	padding-top: 10px;
+	background: #fff;
+	padding: 15px;
+	color: #3a3939;
+	position: absolute;
+	top: 45px;
+	left: 0;
+	box-sizing: border-box;
+	-webkit-animation-duration: 0.5s;
+	-o-animation-duration: 0.5s;
+	-moz-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+}

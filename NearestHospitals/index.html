@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>GeoCoding </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.css" rel="stylesheet"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.js"></script>
+    
+    
+
+
+    <script src="controllers/geo.js"></script>
+    <script src="controllers/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAP8r76dTUNFtejkwPtBv49YmDNfO8fQPs&callback=initMap"></script>
+
+</head>
+
+<body>
+    <!-- 
+    <div class="header">
+        <span class="text"><strong>GeoCoding</strong></span>
+        <div style="margin-right: 40vw;float:right;">
+            <button type="button" id="geo" class="btn btn-warning">GeoCoding </button>
+            <button type="button" id="revGeo" class="btn btn-warning">Reverse GeoCoding</button>
+        </div>
+
+
+    </div> -->
+   
+   
+    <div class="header">
+        <div class="headerSub" >
+            <div>
+                <p style="font-size: 18px; font-weight: bold;margin-top: 4px;">Nearest Hospitals</p>
+            </div>
+            <div class="row" >
+                            <div class="col-sm-3">
+                                <div class="mb-3 row ">
+                                    <label for="inputPassword" class="col-sm-3 col-form-label">
+                                        <div style="margin-top: 4px; width: 100%;">
+                                            Pincode
+                                        </div>
+                                        </label>
+                                    <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="Pincode">
+                                    </div>
+                                </div>
+                            </div>    
+                            <div class="col-sm-3" >
+                                <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-2 col-form-label">                          
+                                    <div style="margin-top: 4px; width: 100%;">
+                                        City
+                                    </div>
+                                    </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="city">
+                                </div>
+                                </div>
+                        </div>    
+                            <div class="col-sm-3" >
+                                <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-2 col-form-label">                          
+                                    <div style="margin-top: 4px; width: 100%;margin-bottom: 5px;">
+                                        Filter 
+                                    </div>
+                                    </label>
+                                <div class="col-sm-9">
+                                    <select class="selectpicker" id ='hospitalType'>
+                                        <option val="None"> All </option>
+                                        <option val="Medical"> Medical</option>
+                                        <option val="Dental" > Dental</option>
+                                        <option val="General Practitioner" > General Practitioner</option>
+                                    </select>
+                                </div>
+                                </div>
+                        </div>  
+                            
+                   
+                
+        
+            
+                    
+                    <div class="col-sm-2 buttonD"  >
+                        
+                        <input style="width: 100%;" type="submit" value="Search Hospitals" class="btn btn-primary" id="revGeoCod">
+                    </div>
+                
+                    </div>
+    
+                    <br>
+             
+            <!-- <div style="margin-right: 15px;">
+                <button type="button" id="geo" class="btn btn-warning">GeoCoding </button>
+                <button type="button" id="revGeo" class="btn btn-warning">Reverse GeoCoding</button>
+            </div> -->
+        </div>
+
+    </div>
+    <div class="col-sm-5" style="float: right;" >
+        <div class="mb-3 row">
+        <div class="col-sm-9">
+            <span id ='hospitalLimit' style="cursor:pointer;"> Show More..</span>
+        </div>
+        </div>
+</div>
+    <div class="body">
+        <div class="bHeader">
+
+        </div>
+        <div class="bBody">
+            <!-- <div class="leftBar" id ="leftbarI">
+                <div id="barContent" class="barCont"></div>
+            </div>
+            <div class="leftBarButton"  id ="leftBarButtoni"></div> -->
+            <div class="container geoContC" id="geoCont">
+
+                <!-- <label for="lat">Latitude:</label>
+                <input type="text" id="lat" name="fname">
+                <label for="long">Longitude:</label>
+                <input type="text" id="long" name="lname">
+                <input type="submit" value="Submit" id="geocod" class="btn btn-primary">
+                <br>
+                Address:<span id="Address"></span><br> -->
+
+                   
+                <div class="row" style="margin-left: 15px; margin-right: 15px;">
+                    <div class="col-sm-5">
+                        <div class="mb-3 row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">
+                                <div style="margin-top: 4px; width: 100%;">
+                                    Latitude
+                                </div>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="lat" name="fname">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <div class="mb-3 row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">
+                                <div style="margin-top: 4px; width: 100%;">
+                                    Longitude
+                                </div>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="long" name="lname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <input style="width: 100%;" type="submit" value="Submit" id="geocod" class="btn btn-primary">
+                    </div>
+                </div>
+
+                <br>
+                <div class="row" style="margin-left: 15px; margin-right: 15px;">
+                    <div class="col-sm-10">
+                        <div class="mb-3 row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">
+                                <div style="width: 100%;">
+                                    Address:
+                                </div>
+                            </label>
+                            <div class="col-sm-10">
+                                <div style="margin-left:-80px">
+                                    <span id="Address">Enter The Details</span>                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2"></div>
+                </div>
+
+
+
+            </div>
+            <div class="container" id="revGeoCont">
+
+
+                <!-- <label for="street" style="padding-right: 16px;">Name :</label>
+                <input type="text" id="name" name="name">
+                <label for="street">Street :</label>
+                <input type="text" id="street" name="street"><br>
+                <label for="Pincode">Pincode :</label>
+                <input type="text" id="Pincode" name="Pincode">
+                <label for="city" style="padding-right: 16px;">city :</label>
+                <input type="text" id="city" name="lname"><br><br>
+                <input style="margin-left: 9.5vw;" type="submit" value="Search" class="btn btn-primary" id="revGeoCod">
+                <br>
+                <div style="margin-top:2vh">
+                    latitude:<strong><span id="lati">Please fill the Info </span></strong>,
+                    longitude:<strong><span id="lng">Please fill the Info</span></strong>
+                </div> -->
+
+                
+                <!-- <div class="row" style="margin-left: 15px; margin-right: 15px;">
+                    <div class="col-sm-5">
+                          <div class="mb-3 row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">
+                                <div style="width: 100%;">
+                                    Latitude
+                                </div>
+                                </label>
+                            <div class="col-sm-10">
+                                <div style="margin-left: 5px;">
+                                    <span id="lati">Please fill the Info </span>
+                                </div>
+                                
+                    
+                            </div>
+                          </div>
+                    </div>    
+                    
+                    <div class="col-sm-5">
+                        <div class="mb-3 row">
+                          <label for="inputPassword" class="col-sm-2 col-form-label">
+                            <div style="width: 100%;">
+                                Longitude
+                            </div>
+                        </label>
+                          <div class="col-sm-10">
+                            <div style="margin-left: 5px;">
+                                <span id="lng">Please fill the Info</span>
+                            </div>                            
+                          </div>
+                        </div>
+                  </div>    
+                  <div class="col-sm-2"></div>
+                </div> -->
+            </div>
+        </div>
+
+        <div id="map" class="container map"></div>
+
+    </div>
+<div id="multiplePath">
+
+</div>
+</body>
+<script>
+    let bar_flag=0;
+    $(function () {
+
+        
+//   $('#hospitalType').on('change', function(e){
+//     alert(this.value);
+//   });
+  
+
+        $("#leftBarButtoni").click(function(){
+            if(bar_flag){
+            $('#leftbarI').width('0.2vw');
+            $('#leftBarButtoni').css("left", "0.2vw");
+            $('#barContent').hide()
+            bar_flag=0;
+        }
+        else{
+            $('#leftbarI').width('20vw');
+            $('#leftBarButtoni').css("left", "20vw");
+            $('#barContent').show()
+            bar_flag=1;
+        }
+        })
+        $("#geoCont").hide();
+        $("#geo").click(function () {
+            $("#revGeoCont").hide()
+            $("#geoCont").show()
+        });
+        $("#revGeo").click(function () {
+            $("#revGeoCont").show()
+            $("#geoCont").hide()
+        });
+    });
+</script>
+
+</html>

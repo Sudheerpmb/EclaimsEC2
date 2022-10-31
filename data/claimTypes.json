@@ -1,0 +1,475 @@
+{	"EmergencyCashAssistance": {
+	"id":2,
+	"ClaimName":"Financial Assistance",
+	"ClaimDescription":"Policy Member can ask for a Special Grant to get benefits for emergencies cash of his needs.",
+	"Event":"",
+	"EventLabel":"",
+	"EventDetails":"",
+	"EventDetailLabel":"",
+	"Documents":[
+				{
+					"DocumentName": "Policy Copy",
+					"DocumentDescription": "",
+					"requiredOriginal": false
+				},
+				{
+					"DocumentName": "Claim Form",
+					"DocumentDescription": "",
+					"requiredOriginal": false
+				},
+				{
+					"DocumentName": "VISA Copy",
+					"DocumentDescription": "",
+					"requiredOriginal": false
+				},
+				{
+					"DocumentName": "Covering Letter with detail name of the indent",
+					"DocumentDescription": "",
+					"requiredOriginal": false
+				},
+				{
+					"DocumentName": "Covering letter with name of incident",
+					"DocumentDescription": "",
+					"requiredOriginal": false
+				},									
+				{
+					"DocumentName": "Complete Travel Items",
+					"DocumentDescription": "",
+					"requiredOriginal": false
+				}]
+},
+	"BaggageDelay": {
+						"id":1,
+						"ClaimName":"Baggage Delay",
+						"ClaimDescription":"Delivery of the Insured Person’s accompanying checked-in baggage for an overseas journey has been delayed by a Carrier",
+						"Event":"M0014",
+						"EventLabel":"Travel Delay",
+						"EventDetails":"TLR03",
+						"EventDetailLabel":"Travel: Delay of Checked Baggage",
+						"Documents":[
+									{
+										"DocumentName": "Airline compensation details",
+										"DocumentDescription": "Documents showing details of the compensation (if any) received by the INSURED from the AIRLINES due to this incident.",
+										"requiredOriginal": false
+									},
+									{
+										"DocumentName": "Airline correspondence",
+										"DocumentDescription": "Documents showing correspondence between the INSURED and the AIRLINES due to this incident.",
+										"requiredOriginal": false
+									},
+									{
+										"DocumentName": "Baggage tags",
+										"DocumentDescription": "Baggage tags provided by the AIRLINES to the INSURED at the time of check-in.",
+										"requiredOriginal": false
+									},
+									{
+										"DocumentName": "Cancelled cheque",
+										"DocumentDescription": "Copy of a cancelled bank check of the INSURED.",
+										"requiredOriginal": false
+									},
+									{
+										"DocumentName": "Filled & signed claim form",
+										"DocumentDescription": "Claim form with all the relevant details filled and signed by the INSURED.",
+										"requiredOriginal": false
+									},									
+									{
+										"DocumentName": "Immigration entry and exit",
+										"DocumentDescription": "Copy of the Passport's pages which have 'Entry' and 'Exit' stamps that were put on the passport during the trip for which this claim is being filled.",
+										"requiredOriginal": false
+									},
+									{
+										"DocumentName": "Invoices & payment receipts",
+										"DocumentDescription": "Provide all the original invoices with payment receipts. Credit Card payments - Share original transaction slips or copy of credit card statement. Cheque Payments - Share a copy of bank statement showing the payment. Cash Payments - Share cash receipts.",
+										"requiredOriginal": true
+									},
+									
+									{
+										"DocumentName": "PAN card",
+										"DocumentDescription": "Copy of the PAN card of the INSURED.",
+										"requiredOriginal": false
+									},
+									{
+										"DocumentName": "Passport copy",
+										"DocumentDescription": "Copy of the Passport during the trip for which this claim is being filed.",
+										"requiredOriginal": false
+									},
+									{
+										"DocumentName": "Property irregularity report",
+										"DocumentDescription": "A document provided by the AIRLINE to the INSURED if checked baggage is lost or damaged by the AIRLINE.",
+										"requiredOriginal": false
+									}]
+					},
+	"BaggageLoss": {
+		"id":3,
+		"ClaimName":"Baggage Loss",
+		"ClaimDescription":"Insured Person’s accompanying checked-in baggage for an overseas journey has been permanently lost by a Carrier.",
+		"Event":"M0014",
+		"EventLabel":"Travel Delay",
+		"EventDetails":"TLR02",
+		"EventDetailLabel":"Travel: Total Loss of Checked Baggage",
+		"Documents":[{
+						"DocumentName": "Airline correspondence",
+						"DocumentDescription": "Documents showing correspondence between the INSURED and the AIRLINES due to this incident.",
+						"requiredOriginal": false
+					},
+					{
+						"DocumentName": "Airlines claim form",
+						"DocumentDescription": "Copy of the claim form that the INSURED had submitted to the concerned AIRLINES due to this incident.",
+						"requiredOriginal": false
+					},
+					{
+						"DocumentName": "Baggage tags",
+						"DocumentDescription": "Baggage tags provided by the AIRLINES to the INSURED at the time of check-in.",
+						"requiredOriginal": false
+					},
+					{
+						"DocumentName": "Cancelled cheque",
+						"DocumentDescription": "Copy of a cancelled bank check of the INSURED.",
+						"requiredOriginal": false
+					},
+					{
+						"DocumentName": "Filled & signed claim form",
+						"DocumentDescription": "Claim form with all the relevant details filled and signed by the INSURED.",
+						"requiredOriginal": false
+					},
+					{
+										"DocumentName": "Immigration entry and exit",
+										"DocumentDescription": "Copy of the Passport's pages which have 'Entry' and 'Exit' stamps that were put on the passport during the trip for which this claim is being filled.",
+										"requiredOriginal": false
+					},
+					
+					{
+						"DocumentName": "PAN card",
+						"DocumentDescription": "Copy of the PAN card of the INSURED.",
+						"requiredOriginal": false
+					},					
+					
+					{
+						"DocumentName": "Passport copy",
+						"DocumentDescription": "Copy of the Passport during the trip for which this claim is being filed.",
+						"requiredOriginal": false
+					},
+					{
+						"DocumentName": "Property irregularity report",
+						"DocumentDescription": "A document provided by the AIRLINE to the INSURED if checked baggage is lost or damaged by the AIRLINE.",
+						"requiredOriginal": false
+					}]
+},
+"DentalTreatment": {
+		"id":5,
+		"Event":"M0001",		
+		"EventLabel":"Medical",
+		"EventDetails":"DENTE",
+		"EventDetailLabel":"Dental Expenses",
+		"ClaimName":"Dental Treatment",
+		"ClaimDescription":"Medical Expenses for pain relieving dental treatment received by the Insured Person.",
+		"Documents":[{
+						"DocumentName": "Cancelled cheque",
+						"DocumentDescription": "Copy of a cancelled bank check of the INSURED.",
+						"requiredOriginal": false
+					},
+					{
+						"DocumentName": "Filled & signed claim form",
+						"DocumentDescription": "Claim form with all the relevant details filled and signed by the INSURED.",
+						"requiredOriginal": false
+					},
+					{
+										"DocumentName": "Immigration entry and exit",
+										"DocumentDescription": "Copy of the Passport's pages which have 'Entry' and 'Exit' stamps that were put on the passport during the trip for which this claim is being filled.",
+										"requiredOriginal": false
+									},
+					{
+						"DocumentName": "Invoices & payment receipts",
+						"DocumentDescription": "Provide all the original invoices with payment receipts. Credit Card payments - Share original transaction slips or copy of credit card statement. Cheque Payments - Share a copy of bank statement showing the payment. Cash Payments - Share cash receipts.",
+						"requiredOriginal": true
+					},
+					{
+						"DocumentName": "Medical release form",
+						"DocumentDescription": "An authorisation on a prescribed format that permits Europ Assistance to share INSURED medical information with our partners that would be organising assistance for the INSURED. this is needed mainly for Cashless claims.",
+						"requiredOriginal": false
+					},
+					{
+						"DocumentName": "Medical reports",
+						"DocumentDescription": "Various documents like (but not limited to) Indoor Case Papers, Investigation reports, Doctor Consutation Notes, Dignostic tests, Prescriptions, Discharge Summaries etc. that are related to the current claim.",
+						"requiredOriginal": true
+					},
+					
+					{
+						"DocumentName": "PAN card",
+						"DocumentDescription": "Copy of the PAN card of the INSURED.",
+						"requiredOriginal": false
+					},
+					
+					{
+						"DocumentName": "Passport copy",
+						"DocumentDescription": "Copy of the Passport during the trip for which this claim is being filed.",
+						"requiredOriginal": false
+					}]
+			},
+	
+	"MedicalTreatment": {
+		"id":4,
+		"Event":"M0001",		
+		"EventLabel":"Medical",
+		"EventDetails":"M0001",
+		"EventDetailLabel":"Medical",
+		"ClaimName":"Medical Treatment",
+		"ClaimDescription":"Illness or Accident that alters the Insured Person’s state of health and requires immediate medical treatment in order to maintain life or relieve immediate pain or distress.",
+		"Documents":[{
+						"DocumentName": "Cancelled cheque",
+						"DocumentDescription": "Copy of a cancelled bank check of the INSURED.",
+						"requiredOriginal": false
+					},
+					{
+						"DocumentName": "Filled & signed claim orm",
+						"DocumentDescription": "Claim form with all the relevant details filled and signed by the INSURED.",
+						"requiredOriginal": false
+					},
+					{
+										"DocumentName": "Immigration entry and exit",
+										"DocumentDescription": "Copy of the Passport's pages which have 'Entry' and 'Exit' stamps that were put on the passport during the trip for which this claim is being filled.",
+										"requiredOriginal": false
+									},
+					{
+						"DocumentName": "Invoices & payment receipts",
+						"DocumentDescription": "Provide all the original invoices with payment receipts. Credit Card payments - Share original transaction slips or copy of credit card statement. Cheque Payments - Share a copy of bank statement showing the payment. Cash Payments - Share cash receipts.",
+						"requiredOriginal": true
+					},
+					{
+						"DocumentName": "Medical release form",
+						"DocumentDescription": "An authorisation on a prescribed format that permits Europ Assistance to share INSURED medical information with our partners that would be organising assistance for the INSURED. this is needed mainly for Cashless claims.",
+						"requiredOriginal": false
+					},
+					
+					{
+						"DocumentName": "Medical reports",
+						"DocumentDescription": "Various documents like (but not limited to) Indoor Case Papers, Investigation reports, Doctor Consutation Notes, Dignostic tests, Prescriptions, Discharge Summaries etc. that are related to the current claim.",
+						"requiredOriginal": false
+					},
+					{
+						"DocumentName": "PAN card",
+						"DocumentDescription": "Copy of the PAN Card of the INSURED.",
+						"requiredOriginal": false
+					},					
+					
+					{
+						"DocumentName": "Passport copy",
+						"DocumentDescription": "Copy of the Passport during the trip for which this claim is being filed.",
+						"requiredOriginal": false
+					}]
+},
+	
+	"MissedConnection": {
+		"id":6,
+		"Event":"M0014",		
+		"EventLabel":"Travel Delay",
+		"EventDetails":"TLR06",
+		"EventDetailLabel":"Travel: Missed Connection",
+		"ClaimName":"Missed Connection",
+		"ClaimDescription":"Insured Person misses a travel connection overseas due to the delayed arrival of their preceding flight.",
+		"Documents":[{
+					"DocumentName": "Airline correspondence",
+					"DocumentDescription": "Documents showing correspondence between the INSURED and the AIRLINES due to this incident.",
+					"requiredOriginal": false
+				},
+				{
+					"DocumentName": "Airline refund details",
+					"DocumentDescription": "Documents showing details of refunds (if applicable) received by the INSURED from the AIRLINES due to this incident.",
+					"requiredOriginal": false
+				},
+				{
+					"DocumentName": "Additional expenses for tickets",
+					"DocumentDescription": "Additional expenses incurred by the INSURED while modifying/ rescheduling their trip.",
+					"requiredOriginal": true
+				},
+				{
+					"DocumentName": "Boarding pass",
+					"DocumentDescription": "Boarding Pass or Passes issued by the AIRLINES to the INSRED for this trip.",
+					"requiredOriginal": true
+				},
+				{
+					"DocumentName": "Cancelled Cheque",
+					"DocumentDescription": "Copy of a cancelled bank check of the INSURED.",
+					"requiredOriginal": false
+				},
+				{
+					"DocumentName": "Detailed declaration",
+					"DocumentDescription": "Detailed documentation provided by the INSURED detailed various aspects of the incident and/or responses to various queries raised.",
+					"requiredOriginal": false
+				},
+				{
+					"DocumentName": "Filled & signed claim form",
+					"DocumentDescription": "Claim form with all the relevant details filled and signed by the INSURED.",
+					"requiredOriginal": false
+				},
+				
+				{
+					"DocumentName": "Full itinerary",
+					"DocumentDescription": "Detailed and complete itinerary of the trip on which this incident has occurred.",
+					"requiredOriginal": false
+				},
+				{
+										"DocumentName": "Immigration entry and exit",
+										"DocumentDescription": "Copy of the Passport's pages which have 'Entry' and 'Exit' stamps that were put on the passport during the trip for which this claim is being filled.",
+										"requiredOriginal": false
+									},
+				{
+					"DocumentName": "Invoices & payment receipts",
+					"DocumentDescription": "Provide all the original invoices with payment receipts. Credit Card payments - Share original transaction slips or copy of credit card statement. Cheque Payments - Share a copy of bank statement showing the payment. Cash Payments - Share cash receipts.",
+					"requiredOriginal": true
+				},
+				{
+					"DocumentName": "PAN card",
+					"DocumentDescription": "Copy of the PAN Card of the INSURED.",
+					"requiredOriginal": false
+				},
+				
+		{
+			"DocumentName": "Passport copy",
+			"DocumentDescription": "Copy of the Passport during the trip for which this claim is being filed.",
+			"requiredOriginal": false
+		},
+				{
+					"DocumentName": "Proof of family emergency",
+					"DocumentDescription": "Documents explaining the nature and extent of the Family Emergency for which the INSURED is making the claim.",
+					"requiredOriginal": false
+				}]
+		},
+	"TripCancellation": {
+		"id":7,
+		"Event":"M0014",		
+		"EventLabel":"Travel Delay",
+		"EventDetails":"TLR05",
+		"EventDetailLabel":"Travel: Trip Cancellation & Interruption",
+		"ClaimName":"Trip Cancellation Interruption",
+		"ClaimDescription":"Insured Person’s journey from India to an international destination on a Carrier is unavoidably cancelled or curtailed after commencement but before completion due to a reason covered in the policy.",
+		"Documents":[		
+		{
+			"DocumentName": "Additional expenses for tickets",
+			"DocumentDescription": "Additional expenses incurred by the INSURED while modifying/ rescheduling their trip.",
+			"requiredOriginal": true
+		},
+		{
+			"DocumentName": "Airline correspondence",
+			"DocumentDescription": "Documents showing correspondence between the INSURED and the AIRLINES due to this incident.",
+			"requiredOriginal": false
+		},
+		{
+			"DocumentName": "Airline refund details",
+			"DocumentDescription": "Documents showing details of refunds (if applicable) received by the INSURED from the AIRLINES due to this incident.",
+			"requiredOriginal": false
+		},
+		{
+			"DocumentName": "Boarding pass",
+			"DocumentDescription": "Boarding pass or passes issued by the AIRLINES to the INSRED for this trip.",
+			"requiredOriginal": true
+		},
+		{
+			"DocumentName": "Cancelled cheque",
+			"DocumentDescription": "Copy of a cancelled bank check of the INSURED.",
+			"requiredOriginal": false
+		},
+		{
+			"DocumentName": "Detailed declaration",
+			"DocumentDescription": "Detailed documentation provided by the INSURED detailed various aspects of the incident and/or responses to various queries raised.",
+			"requiredOriginal": false
+		},
+		{
+			"DocumentName": "Filled & signed claim form",
+			"DocumentDescription": "Claim form with all the relevant details filled and signed by the INSURED.",
+			"requiredOriginal": false
+		},
+		{
+			"DocumentName": "Full itinerary",
+			"DocumentDescription": "Detailed and complete itinerary of the trip on which this incident has occurred.",
+			"requiredOriginal": false
+		},{
+										"DocumentName": "Immigration entry and exit",
+										"DocumentDescription": "Copy of the Passport's pages which have 'Entry' and 'Exit' stamps that were put on the passport during the trip for which this claim is being filled.",
+										"requiredOriginal": false
+									},
+		{
+			"DocumentName": "Invoices & payment receipts",
+			"DocumentDescription": "Provide all the original invoices with payment receipts. Credit card payments - Share original transaction slips or copy of credit card statement. Cheque payments - Share a copy of bank statement showing the payment. Cash Payments - Share cash receipts.",
+			"requiredOriginal": true
+		},		
+		{
+			"DocumentName": "PAN card",
+			"DocumentDescription": "Copy of the PAN card of the INSURED.",
+			"requiredOriginal": false
+		},
+		
+		{
+			"DocumentName": "Passport copy",
+			"DocumentDescription": "Copy of the Passport during the trip for which this claim is being filed.",
+			"requiredOriginal": false
+		},
+		{
+			"DocumentName": "Proof of family emergency",
+			"DocumentDescription": "Documents explaining the nature and extent of the Family Emergency for which the INSURED is making the claim.",
+			"requiredOriginal": false
+		}]
+},
+	
+	
+	"TripDelay": {
+		"id":11,
+		"Event":"M0014",		
+		"EventLabel":"Travel Delay",
+		"EventDetails":"TLR04",
+		"EventDetailLabel":"Travel: Trip Delay",  
+		"ClaimName":"Trip Delay",
+		"ClaimDescription":"Insured Person’s outward journey to an international destination or their return journey from an international destination to the first Indian destination on a Carrier is delayed beyond its scheduled departure or arrival time.",
+		"Documents":[	
+		{
+			"DocumentName": "Airline Correspondence",
+			"DocumentDescription": "Documents showing correspondence between the INSURED and the AIRLINES due to this incident.",
+			"requiredOriginal": false
+		},
+		{
+			"DocumentName": "Boarding Pass",
+			"DocumentDescription": "Boarding pass or passes issued by the AIRLINES to the INSRED for this trip.",
+			"requiredOriginal": true
+		},	
+		{
+			"DocumentName": "Cancelled cheque",
+			"DocumentDescription": "Copy of a cancelled bank check of the INSURED.",
+			"requiredOriginal": false
+		},
+		
+		{
+			"DocumentName": "Detailed Declaration",
+			"DocumentDescription": "Detailed documentation provided by the INSURED detailed various aspects of the incident and/or responses to various queries raised.",
+			"requiredOriginal": false
+		},{
+			"DocumentName": "Filled & signed claim form",
+			"DocumentDescription": "Claim form with all the relevant details filled and signed by the INSURED.",
+			"requiredOriginal": false
+		},
+		{
+			"DocumentName": "Full Itinerary",
+			"DocumentDescription": "Detailed and complete itinerary of the trip on which this incident has occurred.",
+			"requiredOriginal": false
+		},{
+			"DocumentName": "PAN Card",
+			"DocumentDescription": "Copy of the PAN Card of the INSURED.",
+			"requiredOriginal": false
+		},
+		{
+										"DocumentName": "Immigration entry and exit",
+										"DocumentDescription": "Copy of the Passport's pages which have 'Entry' and 'Exit' stamps that were put on the passport during the trip for which this claim is being filled.",
+										"requiredOriginal": false
+									},
+		{
+			"DocumentName": "Invoices & Payment Receipts",
+			"DocumentDescription": "Provide all the original invoices with payment receipts. Credit card payments - Share original transaction slips or copy of credit card statement. Cheque payments - Share a copy of bank statement showing the payment. Cash payments - Share cash receipts.",
+			"requiredOriginal": true
+		},
+		
+		{
+			"DocumentName": "Passport copy",
+			"DocumentDescription": "Copy of the Passport during the trip for which this claim is being filed.",
+			"requiredOriginal": false
+		}]
+}
+}

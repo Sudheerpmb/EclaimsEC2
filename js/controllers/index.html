@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
+  <title>Travel e-claims</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href='css/css-fonts.css' rel='stylesheet'>
+  <link href="plugins/toastr/toastr.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+
+  <script src="js/lib/jquery-1.11.1.min.js"></script>
+  <script src="js/lib/jquery.validate.min.js"></script>
+  <script src="js/lib/additional-methods.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="plugins/toastr/toastr.js"></script>
+  <script src="js/lib/util.js"></script>
+  <script src="js/lib/const.js"></script>
+  <script src="js/controllers/homeController.js"></script>
+
+
+</head>
+
+<body>
+  <script type="text/javascript">
+    $(function () {
+      isAuthenticated();
+
+
+
+    });
+  </script>
+  <style>
+    .btn-two {
+      background-color: #DD0038;
+      border: solid 2px #DD0038;
+      color: #fff;
+      width: 100%;
+      padding: 9px;
+      border-radius: 30px;
+    }
+  </style>
+
+  <div class="main">
+    <!--Header-start-->
+    <div class="header-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
+            <div class="pull-left">
+              <a href="#" title="">
+                <img src="images/logo.jpg" alt="" /></a>
+            </div>
+            <div style="margin-top: 50px;">
+              <img id="tataEmg" style="height:11vh;margin-top: -29px!important;" src="images/MCHI.jpg" alt="" />
+              <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                  style="float: left; color: #024695; padding: 10px;"></i> </a>
+              <a href="index.html"><i class="fa fa-home fa-2x"
+                  style="float: left; color: #024695; padding: 10px;"></i></a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Header-End-->
+    <div class="body-wraper">
+      <div class="container">
+        <div class="row">
+          <div class="title">
+            <h1>Welcome to the eClaims Portal: <span id="clientId">apple</span></h1>
+            <h3>What would you like to do?</h3>
+          </div>
+        </div>
+      <div class="row" id ="Ditems">
+
+
+<!-- 
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="section"> <a href="otp.html"><img src="images/file.jpg" alt="" />
+                <h5 style="color:#023783;">File</h5>
+                <h6>a new claim</h6>
+              </a> </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="section"> <a href="claimslist.html"><img src="images/add.jpg" alt="" />
+                <h5 style="color:#a40f09;">Track status</h5>
+                <h6>of your claims</h6>
+              </a> </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="section"> <a href="JavaScript:void(0);" onclick="getCustomerRecentClaim()"><img
+                  src="images/file.jpg" alt="" />
+                <h5 style="color:#023783;">Upload documents</h5>
+                <h6>to your claims</h6>
+              </a> </div>
+          </div>
+
+          <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <div class="section"  style="padding-bottom:13px !important;"> <a href="http://eahomecare.in/flight-track/" target="_blank"><img src="images/track.jpg" alt=""/>
+            <h5 style="color:#037ebe;">&nbsp;<br>Flight Tracking</h5>
+            </a> </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <div class="section"  style="padding-bottom:13px !important;"> <a href="claimform.html?id=2"><img src="images/file.jpg" alt=""/>
+            <h5 style="color:#037ebe;">&nbsp;<br>Financial Assistance</h5>
+            </a> </div>
+        </div> -->
+
+          <!-- <div id="geoCodingDiv" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="section"> <a href="http://65.0.169.58"><img src="images/location.png" style="height: 45px;"
+                  alt="" />
+                <h5 style="color:#0029df;">Geo Coding</h5>
+                <h6> Geo Coding</h6>
+              </a> </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="section"> <a href="faqs.html"><img src="images/add.jpg" alt="" />
+                <h5 style="color:#a40f09;">FAQs</h5>
+                <h6>Frequently asked questions</h6>
+              </a> </div>
+          </div>
+
+
+
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="section" style="padding-bottom:13px !important;"> <a href="feedback.html"><img
+                  src="images/track.jpg" alt="" />
+                <h5 style="color:#037ebe;">&nbsp;<br>Feedback</h5>
+              </a> </div>
+          </div>
+
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="section" style="padding-bottom:13px !important;"> <a href="#" data-target="#changePwdModal"
+                data-toggle="modal"><img src="images/file.jpg" alt="" />
+                <h5 style="color:#037ebe;">&nbsp;<br>Change Password</h5>
+              </a> </div>
+          </div> -->
+
+          <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+              <button  type="button" onclick="signOut()" class="btn-two">Logout</button>
+          </div> -->
+
+
+        </div> 
+      </div>
+    </div>
+    <!-- <br><br><br><br><br><br><br><br> -->
+    <!--Footer-start-->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+            <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer-end-->
+  </div>
+
+
+
+  <!--modal-->
+  <div id="changePwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> -->
+          <h2 class="text-center">Change Password</h2>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="text-center">
+
+
+                  <div class="panel-body">
+
+                    <form id="changePassword" autocomplete="off" action="">
+                      <div class="form-group">
+                        <input class="form-control input-lg" placeholder="Current Password" name="currentPassword"
+                          type="password">
+                      </div>
+
+                      <div class="form-group">
+                        <input class="form-control input-lg" placeholder="New Password" id="new_Password"
+                          name="newPassword" type="password">
+                      </div>
+
+                      <div class="form-group">
+                        <input class="form-control input-lg" placeholder="Confirm Password" name="confirmPassword"
+                          type="password">
+                      </div>
+                      <div class="col-md-12 pull-right">
+                        <input class="btn btn-primary" type="submit" value="Update" />
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="modal-footer">
+          <div class="col-md-12">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		  </div>	
+      </div> -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <a href="#" onclick="signOut();">Sign out</a> -->
+
+  <script>
+    $(function () {
+      $("#geoCodingDiv").hide();
+
+      let user = JSON.parse(getFromStore("user"));
+      document.getElementById("clientId").innerHTML = user.clientId.toUpperCase();
+      setToStore("clientIDE", user.clientId);
+      getButtons(user.clientId.toUpperCase());
+      if (user.clientId.toUpperCase() == 'TATA AIG')
+        $("#geoCodingDiv").show();
+      document.getElementById("tataEmg").src = 'images/' + user.clientId + '.jpg'
+    })
+  </script>
+
+  <script>
+
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+
+      var clientId = getFromStore("clientHash");
+      // var clientId = userDetails.clientId;
+      clearStore();
+      window.location = env.app_url + "signin-signup.html?clientId=" + clientId;
+
+
+    }
+
+    function onLoad() {
+      gapi.load('auth2', function () {
+        gapi.auth2.init();
+      });
+    }
+
+
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+</body>
+
+</html>

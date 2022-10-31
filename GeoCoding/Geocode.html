@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>GeoCoding </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="controllers/geo.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="header">
+            <span class="text"><strong>GeoCoding</strong></span>
+            <div style="margin-right: 40vw;float:right;">
+            <button type="button" id="geo" class="btn btn-warning">GeoCoding </button>
+            <button type="button" id="revGeo" class="btn btn-warning">Reverse GeoCoding</button>
+            </div>
+        
+        
+    </div>
+
+    <div class="body">
+        <div class="bHeader">
+
+        </div>
+        <div class="bBody">
+            <div class="container geoContC" id="geoCont">
+
+                <label for="lat">Latitude:</label>
+                <input type="text" id="lat" name="fname">
+                <label for="long">Longitude:</label>
+                <input type="text" id="long" name="lname">
+                <input type="submit" value="Submit" id="geocod" class="btn btn-primary">
+                <br>
+                Address:<span id="Address"></span><br>
+            </div>
+            <div class="container" id="revGeoCont">
+
+
+                <label for="street" style="padding-right: 16px;">Name :</label>
+                <input type="text" id="name" name="name">
+                <label for="street">Street :</label>
+                <input type="text" id="street" name="street"><br>
+                <label for="Pincode">Pincode :</label>
+                <input type="text" id="Pincode" name="Pincode">
+                <label for="city" style="padding-right: 16px;">city :</label>
+                <input type="text" id="city" name="lname"><br><br>
+                <input style="margin-left: 9.5vw;" type="submit" value="Search" class="btn btn-primary" id="revGeoCod">
+                <br>
+               <div style="margin-top:2vh">
+                latitude:<strong><span id="lati">Please fill the Info </span></strong>,
+                longitude:<strong><span id="lng">Please fill the Info</span></strong>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="map" class="map"></div>
+        <script>
+            let json;
+
+
+
+            function initMap() {
+
+                $.ajax({
+                    async: true,
+                    crossDomain: true,
+                    url: env.node_api_url+"api/nearestlocations?lattitude=144.9802&longitude=-37.86928",
+                    type: "GET",
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        Authorization: "Bearer " + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODdhYzg1ZGYwMDY2MjQ1MDBiYzdiNCIsInJvbGUiOiJjdXN0b21lciIsImV4cCI6MTYyNjUxMTY3OCwiaWF0IjoxNjIxMzI3Njc4fQ.IKeo_5iW4mwa7jUkRW0WxfZK3Oqd-Spqn6UoIWDfMeE'
+                    },
+                    success: function (data) {
+                        // alert("done1")
+                        json = data;
+                        // alert(json)
+
+
+                        var map;
+                        var bounds = new google.maps.LatLngBounds();
+                        var mapOptions = {
+                            mapTypeId: 'roadmap'
+                        };
+                        let cordi = { lat: -37.87928, lng: 144.9902 }
+                        let cordin = { lat: -37.87928, lng: 144.9802 }
+
+                        // var markers = [];
+                        var markers = [
+                            ['London Eye, London', -94.6858998, 46.729553]
+                        ];
+                        var infoWindowContent = [];
+                        for (var i = 0; i < json.length; i++) {
+                            let mar = json[i].location.coordinates;
+                            let temp = mar[0];
+                            mar[0] = mar[1]
+                            mar[1] = temp
+                            mar.unshift(`${json[i].name}`)
+                            // alert(mar)
+                            markers.push(mar)
+                            infoWindowContent.push(
+                                `<h3 style="color:black">${json[i].name} </h3>`
+                            )
+                        }
+                        let cons = markers;
+                        cordin.lat = markers[2][1];
+                        cordin.lng = markers[2][2];
+
+                        // var infoWindowContent = [
+                        //     ['<div class="info_content">' +
+                        //         '<h3>London Eye</h3>' +
+                        //         '<p>The London Eye is a giant Ferris wheel situated on the banks of the River Thames. The entire structure is 135 metres (443 ft) tall and the wheel has a 
+                        // diameter of 120 metres (394 ft).</p>' + '</div>'],
+                        //     ['<div class="info_content">' +
+                        //         '<h3>Palace of Westminster</h3>' +
+                        //         '<p>The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. Commonly known as the Houses of Parliament after its tenants.</p>' +
+                        //         '</div>'],
+                        //     ['<div class="info_content">' +
+                        //         '<h3>Palace of Westminster</h3>' +
+                        //         '<p>The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. Commonly known as the Houses of Parliament after its tenants.</p>' +
+                        //         '</div>']
+                        // ];
+
+
+
+
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 13,
+                            center: cordi
+                        });
+
+                        var infoWindow = new google.maps.InfoWindow(), marker, i;
+                        for (i = 1; i < markers.length; i++) {
+                            var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+                            bounds.extend(position);
+                            marker = new google.maps.Marker({
+                                position: position,
+                                map: map,
+                                title: markers[i][0]
+                            });
+                            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                return function () {
+                                    infoWindow.setContent(infoWindowContent[i]);
+                                    infoWindow.open(map, marker);
+                                }
+                            })(marker, i));
+
+                            // Automatically center the map fitting all markers on the screen
+                            // map.fitBounds(bounds);
+                        }
+
+                        const directionsRenderer = new google.maps.DirectionsRenderer();
+                        const directionsService = new google.maps.DirectionsService();
+                        directionsRenderer.setMap(map);
+                        directionsService.route(
+                            {
+                                origin: cordi,
+                                destination: cordin,
+                                travelMode: 'DRIVING',
+                            },
+                            (response, status) => {
+                                if (status == "OK") {
+                                    directionsRenderer.setDirections(response);
+                                } else {
+                                    window.alert("Directions request failed due to " + status);
+                                }
+                            }
+                        );
+
+                        // directionService.route({
+                        //     origin: 'Chicago, IL',
+                        //     destination: 'Los Angeles, CA',
+                        //     travelMode: 'DRIVING'
+                        // }, function (response, status) {
+
+                        //     if (status === 'OK') {
+                        //         alert(response)
+                        //         directionDisplay.setDirections(response);
+                        //     }
+                        //     else {
+                        //         alert('failed')
+                        //     }
+                        // }
+                        // )
+
+
+
+                        const iconBase = "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+                        const icons = {
+                            parking: {
+                                icon: iconBase + "parking_lot_maps.png",
+                            },
+                            library: {
+                                icon: iconBase + "library_maps.png",
+                            },
+                            info: {
+                                icon: iconBase + "info-i_maps.png",
+                            },
+                            beach: {
+                                icon: iconBase + "beachflag.png"
+                            }
+                        };
+
+                        // marker = new google.maps.Marker({
+                        //     map: map,
+                        //     draggable: true,
+                        //     animation: google.maps.Animation.DROP,
+                        //     icon: icons["beach"].icon,
+                        //     position: cordi
+                        // });
+                        // marker = new google.maps.Marker({
+                        //     map: map,
+                        //     draggable: true,
+                        //     animation: google.maps.Animation.DROP,
+                        //     position: cordin
+                        // });
+                        var onChangeHandler = function () {
+                            DisplayPoint(map);
+                        };
+                        //document.getElementById('lat').addEventListener('change', onChangeHandler);
+                        document.getElementById('geocod').addEventListener('click', onChangeHandler);
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(changeToCurrent);
+                        } else {
+                            x.innerHTML = "Geolocation is not supported by this browser.";
+                        }
+                        function changeToCurrent(position) {
+                            var lat = position.coords.latitude;
+                            var lng = position.coords.longitude;
+                            // var latLng = new google.maps.LatLng(lat, lng);
+                            // marker.setPosition(latLng);
+                            // map.panTo(latLng);
+                        }
+
+                        function DisplayPoint(map) {
+
+                            var lat = document.getElementById('lat').value;
+                            var lng = document.getElementById('long').value;
+                            var latLng = new google.maps.LatLng(lat, lng);
+                            marker.setPosition(latLng);
+                            map.panTo(latLng);
+                            urlgeo = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyAP8r76dTUNFtejkwPtBv49YmDNfO8fQPs'
+                            $.ajax({
+                                async: true,
+                                crossDomain: true,
+                                url: urlgeo,
+                                type: "GET",
+                                // data:newForm,
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+                                    let adress = data.results[0].formatted_address;
+                                    // alert(data.results[0].geometry.location.lat);
+                                    document.getElementById("Address").innerHTML = adress;
+                                    // document.getElementById("lng").innerHTML = data.results[0].geometry.location.lng;
+                                }
+                            });
+
+                        }
+                    }
+                })
+
+            }
+        </script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAP8r76dTUNFtejkwPtBv49YmDNfO8fQPs&callback=initMap">
+            </script>
+        <!-- <script>
+            function myMap() {
+                var mapProp = {
+                    center: new google.maps.LatLng(51.508742, -0.120850),
+                    zoom: 15,
+                };
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            }
+        </script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAP8r76dTUNFtejkwPtBv49YmDNfO8fQPs&callback=myMap"></script> -->
+    </div>
+
+</body>
+<script>
+    $(function () {
+        $("#geoCont").hide();
+        $("#geo").click(function () {
+            $("#revGeoCont").hide()
+            $("#geoCont").show()
+        });
+        $("#revGeo").click(function () {
+            $("#revGeoCont").show()
+            $("#geoCont").hide()
+        });
+    });
+</script>
+
+</html>

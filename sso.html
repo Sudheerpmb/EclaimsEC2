@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
+  <title>Travel e-claims</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/tabs.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href='css/css-fonts.css' rel='stylesheet'>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+
+
+  <script src="js/lib/jquery-1.11.1.min.js"></script>
+  <script src="js/lib/jquery.validate.min.js"></script>
+  <script src="js/lib/additional-methods.min.js"></script>
+  <script src="js/lib/util.js"></script>
+  <script src="js/lib/const.js"></script>
+  <script src="js/controllers/feedbackController.js"></script>
+  <script src="js/controllers/commonController.js"></script>
+
+</head>
+
+<body>
+
+  <script type="text/javascript">
+    $(function () {
+      // var urlParams = new URLSearchParams(window.location.search);
+      // let userData={
+      //   id:urlParams.get('id'),
+      //   isActive:true,
+      //   email:urlParams.get('email'),
+      //   firstName:urlParams.get('firstName'),
+      //   lastName:urlParams.get('lastName'),
+      //   phoneNumber:urlParams.get('phoneNumber'),
+      // }
+      // let userData=JSON.s({id:"6141f763eb58bb48e15e96fd",isActive:true,email:"rdas.extern@europ-assistance.in",firstName:"rakesh",lastName:"rakesh test",phoneNumber:"9963813259"})
+
+      // alert(userData)
+      $.ajax({
+        type: "POST",
+        url: "https://rgiclservices.reliancegeneral.co.in/TravelAPI/API/InternationalTravelAPI/GetPolicyDetails",
+        cache: false,
+        data: {
+          "ConsumerDetails": { "ConsumerId": "IT123", "ConsumerPassword": "Pass@1234" },
+          "PolicyDetailsInputDC": { "PolicyNo": "110792128221000173" }
+        }
+        ,
+        success: function (res) {
+          let response = JSON.parse(res);
+          // var user = {};
+          // user.firstName = response.firstName;
+          // user.lastName = response.lastName;
+          // user.email = response.email;
+          // user.mobile = response.mobile;
+          // user.clientId = urlParams.get('clientIde');
+          // setToStore("clientHash",urlParams.get('clientId'));
+          // setToStore("user", JSON.stringify(user));
+          // setToStore("eclaimsToken", response.eclaimToken);
+          // setToStore("token", response.access_token);
+          // window.location = "https://eclaimsuat.europassistance.in/index.html";
+        },
+        error: function () {
+          alert("Error");
+        },
+      });
+      // $.ajax({
+      //   type: "POST",
+      //   url: "https://wrapperapi.europassistance.in/api/Customer/GoogleLogin",
+      //   cache: false,
+      //   data: userData,
+      //   success: function (res) {
+      //     let response = JSON.parse(res);
+      //     var user = {};
+      //     user.firstName = response.firstName;
+      //     user.lastName = response.lastName;
+      //     user.email = response.email;
+      //     user.mobile = response.mobile;
+      //     user.clientId = urlParams.get('clientIde');
+      //     setToStore("clientHash",urlParams.get('clientId'));
+      //     setToStore("user", JSON.stringify(user));
+      //     setToStore("eclaimsToken", response.eclaimToken);
+      //     setToStore("token", response.access_token);
+      //     window.location = "https://eclaimsuat.europassistance.in/index.html";
+      //   },
+      //   error: function () {
+      //     alert("Error");
+      //   },
+      // });
+    });
+  </script>
+
+  <div class="main">
+    <!--Header-start-->
+    <div class="header-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="pull-left"> <a href="index.html" title=""><img src="images/logo.jpg" alt="" /></a> </div>
+            <div class="pull-right" style="margin-top: 50px;">
+              <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                  style="float: right; color: #024695; padding: 10px;"></i> </a>
+              <a href="index.html"><i class="fa fa-home fa-2x"
+                  style="float: right; color: #024695; padding: 10px;"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Header-End-->
+    <div class="body-wraper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <div class="claim-entry">
+              <div class="claim-title" style="Color:#054696; !important">
+                <h1>Feedback</h1>
+
+                <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+		<div class="navigate">
+		<a href="index.html" class="left-btn"> &#8810;Back</a>
+		 
+		</div>
+		</div> -->
+
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Footer-start-->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+            <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer-end-->
+  </div>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+</body>
+
+</html>
+<script>
+  function myFunction() {
+
+  }
+</script>

@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
+  <title>Travel e-claims</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/tabs.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href='css/css-fonts.css' rel='stylesheet'>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link href="plugins/toastr/toastr.css" rel="stylesheet">
+  <style>
+    .footer {
+      position: absolute;
+    }
+
+    label {
+      font-size: 14px;
+    }
+  </style>
+
+  <script src="js/lib/jquery-1.11.1.min.js"></script>
+  <script src="js/lib/jquery.validate.min.js"></script>
+  <script src="js/lib//additional-methods.min.js"></script>
+  <script src="js/lib/jquery-ui.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/lib/util.js"></script>
+  <script src="js/lib/const.js"></script>
+  <script src="js/controllers/signinController.js"></script>
+  <script src="plugins/toastr/toastr.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
+</head>
+
+<body>
+
+  <script type="text/javascript">
+    $( function  () {
+      clearStore();
+      var urlParams = new URLSearchParams(window.location.search);
+      var myString = urlParams.get('clientId');
+       getClientName(myString);
+       setToStore("clientHash", myString);
+      $('#dob').datepicker({
+        dateFormat: 'dd-mm-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-115:+10', beforeShow: function () {
+          setTimeout(function () {
+            $('.ui-datepicker').css('z-index', 99999999999999);
+
+          }, 0);
+        },
+      });
+
+
+
+    });
+  </script>
+
+
+  <div class="main">
+    <!--Header-start-->
+    <div class="header-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
+            <div class="pull-left">
+              <a href="#" title="">
+                <img src="images/logo.jpg" alt="" /></a>
+            </div>
+            <div style="margin-top: 37px;">
+              <img id="tataEmg" style="height:9vh;margin-top: -29px!important;" src="" alt="" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Header-End-->
+    <div class="body-wraper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="main">
+              <ul class="tabs">
+                <li>
+                  <input type="radio" name="tabs" id="tab1">
+                  <label for="tab1" id="tab">Sign Up</label>
+                  <div id="tab-content1" class="tab-content animated fadeIn">
+                    <p>
+                      Sign Up with your email to access and receive claim status updates. your email will not be used
+                      for Marketing purposes
+                    </p>
+                    <form id="registration" autocomplete="off" action="">
+                      <label>First name: <span style="color: red;">*</span></label>
+                      <input type="text" name="firstname" placeholder="First Name" class="inpt" />
+                      <label>Sur name: <span style="color: red;">*</span></label>
+                      <input type="text" name="lastname" placeholder="Last Name" class="inpt" />
+                      <label>Mobile number: <span style="color: red;">*</span></label>
+                      <input type="text" minlength="10" maxlength="10" name="mobile" placeholder="Indian Mobile Number"
+                        class="inpt" />
+
+                      <label>
+                        Gender <span style="color: red;">*</span>
+                      </label>
+                      <select name="gender" id="gender" class="inpt">
+                        <option value="" class="inpt">Select Gender</option>
+                        <option value="0" class="inpt">Male</option>
+                        <option value="1" class="inpt">Female</option>
+                        <option value="2" class="inpt">Others</option>
+                      </select>
+
+
+                      <label>Date of Birth <span style="color: red;">*</span>
+                      </label>
+                      <input type="text" name="dob" id="dob" placeholder="Date of birth" class="inpt" />
+
+
+
+                      <label>Email address: <span style="color: red;">*</span></label>
+                      <input type="text" name="email" placeholder="Email Address" class="inpt" />
+                      <label>Password: <span style="color: red;">*</span></label>
+                      <input type="password" name="password" id="id_pwd" placeholder="Password" class="inpt" />
+                      <label>Confirm password: <span style="color: red;">*</span></label>
+                      <input type="password" name="password_again" placeholder="Confrim Password" class="inpt" />
+
+
+
+
+                      <input type="submit" class="btn" value="Sign Up">
+                    </form>
+                  </div>
+                </li>
+                <li>
+                  <input type="radio" checked name="tabs" id="tab2">
+                  <label for="tab2" id="tab">Sign In</label>
+                  <div id="tab-content2" class="tab-content animated fadeIn">
+                    <form id="signin" action="">
+                      <input type="text" name="signin_email" placeholder="Enter email address" class="inpt" />
+                      <input type="password" name="signin_password" placeholder="Enter password" class="inpt" />
+                      <br>
+                      <input type="submit" class="btn" value="Sign In">
+                      &nbsp;&nbsp;
+                      <a href="#" data-target="#pwdModal" data-toggle="modal">Forgot password?</a>
+                    </form>
+                    <br>
+                    <div  style="float:left">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    </div>
+                    <div style="float:left;margin-left:2vw">
+                    <!-- <button type="button" class="btn btn-primary btn-lg" onclick="ssologin()"> SSO login</button> -->
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Footer-start-->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+            <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer-end-->
+  </div>
+
+
+
+
+
+
+  <!--modal-->
+  <div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> -->
+          <h2 class="text-center">Reset Password?</h2>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="text-center">
+
+                  <p>If you have forgotten your password you can reset it here.</p>
+                  <div class="panel-body">
+
+                    <form id="resetPassword" action="">
+                      <div class="form-group">
+                        <input class="form-control input-lg" required placeholder="E-mail Address" name="resetEmail"
+                          type="email">
+                      </div>
+                      <input class="btn btn-lg btn-primary btn-block" value="Send My Password" type="submit">
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="col-md-12">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function ssologin(){
+      let body=JSON.stringify(
+        {
+        base:'eclaimsuat.europassistance.in',
+        clientId:getFromStore("clientHash"),
+        clientIDE:getFromStore("clientIDNM"),
+      }
+      )
+      // base=eclaimsuat.europassistance.in&clientId=996fcc89-8d91-4ffd-9b04-61a116655c7d&clientIDE=TATA%20AIG+ encodeURI(body)
+      window.location = `http://13.127.236.87/ssologin?base=eclaimsuat.europassistance.in&clientId=${getFromStore("clientHash")}&clientIDE=${getFromStore("clientIDNM")}`;
+    //   $.ajax({
+    //   async: true,
+    //   crossDomain: true,
+    //   url: 'http://13.127.236.87:3003/api/users/encryptData',
+    //   type: "POST",
+    //   data: JSON.stringify(
+    //     {"text":{
+    //     "email": "email",
+    //       "password":"hjshdj"
+    //   }}
+    //   ),
+    //   contentType: "application/json",
+    //   processData: false,
+    //   success: function (data) {
+    //     alert(Json.stringify(data))
+    //   },
+    //   error: function (err) {
+    //     console.log(err);
+    //     $("#ajaxStart").removeAttr("disabled", false);
+    //     $("#ajaxStart").html("Continue");
+    //     toastr.error('Whoops! This didn\'t work. Please contact us.');
+    //   }
+    // })
+    }
+    function onSignIn(googleUser) {
+      setToStore("googleLogin", 1);
+      // Useful data for your client-side scripts:
+      var profile = googleUser.getBasicProfile();
+      console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+      console.log('Full Name: ' + profile.getName());
+      console.log('Given Name: ' + profile.getGivenName());
+      console.log('Family Name: ' + profile.getFamilyName());
+      console.log("Image URL: " + profile.getImageUrl());
+      console.log("Email: " + profile.getEmail());
+
+      // The ID token you need to pass to your backend:
+      var id_token = googleUser.getAuthResponse().id_token;
+      console.log("ID Token: " + id_token);
+
+      var body = {
+        "id": profile.getId(),
+        "firstName": profile.getGivenName(),
+        "lastName": profile.getFamilyName(),
+        "email": profile.getEmail()
+      };
+      $.ajax({
+        async: true,
+        crossDomain: true,
+        url: env.api_url + "/api/Customer/GoogleLogin",
+        type: "POST",
+        data: body,
+        success: function (res) {
+          let response = JSON.parse(res);
+
+          var user = {};
+          user.firstName = response.firstName;
+          user.lastName = response.lastName;
+          user.email = response.email;
+          user.mobile = response.mobile;
+          user.clientId = clientId;
+
+          setToStore("user", JSON.stringify(user));
+          setToStore("eclaimsToken", response.eclaimToken);
+          setToStore("token", response.access_token);
+          window.location = env.app_url + "index.html";
+
+        },
+        error: function (err) {
+          console.log(err);
+          toastr.error('Whoops! This didn\'t work. Please contact us.');
+        }
+      });
+
+
+
+    }
+  </script>
+
+
+</body>
+
+</html>
