@@ -21,11 +21,9 @@
 
 // Enable for uat
 var env = {
-    "api_url":"https://wrapperapi.europassistance.in",    
-    "app_url":"https://eclaimsuat.europassistance.in/",
-    "node_api_url":"https://eztraveluat.europassistance.in:3000/"    
+    "app_url":"https://stage-uat-eclaimsuat.europassistance.in/",
+    "node_api_url":"https://stage-uat-eztraveluat.europassistance.in:3000/"    
 }
-
 
 
 // Enable for Prod
