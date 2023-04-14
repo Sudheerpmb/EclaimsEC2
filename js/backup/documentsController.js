@@ -104,7 +104,7 @@ $(function () {
                 },
                 error: function (err) {
                     console.log(err);
-                    alert('Whoops! This didn\'t work. Plxease contact us.');
+//                     alert('Whoops! This didn\'t work. Plxease contact us.');
                 }
             });
             return false;
