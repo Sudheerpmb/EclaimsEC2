@@ -104,12 +104,9 @@ $(function () {
       $.ajax({
         async: true,
         crossDomain: true,
-        url:
-          env.api_url +
-          "/api/Customer/ForgotPassword?emailId=" +
-          form.resetEmail.value,
+        url:env.node_api_url +"auth/EclaimsforgotPassWord",
         type: "POST",
-        data: {},
+        data: {"email":form.resetEmail.value},
         success: function (response) {
           alert(response);
           location.reload();
