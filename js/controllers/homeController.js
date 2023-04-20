@@ -40,10 +40,9 @@ $(function () {
       $.ajax({
         async: true,
         crossDomain: true,
-        url: env.node_api_url + "eclaims/changePassword",
+         url: env.node_api_url + "api/EclaimsChangePassWord",
         type: "POST",
         data: {
-          "eclaimToken": eclaim_token,
           "currentPassword": form.currentPassword.value,
           "newPassword": form.newPassword.value
         },
