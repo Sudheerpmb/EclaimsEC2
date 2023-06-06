@@ -40,10 +40,9 @@ $(function () {
       $.ajax({
         async: true,
         crossDomain: true,
-        url: env.node_api_url + "eclaims/changePassword",
+         url: env.node_api_url + "api/EclaimsChangePassWord",
         type: "POST",
         data: {
-          "eclaimToken": eclaim_token,
           "currentPassword": form.currentPassword.value,
           "newPassword": form.newPassword.value
         },
@@ -53,12 +52,12 @@ $(function () {
         success: function (response) {
           responseMessage = response;
 
-          if (responseMessage.name == "MoleculerClientError") {
+          if (!responseMessage.status) {
             alert("Incorrect Password, Please try again.");
           }
 
           if (responseMessage.status) {
-            alert(responseMessage.response);
+            alert("Password successfully updated");
             window.location = env.app_url + "index.html";
           }
 
@@ -252,7 +251,11 @@ function getClaimDetails(claimId) {
             let result = '';
             let alreadyUp = '';
             let docName = '';
-            let allUploadData = data[0].Documents;
+               let allUploadDatas = data[0].Documents;
+             let allUploadData=[];
+                 for(let elem of allUploadDatas)
+                     if(elem.Eclaims)
+                             allUploadData.push(elem)
             for (var i = 0; i < allUploadData.length; i++) {
               let flag = 1;
               for (var j = 0; j < travelTdocs.length; j++) {
@@ -608,7 +611,7 @@ function getCustomerClaims() {
                              <h6>${ value.travelCases.subClaimType}</h6> 
                           </div>
                           <div class="clm-row">
-                             <h6>${value.travelCases.claimSatus }</h6> 
+                             <h6>${value.travelCases.claimSatus}</h6> 
                           </div>
                               </div>`;
           }

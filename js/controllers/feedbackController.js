@@ -37,9 +37,14 @@ $(function() {
 				var eclaims_token = getFromStore("eclaimsToken");
                 var access_token = getFromStore("token");                 
                 $.ajax({
-                url: env.api_url+"/api/Customer/feedback", 
+                url: env.node_api_url+"api/communicate/sendEmails_new", 
                 type: "POST",             
-                data: {feedback:bodyhtml,token:eclaims_token},
+                data: {
+            "email": "dbagve.extern@europ-assistance.in",
+            "name": " ",
+            "subject": "eclaims-feedback",
+            "body": bodyhtml
+          },
                 headers:{
                     Authorization: "Bearer "+access_token
                 }, 

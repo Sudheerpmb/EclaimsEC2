@@ -202,7 +202,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
         },
         success:  function (Result1) {
             let json = Result1;
-            if (insuranceProvider == 'RELIANCE') {
+            if (insuranceProvider == 'RELIANCEE') {
                 if (json.length > 0) {
                     $.ajax({
                         async: true,
@@ -259,7 +259,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
 
                     window.location = env.app_url + "coverage.html";
                 } else {
-                    toastr.error("Policy Expired");
+                    toastr.error(`incident date must be with in ${policyStartDate} and ${policyEndDate}`);
                     $("#expired_block").show();
                     $("#btn_continue").hide();
                 }

@@ -358,6 +358,7 @@ $(function () {
     function sendmail1(email, caseno) {
         let eclaimToken = getFromStore("eclaimsToken");
         let clientIde = getFromStore("clientIDE");
+        let clienthash=getFromStore("clientHash");
         let url = env.node_api_url + 'api/communicate/sendEmails_new';
         let rel='';
         let cc=[];
@@ -393,7 +394,7 @@ $(function () {
             <p>Thank you for contacting us via E-Claims.</p>
             <p><span><b>As per your request, your Claim has been registered and the claim number allotted is  ${caseno}</b></span>
             <p> Kindly upload the duly filled attached forms and claim documents on E-Claims Portal.(Please click on below Link to upload documents)</p>
-            <a href="https://eclaimsuat.europassistance.in/signin-signup.html?clientId=U2FsdGVkX1//18WM0rgNypcKZev4yhlVivuxltbOKgQ=">Upload files</a>
+            <a href="https://eclaimsuat.europassistance.in/signin-signup.html?clientId=${clienthash}">Upload files</a>
             <p>Please keep the attachment size less that 10MB while uploading the documents.</p>
             <p>Request you to submit the documents as early as possible.</p>
             <p>We thank you for insuring with TATA-AIG and assure you of our best services always.</p>

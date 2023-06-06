@@ -104,7 +104,7 @@ $(function () {
                 },
                 error: function (err) {
                     console.log(err);
-                    alert('Whoops! This didn\'t work. Plxease contact us.');
+//                    alert('Whoops! This didn\'t work. Plxease contact us.');
                 }
             });
             return false;
@@ -162,7 +162,11 @@ $(function () {
                 var result = '';
                 var html = "";
                 // var uploaded_docs = JSON.parse(json.AttachmentList);
-                var uploaded_docs = json.Documents;
+                var uploaded_docss = json.Documents;
+		let uploaded_docs=[];
+		for(let elem of uploaded_docss)
+			if(elem.Eclaims)
+				uploaded_docs.push(elem)
                 var uploadDocsList = [];
                 Object.values(uploaded_docs).forEach(value => {
                     let color = 'blue';

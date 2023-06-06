@@ -21,8 +21,8 @@
 
 // Enable for uat
 var env = {
-    "app_url":"https://stage-uat-eclaimsuat.europassistance.in/",
-    "node_api_url":"https://stage-uat-eztraveluat.europassistance.in:3000/"    
+    "app_url":"https://eclaimsuat.europassistance.in/",
+    "node_api_url":"https://eztraveluatapi.europassistance.in/"    
 }
 
 

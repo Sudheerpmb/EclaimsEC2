@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="css/jquery-ui.css">
 <link href="plugins/toastr/toastr.css" rel="stylesheet">
 <link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <!-- https://www.jqueryscript.net/other/Highly-Customizable-jQuery-Toast-Message-Plugin-Toastr.html -->
 
 <script src="js/lib/jquery-1.11.1.min.js"></script>
@@ -52,6 +53,8 @@ let cls=getFromStore("clientIDE");
   // }
   });
 </script>
+
+
 <style>
 .grey-btn{  
     background-color: grey;
@@ -65,24 +68,25 @@ let cls=getFromStore("clientIDE");
     width: 45%;
     color: #ffff;
 }
+
 </style>
 <div class="main"> 
    <!--Header-start-->
    <div class="header-sec">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
-          <div class="pull-left"> 
-            <a href="#" title="">
-            <img src="images/logo.jpg" alt=""/></a> 
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
+              <div class="pull-left">
+                <a href="#" title="">
+                <img src="images/logo.jpg" alt=""/></a> 
+                <a href="index.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a>
+              </div>
+            <div  style="margin-top: 50px;">
+              <img id ="tataEmg"style="max-height:11vh;margin-top: -29px!important;"src=""  alt=""/>  
+              <a href="#" onclick="javascript:signOut()" ><i class="fa fa-sign-out fa-2x" style="float: left; color: #024695; padding: 10px;"></i> </a>           
+              <a href="index.html"><i class="fa fa-home fa-2x" style="float: left; color: #024695; padding: 10px;"></i></a>
+           </div> 
           </div>
-          <div  style="margin-top: 50px;">
-            <img id ="tataEmg"style="height:11vh;margin-top: -29px!important;"src=""  alt=""/>  
-           <a href="#" onclick="javascript:signOut()" ><i class="fa fa-sign-out fa-2x" style="float: left; color: #024695; padding: 10px;"></i> </a>            
-           <a href="index.html"><i class="fa fa-home fa-2x" style="float: left; color: #024695; padding: 10px;"></i></a>
-          </div> 
-                      
-        </div>
       </div>
     </div>
   </div>  
@@ -110,6 +114,7 @@ let cls=getFromStore("clientIDE");
   <!--Header-End-->
   <div class="body-wraper">
     <div class="container">
+    
       <div class="row">
         <div class="col-12">
           <div class="claim-title">
@@ -121,7 +126,6 @@ let cls=getFromStore("clientIDE");
             <li></li>
             <li></li>
             <li></li>
-          
         </ul>
           </div>
           </div>
@@ -138,18 +142,18 @@ let cls=getFromStore("clientIDE");
            </label>
            <input type="text" id="inputDate" name="incidentDate" placeholder="Enter incident date" class="inpt" />
             <label>
-           <button class="btn-two" id="btn_continue" type="button" onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)">Continue</button>
+           <button class="btn btn-two" id="btn_continue" type="btn" onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)">Continue</button>
               <div id="expired_block">
               <p>This policy is no longer Active. We will not be able to assist you.</p>
               <p>Press “Retry” to modify the policy details or “Cancel” to quit.</p>
-              <button class="red-btn" type="button"  onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)" >Retry</button>
-              <button class="grey-btn" type="button" onclick="window.location.href='index.html';">Cancel</button>
+              <button class="btn red-btn" type="btn"  onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)" >Retry</button>
+              <button class="btn grey-btn" type="btn" onclick="window.location.href='index.html';">Cancel</button>
             </div>
             <div id="policy_notfound_block">
               <p>We are unable to search the policy provided by you in our database</p>
               <p>Press “Retry” to modify the policy details or “Continue” to share your policy document with us.</p>
-              <button class="red-btn" type="button"  onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)" >Retry</button>
-              <button class="grey-btn" type="button" onclick="uploadPolicy()">Continue</button>
+              <button class="btn red-btn" type="btn"  onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)" >Retry</button>
+              <button class="btn grey-btn" type="btn" onclick="uploadPolicy()">Continue</button>
             </div>
            </form>
           </div>
