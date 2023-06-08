@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
+    <title>Travel e-claims</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/tabs.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href='css/css-fonts.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <style type="text/css">
+        .main {
+            padding-bottom: 65px;
+        }
+
+        /* .navigate a.left-btn {
+            cursor: pointer;
+            color: #0458a0;
+        } */
+    </style>
+
+    <script src="js/lib/jquery-1.11.1.min.js"></script>
+    <script src="js/lib/jquery.validate.min.js"></script>
+    <script src="js/lib/additional-methods.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/util.js"></script>
+    <script src="js/lib/const.js"></script>
+    <script src="js/controllers/homeController.js"></script>
+    <script src="js/controllers/commonController.js"></script>
+<style>
+    @media  only screen and (max-width:330px){
+  .img{
+    width: 60px;
+  }
+ 
+}
+</style>
+</head>
+
+<body>
+
+    <!-- <script type="text/javascript">
+        $(function(){ isAuthenticated(); });
+    </script> -->
+
+
+    <div class="main">
+        <!--Header-start-->
+        <div class="header-sec">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="pull-left"> <a href="index.html" title="">
+                                <img src="images/logo.jpg" alt="" class="img" /></a>
+                            <a href="index.html"><button type="btn" class="btn"
+                                    style="margin-top:63px;background-color: #00459a;color: white;">Back</button>
+                            </a>
+                        </div>
+                        <div class="pull-right" style="margin-top: 50px;">
+                            <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                                    style="float: right; color: #024695; padding: 10px;"></i> </a>
+                            <a href="index.html"><i class="fa fa-home fa-2x"
+                                    style="float: right; color: #024695; padding: 10px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Header-End-->
+
+        <script type="text/javascript">
+
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+
+
+        <div class="body-wraper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                    </div>
+                    <div class="claim-entry">
+                        <div class="claim-title">
+                            <!--<h1><a href="index.html">&#8592; back</a></h1> -->
+                            <h1 style="color: #0458a0;">Help</h1>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <!-- <div class="navigate">
+                                        <a onclick="goBack()" class="left-btn" style="cursor:pointer;color:#0458a0;">&#8810;Back</a>
+                                    </div> -->
+                            </div>
+                            <div id="accordion">
+                                <!-- first -->
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">Step by Step Guide for Cashless Medical Claim Overseas Travel Policies.
+                                                <span class="down-arw"><i style="font-size:16px"
+                                                        class="fa">&#xf0dd;</i></span>
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            <Span style="padding-left: 10px;"><strong>1. Intimation & Claim Registration. </strong></Span><br><br>
+                                            <ul>
+                                                <li>While abroad policy holder can visit any hospital and intimate us to initiate cashless claim request.</li>
+                                                <li>Intimation - Insured can email or Call our 24*7 Alarm Centre Team to the number provided in the Policy Schedule from anywhere in the world.</li>
+                                                <li>Alarm Centre would check the eligibility benefit and initiate a cashless claim.</li>
+                                            </ul>
+                                            <Span style="padding-left: 10px;"><strong>2. Processing: Claim Documents Submission</strong></Span><br><br>
+                                            <ul>
+                                                <li>Europ Assistance team will liaise with Insured/Family and medical service provider such as Hospital/Clinic/Doctor etc. to obtain the Complete medical records.</li>
+                                            </ul>
+                                            <Span style="padding-left: 10px;"><strong>3. Decision </strong></Span><br><br>
+                                            <ul>
+                                                <li>Europ Assistance team will then update Insured/Family and Provider of the final coverage.</li>
+                                                <li>In case of incomplete documentation or Repudiation, Europ Assistance team will update the Insured/Family and Provider on the inability to extend cashless services.</li>
+                                            </ul>
+                                            <Span style="padding-left: 10px;"><strong>4. Completion :</strong></Span><br><br>
+                                            <ul>
+                                                <li>Upon completion of the claim admissibility, Guarantee of Pay shall be given to the Hospital with amount covered. The admissibility and coverage will also be updated to Insured/family.</li>
+                                            </ul>
+                                            <Span style="padding-left: 10px;"><strong>Important Notes:</strong></Span><br><br>
+                                            <ul>
+                                                <li><strong>Cashless case of inpatient hospitalization must be more than 24 hours to avail cashless services. Subject to receipt of Complete documents and approval of claim.</strong></li>
+                                                <li><strong>Please note that the denial of authorization for cashless settlement does not imply denial of treatment and does not in any way prevent you from seeking necessary medical attention or hospitalization and claiming for reimbursement.</strong></li>
+                                                <li><strong>All claims are processed as per policy benefits, terms and condition. Final decision of any claim made will be done after receiving and assessment of all the documents.</strong></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Second
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                data-target="#collapseTwo" aria-expanded="false"
+                                                aria-controls="collapseTwo">How do I create a New Claim? <span
+                                                    class="down-arw"><i style="font-size:16px"
+                                                        class="fa">&#xf0dd;</i></span>
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            If you have an “Active” Travel Assistance policy, you can create a new claim
+                                            in the “File” section.
+                                        </div>
+                                    </div>
+                                </div> -->
+                        
+                                
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Footer-start-->
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <span> © E-claims. All Rights Reserved</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Footer-end-->
+    </div>
+
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+</body>
+
+</html>

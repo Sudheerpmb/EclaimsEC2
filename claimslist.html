@@ -26,7 +26,14 @@
   padding: 12px 16px;
   font-size: 16px;
   cursor: pointer;
-}</style>
+}
+
+@media  only screen and (max-width:328px){
+  .img{
+    width: 62px;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -46,10 +53,10 @@ let cls=getFromStore("clientIDE");
  <div class="header-sec">
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
+      <div class="col-12 " style="display:flex; justify-content: space-between;">
         <div class="pull-left"> 
           <a href="#" title="">
-          <img src="images/logo.jpg" alt=""/></a> 
+          <img src="images/logo.jpg" alt="" class="img"/></a> 
           <a href="index.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a>
         </div>
         <div  style="margin-top: 50px;">
@@ -121,7 +128,7 @@ let cls=getFromStore("clientIDE");
 </body>
 </html>
 
-<script>
+<!-- <script>
 $(document).ready(function() {
   var url = location.href;
   if (url.search('sts') >= 0) {
@@ -134,4 +141,4 @@ $(document).ready(function() {
   $('#navigate2').show();
   }
 });
-</script>
+</script> -->

@@ -19,7 +19,13 @@
 <script src="js/lib/const.js"></script>
 <script src="js/controllers/feedbackController.js"></script>
 <script src="js/controllers/commonController.js"></script>
-
+<style>
+  @media  only screen and (max-width:328px){
+  .img{
+    width: 62px;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -35,7 +41,7 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="pull-left"> 
-          <a href="index.html" title=""><img src="images/logo.jpg" alt=""/></a> 
+          <a href="index.html" title=""><img src="images/logo.jpg" alt=""  class="img"/></a> 
           <a href="index.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a>
         </div>
         <div class="pull-right" style="margin-top: 50px;">
@@ -87,7 +93,7 @@
 		
 		</div>
 		    <br>
-		          <label>3. How was your overall experience with the application?</label><br>
+		  <label>3. How was your overall experience with the application?</label><br>
 			&nbsp;<input type="radio" name="fb" value="Excellent">&nbsp;Excellent<br>
 			&nbsp;<input type="radio" name="fb" value="Very good">&nbsp;Very good<br>
 			&nbsp;<input type="radio" name="fb" value="Good">&nbsp;Good<br> 
@@ -99,7 +105,6 @@
           <textarea class="inpt" name="experience"></textarea>
           <input type="submit" class="btn"  value="Submit">
           </form>
-          
           </div>
         </div>
       </div>
@@ -122,6 +127,7 @@
 <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </body>
 </html>
+
 <script>
 function myFunction() {
 var radiob = document.getElementById("cb_yes");
