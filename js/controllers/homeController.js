@@ -40,7 +40,7 @@ $(function () {
       $.ajax({
         async: true,
         crossDomain: true,
-         url: env.node_api_url + "api/EclaimsChangePassWord",
+        url: env.node_api_url + "api/EclaimsChangePassWord",
         type: "POST",
         data: {
           "currentPassword": form.currentPassword.value,
@@ -100,8 +100,8 @@ function getButtons(clientId) {
             </a> </div>
         </div>`
         }
-        else if(item.name == 'Change Password'){
-          html +=  `<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        else if (item.name == 'Change Password') {
+          html += `<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <div class="section" style="padding-bottom:13px !important;"> <a href="#" data-target="#changePwdModal"
               data-toggle="modal"><img src="images/file.jpg" alt="" />
               <h5 style="color:#037ebe;">&nbsp;<br>Change Password</h5>
@@ -128,12 +128,12 @@ function getClaimTypes() {
     async: true,
     crossDomain: true,
     // url: env.app_url+"data/claimTypes.json",
-    url: env.node_api_url+"eclaims/masters/getMastersClientWise",
+    url: env.node_api_url + "eclaims/masters/getMastersClientWise",
     type: "POST",
     data: JSON.stringify({
       "projectName": "EzTravel",
       "generalMasterName": "Claim Type",
-      "clientName":getFromStore("clientIDE").toUpperCase()
+      "clientName": getFromStore("clientIDE").toUpperCase()
 
     }),
     // dataType: "JSON",
@@ -144,12 +144,12 @@ function getClaimTypes() {
     },
   }).success(function (response) {
     var claimTypes = response;
-    for(var i=0;i<response.length;i++){
-      for(var j=i;j<response.length;j++){
-        if(parseInt(response[i].order)>parseInt(response[j].order)){
-          let temp=response[i];
-          response[i]=response[j]
-          response[j]=temp;
+    for (var i = 0; i < response.length; i++) {
+      for (var j = i; j < response.length; j++) {
+        if (parseInt(response[i].order) > parseInt(response[j].order)) {
+          let temp = response[i];
+          response[i] = response[j]
+          response[j] = temp;
         }
       }
     }
@@ -198,7 +198,7 @@ function getClaimDetails(claimId) {
   newForm.append("clientId", clientId);
   newForm.append("eclaimToken", eclaims_token);
 
-  var url = env.node_api_url+"api/cases/getCaseDetailsEclaims?caseNumber=" + claimId;
+  var url = env.node_api_url + "api/cases/getCaseDetailsEclaims?caseNumber=" + claimId;
 
   $.ajax({
     async: true,
@@ -231,8 +231,8 @@ function getClaimDetails(claimId) {
         //   $("#policyIssueDate").html(new Date(json.policy.policyIssuedDate).toLocaleDateString('en-GB'))
         // else
         // $("#policyIssuelabel").hide()
-          // $("#policyIssueDate").html(`NA`)
-        var urlTo = env.node_api_url+'eclaims/documents/list?claimtype=' + type;
+        // $("#policyIssueDate").html(`NA`)
+        var urlTo = env.node_api_url + 'eclaims/documents/list?claimtype=' + type;
 
 
         $.ajax({
@@ -251,11 +251,11 @@ function getClaimDetails(claimId) {
             let result = '';
             let alreadyUp = '';
             let docName = '';
-               let allUploadDatas = data[0].Documents;
-             let allUploadData=[];
-                 for(let elem of allUploadDatas)
-                     if(elem.Eclaims)
-                             allUploadData.push(elem)
+            let allUploadDatas = data[0].Documents;
+            let allUploadData = [];
+            for (let elem of allUploadDatas)
+              if (elem.Eclaims)
+                allUploadData.push(elem)
             for (var i = 0; i < allUploadData.length; i++) {
               let flag = 1;
               for (var j = 0; j < travelTdocs.length; j++) {
@@ -276,10 +276,10 @@ function getClaimDetails(claimId) {
               }
               if (flag) {
                 // <-- <i class="fa fa-times-circle-o" id="${allUploadData[i].Name+'__P'}" onclick="subDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>-->
-                result += ` <div id="${allUploadData[i].Name+'___'}" style="display: flex;justify-content: space-between;color:blue">
+                result += ` <div id="${allUploadData[i].Name + '___'}" style="display: flex;justify-content: space-between;color:blue">
                 <div onclick="scrollWin()">
               
-                <i class="fa fa-plus-square" id="${allUploadData[i].Name+'__'}" onclick="addDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
+                <i class="fa fa-plus-square" id="${allUploadData[i].Name + '__'}" onclick="addDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
                 <a href="javascript:;"  data-id= ${allUploadData[i].Name} class="myLink"  data-toggle="tooltip" title="${allUploadData[i].Name}" > ${allUploadData[i].Name}</a> 
                 </div>
                 <div class="col-xs-6" style="float: right !important;">
@@ -295,7 +295,7 @@ function getClaimDetails(claimId) {
               else {
                 alreadyUp += ` <div style="display: flex;justify-content: space-between;color:#DD31FF">
                 <div onclick="scrollWin()">
-                <i class="fa fa-plus-square" id="${allUploadData[i].Name+'__'}" onclick="addDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
+                <i class="fa fa-plus-square" id="${allUploadData[i].Name + '__'}" onclick="addDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
                 <span  data-id= ${allUploadData[i].Name} class="myLink" > ${allUploadData[i].Name}</span>
                 </div>
                 <div class="col-xs-6" style="float: right !important;text-align:center;width:11vw;padding-left: 10px;">
@@ -348,14 +348,14 @@ function submitClaims_tw() {
 function submitClaims_() {
   // alert("hi11")
   var eclaim_token = getFromStore("eclaimsToken");
-  var tcID_l=getFromStore("CTrvelCaseId");
+  var tcID_l = getFromStore("CTrvelCaseId");
   var arr = [];
   var html = `<h6><strong> We have saved your claims details.and your reference number is ${claimId}. however, you still need to provide the below mandatory documents </strong> </h6>`
   var submitedDoc = ``
   var email = `<strong>CLAIM REFERENCE:  ${claimId}</strong><br>
   Thank you for your following enclosures sent to us. {Policy_Copy_}
   <br/><span>In order for us to proceed with our assessment we will require the following additional information/documentation:</span>`
-  
+
   $(".upload").each(function () {
     var fd = new FormData();
     let scm = $(this).attr('name');
@@ -382,25 +382,25 @@ function submitClaims_() {
     let kj = $(this)[0].files[0];
 
     fd.append('imgUploader', $(this)[0].files[0]);
-    if (typeof $(this)[0].files[0] !== 'undefined'){
+    if (typeof $(this)[0].files[0] !== 'undefined') {
       // alert( env.node_api_url+'api/uploadDocuments?docTypeId='+scm+ '&travelCaseId='+tcID_l)
       $.ajax({
-          async: true,
-          crossDomain: true,
-          url: env.node_api_url+'api/uploadDocuments?docTypeId='+scm+ '&travelCaseId='+tcID_l,
-          type: "POST",
-          data: fd,
-          // dataType: "JSON",
-          contentType: false,
-          processData: false,
-          headers: {
-              Authorization: "Bearer " +eclaim_token
-          },
-          success: function (data) {
-              // alert(`${scm} inserted`)
-          }
+        async: true,
+        crossDomain: true,
+        url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + scm + '&travelCaseId=' + tcID_l,
+        type: "POST",
+        data: fd,
+        // dataType: "JSON",
+        contentType: false,
+        processData: false,
+        headers: {
+          Authorization: "Bearer " + eclaim_token
+        },
+        success: function (data) {
+          // alert(`${scm} inserted`)
+        }
       })
-  }
+    }
 
   });
 
@@ -455,10 +455,10 @@ function submitClaims_() {
 
   var user_F = JSON.parse(getFromStore("user"));
   sendmail(user_F.email, `${claimId} updated`, email);
-  
- alert('The document has been successfully uploaded');
-    window.location = env.app_url + "index.html";
- 
+
+  alert('The document has been successfully uploaded');
+  window.location = env.app_url + "index.html";
+
 }
 
 $("#submitClaim12").click(function () {
@@ -498,7 +498,7 @@ $("#submitClaim12").click(function () {
   $.ajax({
     async: true,
     crossDomain: true,
-    url: env.node_api_url+'eclaims/addAttachmentToClaims/multiple?travelCaseId=' + tkId,
+    url: env.node_api_url + 'eclaims/addAttachmentToClaims/multiple?travelCaseId=' + tkId,
     type: "POST",
     data: fd,
     // dataType: "JSON",
@@ -515,7 +515,7 @@ $("#submitClaim12").click(function () {
         $.ajax({
           async: true,
           crossDomain: true,
-          url: env.node_api_url+'api/communicate/sendEmails_new',
+          url: env.node_api_url + 'api/communicate/sendEmails_new',
           type: "POST",
           data: JSON.stringify({
             "email": emailID,
@@ -564,36 +564,37 @@ function getCustomerClaims() {
 
       if (json.length > 0) {
         var customerClaims = json[0].claims;
-        var claimsHtml = `<div class="coverage " style="color:red">
-        <div class="clm-row">
-           <h5>Claim Id</h5>
-        </div>
-        <div class="clm-row"> 
-            <h5>Claim Date</h5>
-         </div>
-        <div class="clm-row">
-           <h5>Customer Name</h5> 
-        </div>
-        <div class="clm-row">
-        <h5>Policy No</h5> 
-     </div>
-     <div class="clm-row">
-     <h5>Type</h5> 
-  </div>
-  <div class="clm-row">
-  <h5>Status</h5> 
-</div>
-      </div>`;
-      let contacts = new Map()
-      let claimCount=0;
+        var claimsHtml = `
+        <div class="coverage " style="color:red">
+            <div class="clm-row">
+              <h5>Claim Id</h5>
+            </div>
+            <div class="clm-row"> 
+                <h5>Claim Date</h5>
+            </div>
+            <div class="clm-row">
+              <h5>Customer Name</h5> 
+            </div>
+            <div class="clm-row">
+              <h5>Policy No</h5> 
+            </div>
+            <div class="clm-row">
+              <h5>Type</h5> 
+            </div>
+            <div class="clm-row">
+              <h5>Status</h5> 
+            </div>
+          </div>`;
+        let contacts = new Map()
+        let claimCount = 0;
         Object.values(json).forEach(value => {
           if (value.CaseNumber.substring(0, 2) == user.clientId.substring(0, 2).toUpperCase() && !contacts.has(value.CaseNumber)) {
-            contacts.set(value.CaseNumber,1)
-            let insuProvider='NA'
-            if(value.insuranceProvider)
-            insuProvider= value.insuranceProvider.toUpperCase()
+            contacts.set(value.CaseNumber, 1)
+            let insuProvider = 'NA'
+            if (value.insuranceProvider)
+              insuProvider = value.insuranceProvider.toUpperCase()
             claimCount++;
-            claimsHtml += `  <div class="coverage ">
+            claimsHtml += `   <div class="coverage ">
                                 <div class="clm-row">
                                    <h6><a style="color:blue;cursor:pointer" onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.CaseNumber}</a></h6>
                                 </div>
@@ -601,28 +602,39 @@ function getCustomerClaims() {
                                     <h6>${new Date(value.CreationDate).toLocaleDateString('en-GB')}</h6>
                                  </div>
                                 <div class="clm-row">
-                                
-                                   <h6>${value.customers.FirstName.charAt(0).toUpperCase() + value.customers.FirstName.slice(1) + ' ' + value.customers.LastName.charAt(0).toUpperCase() + value.customers.LastName.slice(1)}</h6> 
+                                    <h6>${value.customers.FirstName.charAt(0).toUpperCase() + value.customers.FirstName.slice(1) + ' ' + value.customers.LastName.charAt(0).toUpperCase() + value.customers.LastName.slice(1)}</h6> 
                                 </div>
                                 <div class="clm-row">
-                                <h6>${value.travelPolicy[0]?value.travelPolicy[0].policyNumber:'NA'}</h6> 
-                             </div>
-                             <div class="clm-row">
-                             <h6>${ value.travelCases.subClaimType}</h6> 
-                          </div>
-                          <div class="clm-row">
-                             <h6>${value.travelCases.claimSatus}</h6> 
-                          </div>
+                                    <h6>${value.travelPolicy[0] ? value.travelPolicy[0].policyNumber : 'NA'}</h6> 
+                                </div>
+                                <div class="clm-row">
+                                    <h6>${value.travelCases.subClaimType}</h6> 
+                                </div>
+                                <div class="clm-row">
+                                  <h6>${value.travelCases.claimSatus}</h6> 
+                                </div>
                               </div>`;
           }
         });
-        if(claimCount==0){
-          claimsHtml=`<h5>No Claims Found</h5>`
+        if (claimCount == 0) {
+          claimsHtml = `<h5>No Claims Found</h5>`
         }
         document.getElementById("claimsListContainer").innerHTML = claimsHtml;
+        // Add search functionality
+        var searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("input", function () {
+          var searchValue = this.value.toLowerCase();
+          var coverageItems = claimsListContainer.getElementsByClassName("coverage");
+          Array.from(coverageItems).forEach(function (item) {
+            var claimDetails = item.innerText.toLowerCase();
 
-
-
+            if (claimDetails.includes(searchValue)) {
+              item.style.display = "block";
+            } else {
+              item.style.display = "none";
+            }
+          });
+        });
       }
       else {
         document.getElementById("claimsListContainer").innerHTML = `<h2>No claims has been found</h2>`;
@@ -688,12 +700,12 @@ function getCustomerRecentClaim() {
 
 
 }
-function myFunctionGetTravel(claimId){
+function myFunctionGetTravel(claimId) {
   var eclaims_token = getFromStore("eclaimsToken");
   $.ajax({
     async: true,
     crossDomain: true,
-    url: env.node_api_url+'eclaims/itemByCaseNumber?CaseNumber=' + claimId,
+    url: env.node_api_url + 'eclaims/itemByCaseNumber?CaseNumber=' + claimId,
     type: "GET",
     // data: fd,
     // dataType: "JSON",
@@ -705,8 +717,8 @@ function myFunctionGetTravel(claimId){
     success: function (data) {
       var travelData = data;
       // alert('hi')
-      setToStore('CTrvelCaseId',travelData[0].travelCaseRef)
-      window.location = env.app_url + 'claimdetails.html?claimId='+claimId;
+      setToStore('CTrvelCaseId', travelData[0].travelCaseRef)
+      window.location = env.app_url + 'claimdetails.html?claimId=' + claimId;
     }
   })
 
@@ -715,7 +727,7 @@ function sendmail(email, subject, body) {
   $.ajax({
     async: true,
     crossDomain: true,
-    url: env.node_api_url+'api/communicate/sendEmails_new',
+    url: env.node_api_url + 'api/communicate/sendEmails_new',
     type: "POST",
     data: JSON.stringify({
       "email": email,

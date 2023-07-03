@@ -68,6 +68,8 @@
   <script src="js/controllers/claimController.js"></script>
   <script src="js/controllers/commonController.js"></script>
   <script src="plugins/toastr/toastr.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+
   <script>
     // Add remove loading class on body element based on Ajax request status
     $(document).on({
@@ -95,8 +97,8 @@
       $('#AirportServicecsDiv').hide();
       document.getElementById("tataEmg").src = 'images/' + cls + '.jpg'; isAuthenticated();
       var urlParams = new URLSearchParams(window.location.search);
-      if(cls=='TATA AIG'){
-    document.getElementById("incidentDateLabel").innerHTML = "Date Of Loss / Claims Date / Treatment Date";
+      if (cls == 'TATA AIG') {
+        document.getElementById("incidentDateLabel").innerHTML = "Date Of Loss / Claims Date / Treatment Date";
       }
 
       $('#incidentDate').datepicker({ dateFormat: 'dd-mm-yy' });
@@ -169,9 +171,11 @@
             <div class="pull-left">
               <a href="#" title="">
                 <img src="images/logo.jpg" alt="" /></a>
-                <a href="coverage.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a>
+              <!-- <a href="coverage.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
             </div>
             <div style="margin-top: 50px;">
+              <a href="coverage.html"><i class="fa fa-arrow-circle-left fa-2x"
+                  style="color: #024695; padding: 10px;float: left;"></i> </a>
               <img id="tataEmg" style="max-height:11vh;margin-top: -29px!important;" src="" alt="" />
               <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
                   style="float: left; color: #024695; padding: 10px;"></i> </a>
@@ -204,14 +208,12 @@
               </div>
             </div>
             <div class="claim-entry">
-
               <h2><span><i style="font-size:16px" class="fa">&#xf2ba;</i> Claim form</span> </h2>
               <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="navigate">
                   <a href="coverage.html" class="left-btn">&#8810;Back</a>
                   <a href="documentsuploadpage.html" class="right-btn">&#8702;Back</a>
                 </div>
-
               </div>
               <br>
               <div class="mandatory">
@@ -219,18 +221,13 @@
               </div>
               <form id="createClaim" autocomplete="off" action="">
                 <h3>Policy Details</h3>
-                <hr/>
+                <hr />
                 <div id="airport__">
-                  <label>
-                    AirPort
-                  </label>
+                  <label> AirPort</label>
                   <input type="text" name="airPort" id="airport" placeholder="Enter Airport" class="inpt" />
                 </div>
                 <div id="laungeDiv">
-
-                  <label>
-                    Launge
-                  </label>
+                  <label>Launge</label>
                   <input type="text" name="launge" id="Launge" placeholder="Enter Launge" class="inpt" />
                 </div>
                 <div id="luggageLossDiv">
@@ -240,28 +237,20 @@
                     <input type="text" name="Tagno" id="Tagno" placeholder="Enter Tag No"
                       class="inpt" /> -->
                 </div>
-
                 <div id="AirportServicecsDiv">
-                  <label>
-                    airport services
-                  </label>
-                  <input type="text" name="airportservices" id="airportServices" placeholder="Enter Tag No" class="inpt" />
+                  <label> airport services</label>
+                  <input type="text" name="airportservices" id="airportServices" placeholder="Enter Tag No"
+                    class="inpt" />
                 </div>
-
                 <div id="baggageLossDiv">
-                  <label>
-                    TagNo
-                  </label>
+                  <label>TagNo</label>
                   <input type="text" name="Tagno" id="Tagno" placeholder="Enter Tag No" class="inpt" />
                 </div>
-                <label>
-                  Policy Number
-                </label>
+                <label>Policy Number</label>
                 <input type="text" name="policyNumber" id="policyNumberId" placeholder="Enter policy number"
                   class="inpt" />
 
-                <label id="incidentDateLabel">Date of Loss <span style="color: red;">*</span>
-                </label>
+                <label id="incidentDateLabel">Date of Loss <span style="color: red;">*</span></label>
                 <input type="text" name="incidentDate" id="incidentDate" placeholder="Enter incident date"
                   class="inpt" />
 
@@ -269,23 +258,14 @@
                 <label> Current Address <span style="color: red;">*</span></label>
                 <input type="text" name="incidentAddress" id="incident_Address_id" placeholder="Enter address"
                   class="inpt" />
-
-                <label>
-                  City of Loss <span style="color: red;">*</span>
-                </label>
+                <label> City of Loss <span style="color: red;">*</span></label>
                 <input type="text" name="incidentCity" placeholder="Enter city" class="inpt" />
 
-
-
-                <label>
-                  Country of Loss <span style="color: red;">*</span>
-                </label>
+                <label>Country of Loss <span style="color: red;">*</span></label>
                 <select name="incidentCountry" id="sel2" class="inpt">
                   <option value="" class="inpt">Select Country of Loss
                   </option>
                 </select>
-
-
 
                 <label> Postal code (Optional)</label>
                 <input type="text" name="zipCode" placeholder="Enter Zip Code" class="inpt" />
@@ -334,10 +314,6 @@
                         value="cashless"><label>Cashless</label></div>
                   </div>
                 </div>
-
-
-
-
                 <!-- <div  style="padding: 0px;" id="policyForm"> -->
 
                 <div class="devide-sec"></div>
@@ -364,8 +340,8 @@
                     <label for="Passport copy"></label>
                   </div>
                 </div>
-          <br>
-          <div class="col-md-12 form-group">
+                <br>
+               <div class="col-md-12 form-group">
                   <label style="margin-bottom: 1.5rem;">Immigration entry and exit<sup>*</sup></label>
                   <div class="button-wrapper" >
                     <span class="label">Upload</span>
@@ -373,7 +349,7 @@
                    <label for="Immigration entry and exit"></label>
                   </div>
                   </div>
-				   <br>
+				          <br>
                  </div> -->
 
                 <!-- <div class="row" id="uploadDocuments2" style="padding: 0px;">
@@ -385,8 +361,8 @@
                     <label for="PAN Card"></label>
                   </div>
                 </div>
-          <br>
-          <div class=" col-md-12 form-group">
+                <br>
+                <div class=" col-md-12 form-group">
                   <label style="margin-bottom: 1.5rem;">Cancelled cheque<sup>*</sup></label>
                   <div class="button-wrapper" >
                     <span class="label">Upload</span>
@@ -395,12 +371,8 @@
                       <label for="Cancelled cheque"></label>
                     </div>
                 </div>
-				  <br>
+				       <br>
                 </div> -->
-
-
-
-
 
                 <label>
                   Insured Person / Policy Holder First Name <span style="color: red;">*</span>
@@ -414,18 +386,18 @@
                 <input type="text" name="customerSurName" id="beneficiarySurName" placeholder="Enter surname"
                   class="inpt" />
 
-                  <label id="EmployeeNoL">
-                    Employee Number <span style="color: red;">*</span>
-                  </label>
-                  <input type="text" name="EmployeeNumber" id="EmployeeNumber" placeholder="Enter Employee number"
-                    class="inpt" />
+                <label id="EmployeeNoL">
+                  Employee Number <span style="color: red;">*</span>
+                </label>
+                <input type="text" name="EmployeeNumber" id="EmployeeNumber" placeholder="Enter Employee number"
+                  class="inpt" />
 
-                    <label>
-                      Claimed Person Type <span style="color: red;">*</span>
-                    </label>
-                    <select name="ClaimedPersonType" id="ClaimedPersonType" class="inpt">
-                      <option value="" class="inpt">Select Claimed Person Type</option>
-                    </select>
+                <label>
+                  Claimed Person Type <span style="color: red;">*</span>
+                </label>
+                <select name="ClaimedPersonType" id="ClaimedPersonType" class="inpt">
+                  <option value="" class="inpt">Select Claimed Person Type</option>
+                </select>
 
                 <label>
                   Mobile Number <span style="color: red;">*</span>
@@ -469,9 +441,6 @@
                 <input type="text" name="permanentRegion" id="permanent_region" placeholder="Enter state"
                   class="inpt" />
 
-
-
-
                 <label>
                   Country
                 </label>
@@ -486,7 +455,6 @@
                   class="inpt" />
                 <label> Brief Description Of Loss</label>
                 <input type="text" name="Remarks" id="Remarks" placeholder="please enter your comments" class="inpt" />
-
                 <input type="hidden" name="eventId" id="eventId" />
                 <input type="hidden" name="eventLabel" id="eventLabel" />
                 <input type="hidden" name="eventDetails" id="eventDetails" />
@@ -521,9 +489,9 @@
   $(document).ready(function () {
     $('#EmployeeNumber').hide();
     $('#EmployeeNoL').hide();
-    if(getFromStore("clientIDE")=='TATA AIG'){
+    if (getFromStore("clientIDE") == 'TATA AIG') {
       $('#EmployeeNumber').show();
-    $('#EmployeeNoL').show();
+      $('#EmployeeNoL').show();
     }
     var eclaim_token = getFromStore("eclaimsToken");
     var user_F = JSON.parse(getFromStore("user"));
@@ -556,18 +524,18 @@
     } else if (getFromStore("user")) {
       var userObj = JSON.parse(getFromStore("user"));
       // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
-      if(getFromStore("clientIDE")!="TATA AIG"){
-      $("#beneficiaryName").val(userObj.firstName);
-      $("#beneficiarySurName").val(userObj.lastName);
-      $("#beneficiaryEmail").val(userObj.email);
-      $("#beneficiaryNumber").val(userObj.mobile);
+      if (getFromStore("clientIDE") != "TATA AIG") {
+        $("#beneficiaryName").val(userObj.firstName);
+        $("#beneficiarySurName").val(userObj.lastName);
+        $("#beneficiaryEmail").val(userObj.email);
+        $("#beneficiaryNumber").val(userObj.mobile);
       }
     }
 
     if (getFromStore("user")) {
       var userRefObj = JSON.parse(getFromStore("user"));
-      if(getFromStore("clientIDE")!="TATA AIG")
-      $("#dob").val(userRefObj.dob);
+      if (getFromStore("clientIDE") != "TATA AIG")
+        $("#dob").val(userRefObj.dob);
       $("#gender").val(userRefObj.gender);
     }
     $("#policyNumberId").val(getFromStore("PolicyNumber_"));

@@ -1,105 +1,137 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-signin-client_id" content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
-<title>Travel e-claims</title>
-<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="css/tabs.css" rel="stylesheet" type="text/css"/>
-<link href="css/style.css" rel="stylesheet" type="text/css"/>
-<link href='css/css-fonts.css' rel='stylesheet'>
-<link rel="stylesheet" href="css/jquery-ui.css">
-<link href="plugins/toastr/toastr.css" rel="stylesheet">
-<link rel="stylesheet" href="css/font-awesome.min.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
+  <title>Travel e-claims</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/tabs.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href='css/css-fonts.css' rel='stylesheet'>
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link href="plugins/toastr/toastr.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
 
-<!-- https://www.jqueryscript.net/other/Highly-Customizable-jQuery-Toast-Message-Plugin-Toastr.html -->
+  <!-- https://www.jqueryscript.net/other/Highly-Customizable-jQuery-Toast-Message-Plugin-Toastr.html -->
 
 
-<script src="js/lib/jquery-1.11.1.min.js"></script>
-<script src="js/lib/jquery.validate.min.js"></script>
-<script src="js/lib/additional-methods.min.js"></script>
-<script src="js/lib/jquery-ui.js"></script>
-<script src="js/lib/moment.min.js"></script>
-<script src="js/lib/util.js"></script>
-<script src="js/lib/const.js"></script>
-<script src="js/controllers/commonController.js"></script>
-<script src="plugins/toastr/toastr.js"></script>
+  <script src="js/lib/jquery-1.11.1.min.js"></script>
+  <script src="js/lib/jquery.validate.min.js"></script>
+  <script src="js/lib/additional-methods.min.js"></script>
+  <script src="js/lib/jquery-ui.js"></script>
+  <script src="js/lib/moment.min.js"></script>
+  <script src="js/lib/util.js"></script>
+  <script src="js/lib/const.js"></script>
+  <script src="js/controllers/commonController.js"></script>
+  <script src="plugins/toastr/toastr.js"></script>
 
 </head>
 
 <body>
-  
 
-<script type="text/javascript">
-let cls=getFromStore("clientIDE");
- $(function(){ 
-  document.getElementById("tataEmg").src ='images/'+ cls+'.jpg';
-  isAuthenticated();
-  removeFromStore("nonExistingCustomer");
-  removeFromStore("incidentDate");
-  removeFromStore("policyDetails");
-   if (!getFromStore("otpVerified")) {
+
+  <script type="text/javascript">
+    let cls = getFromStore("clientIDE");
+    $(function () {
+      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+      isAuthenticated();
+      removeFromStore("nonExistingCustomer");
+      removeFromStore("incidentDate");
+      removeFromStore("policyDetails");
+      if (!getFromStore("otpVerified")) {
         alert('OTP not verified.');
-        window.location = env.app_url+"index.html"; 
+        window.location = env.app_url + "index.html";
       }
-   $('#inputDate').datepicker({ dateFormat: 'dd-mm-yy' });
-   $("#expired_block").hide();
-   $("#policy_notfound_block").hide();
-   var userDetails = JSON.parse(getFromStore("user"));
-   window.clientId = userDetails.clientId;
-  // if(cls=='TATA AIG'){
-  //   document.getElementById("policyInput").innerHTML = "ITravel Number";
-  //   document.getElementById("policyPlace").placeholder = "ITravel Number";
-  // }
-  });
-</script>
+      $('#inputDate').datepicker({ dateFormat: 'dd-mm-yy' });
+      $("#expired_block").hide();
+      $("#policy_notfound_block").hide();
+      var userDetails = JSON.parse(getFromStore("user"));
+      window.clientId = userDetails.clientId;
+      // if(cls=='TATA AIG'){
+      //   document.getElementById("policyInput").innerHTML = "ITravel Number";
+      //   document.getElementById("policyPlace").placeholder = "ITravel Number";
+      // }
+    });
+  </script>
 
 
-<style>
-.grey-btn{  
-    background-color: grey;
-    border: grey;
-    width: 45%;
-    color: #ffff;
-}
-.red-btn{  
-    background-color: #fe213b;
-    border: #fe213b;
-    width: 45%;
-    color: #ffff;
-}
-@media  only screen and (max-width:328px){
-  .img{
-    width: 70px;
-  }
-}
-</style>
+  <style>
+    .grey-btn {
+      background-color: grey;
+      border: grey;
+      width: 45%;
+      color: #ffff;
+    }
 
-<div class="main"> 
-   <!--Header-start-->
-   <div class="header-sec">
+    .red-btn {
+      background-color: #fe213b;
+      border: #fe213b;
+      width: 45%;
+      color: #ffff;
+    }
+
+    @media only screen and (max-width:328px) {
+      .img {
+        width: 72px;
+      }
+    }
+
+    .icons {
+      margin-right: -600px;
+    }
+
+    @media (max-width: 500px) {
+      .icons {
+        margin-right: -150px;
+
+      }
+
+      .img2 {
+
+        margin-top: -20px !important;
+      }
+
+    }
+  </style>
+
+  <div class="main">
+    <!--Header-start-->
+    <div class="header-sec">
       <div class="container">
         <div class="row">
-            <div class="col-12" style="display:flex; justify-content: space-between;">
-                <div class="pull-left">
-                  <a href="#" title="">
-                  <img src="images/logo.jpg" alt="" class="img"/></a> 
-                  <a href="index.html"><button type="btn" class="btn" style="margin-top:63px;background-color: #00459a;color: white; margin-left: 10px;">Back</button></a>
-                </div>
-                <div  style="margin-top: 50px;">
-                <img id ="tataEmg"style="max-height:11vh;margin-top: -29px!important;"src=""  alt=""/>  
-                <a href="#" onclick="javascript:signOut()" ><i class="fa fa-sign-out fa-2x" style="color: #024695; padding: 10px;"></i> </a>           
-                <a href="index.html"><i class="fa fa-home fa-2x" style="float: left; color: #024695; padding: 10px;"></i></a>
-                </div> 
-            </div>
-        </div>
-    </div>
-  </div>  
-  <!--Header-End-->
+          <div class="col-12" style="display:flex; justify-content: space-between;">
+            <div class="pull-left">
+              <a href="#" title="">
+                <img src="images/logo.jpg" alt="" class="img" /></a>
+              <!-- <a href="index.html"><button type="btn" class="btn" style="margin-top:63px;background-color: #00459a;color: white; margin-left: 10px;">Back</button></a> -->
+              <!-- Use it instead (edited-17/06/2023) -->
 
-  <!--Header-start-->
-  <!-- <div class="header-sec">
+            </div>
+
+            <div class="icons" style="margin-top: 50px; ">
+              <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x"
+                  style="color: #024695; padding: 10px;float: left;"></i> </a>
+              <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                  style="color: #024695; padding: 10px;"></i> </a>
+              <a href="index.html"><i class="fa fa-home fa-2x"
+                  style="float: left; color: #024695; padding: 10px;"></i></a>
+            </div>
+            <div style="margin-top: 50px;">
+              <img id="tataEmg" style="max-height:8vh;margin-top: -30px!important;float:right;" src="" alt=""
+                class="img2" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Header-End-->
+
+    <!--Header-start-->
+    <!-- <div class="header-sec">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
@@ -117,71 +149,96 @@ let cls=getFromStore("clientIDE");
       </div>
     </div>
   </div> -->
-  <!--Header-End-->
-  <div class="body-wraper">
-    <div class="container">
+    <!--Header-End-->
+    <div class="body-wraper">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-12">
+            <div class="claim-title">
+              <h1>File a New Claim</h1>
+              <div class="status-bar">
+                <ul class="progressbar">
+                  <li class="active"></li>
+                  <li class="active"><span>Eligibility</span></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </div>
+            </div>
+            <div class="claim-entry">
+              <h2><span>Policy Details</span></h2>
+              <p>Enter the “Policy Number” as mentioned on your Travel Insurance Policy.</p>
+              <p>This helps us in checking your coverage benefits. </p>
+              <form id="validate_policy" autocomplete="off">
+                <label id="policyInput">
+                  Policy/Certificate/Schedule/ITravel Number<span style="color: red;">*</span>
+                </label>
+                <input type="text" id="policyPlace" name="policyNumber"
+                  placeholder="Enter Policy/Certificate/Schedule/ITravel Number" class="inpt check" />
+                <label>Incident date <span style="color: red;">*</span>
+                </label>
+                <input type="text" id="inputDate" name="incidentDate" placeholder="Enter incident date" class="inpt" />
+                <label>
+                  <button class="btn-two" id="btn_continue" type="button"
+                    onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)">Continue</button>
+
+                  <div id="expired_block">
+                    <p>This policy is no longer Active. We will not be able to assist you.</p>
+                    <p>Press “Retry” to modify the policy details or “Cancel” to quit.</p>
+                    <button class="red-btn" type="button"
+                      onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)">Retry</button>
+                    <button class="grey-btn" type="button" onclick="window.location.href='index.html';">Cancel</button>
+                  </div>
+
+                  <div id="policy_notfound_block">
+                    <p>We are unable to search the policy provided by you in our database</p>
+                    <p>Press “Retry” to modify the policy details or “Continue” to share your policy document with us.
+                    </p>
+                    <button class="red-btn" type="button"
+                      onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)">Retry</button>
+                    <button class="grey-btn" type="button" onclick="uploadPolicy()">Continue</button>
+                  </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     
-      <div class="row">
-        <div class="col-12">
-          <div class="claim-title">
-          <h1>File a New Claim</h1>
-          <div class="status-bar">
-          <ul class="progressbar">
-            <li  class="active"></li>
-               <li  class="active"><span>Eligibility</span></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-          </div>
-          </div>
-          <div class="claim-entry">
-          <h2><span>Policy Details</span></h2>
-          <p>Enter the “Policy Number” as mentioned on your Travel Insurance Policy.</p>
-           <p>This helps us in checking your coverage benefits. </p>
-           <form id="validate_policy" autocomplete="off" >
-           <label id ="policyInput">
-            Policy/Certificate/Schedule/ITravel Number<span style="color: red;">*</span>
-           </label>
-           <input type="text" id ="policyPlace" name="policyNumber" placeholder="Enter Policy/Certificate/Schedule/ITravel Number" class="inpt"/>
-            <label>Incident date <span style="color: red;">*</span>
-           </label>
-           <input type="text" id="inputDate" name="incidentDate" placeholder="Enter incident date" class="inpt" />
-            <label>
-           <button class="btn btn-two" id="btn_continue" type="btn" onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)">Continue</button>
-              <div id="expired_block">
-              <p>This policy is no longer Active. We will not be able to assist you.</p>
-              <p>Press “Retry” to modify the policy details or “Cancel” to quit.</p>
-              <button class="btn red-btn" type="btn"  onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)" >Retry</button>
-              <button class="btn grey-btn" type="btn" onclick="window.location.href='index.html';">Cancel</button>
-            </div>
-            <div id="policy_notfound_block">
-              <p>We are unable to search the policy provided by you in our database</p>
-              <p>Press “Retry” to modify the policy details or “Continue” to share your policy document with us.</p>
-              <button class="btn red-btn" type="btn"  onclick="validatePolicy(clientId,policyNumber.value,incidentDate.value)" >Retry</button>
-              <button class="btn grey-btn" type="btn" onclick="uploadPolicy()">Continue</button>
-            </div>
-           </form>
+    <!--Footer-start-->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+            <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
           </div>
         </div>
       </div>
     </div>
+
+    <!--Footer-end-->
   </div>
-  <!--Footer-start-->
-  <div class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-          <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!--Footer-end--> 
-</div>
-<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+  <script>
+    $(document).ready(function () {
+      $('#policyPlace').on('input', function () {
+        var value = $(this).val();
+        var numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
+
+        if (numericValue.length > 20) {
+          numericValue = numericValue.slice(0, 20); // Truncate the input to 20 digits
+        }
+
+        $(this).val(numericValue); // Update the input value with the numeric value
+      });
+    });
+
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
 </body>
+
 </html>

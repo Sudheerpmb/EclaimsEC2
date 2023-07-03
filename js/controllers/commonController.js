@@ -83,6 +83,7 @@ function checkIfOtpverified() {
 }
 function sendmail(email, subject, body) {
     alert("email has been send to your Regestered mail")
+    var eclaims_token = getFromStore("eclaimsToken");
     $.ajax({
         async: true,
         crossDomain: true,
@@ -97,7 +98,7 @@ function sendmail(email, subject, body) {
         contentType: "application/json",
         processData: false,
         headers: {
-            Authorization: "Bearer " + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZjFjMmQ2MjBjM2E2Mjc0NDk3YmZkOCIsInJvbGUiOiJhZ2VudCIsImV4cCI6MTYyNTIwMzc2NywiaWF0IjoxNjIwMDE5NzY3fQ.3ule65iQOmi9wGlb3tnnveK91frgtGUNCTtmGA3ErD8'
+            Authorization: "Bearer " + eclaims_token
         },
         success: function (data) {
             console.log("mail sent")
@@ -160,6 +161,7 @@ function getPolicy(policyNumber) {
             })
 }
 async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
+   
     if (policyNumber == '') {
         toastr.error('Please Enter Policy Number');
         return false;
@@ -179,13 +181,12 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
         toastr.error('Incident date cannot be a future date');
         return false;
     }
-    insuranceProviderpath = insuranceProvider.split(" ").join("").toUpperCase();
-
+    insuranceProviderpath = insuranceProvider.split(" ").join("").toUpperCase();    
     var eclaims_token = getFromStore("eclaimsToken");
     var access_token = getFromStore("token");
     let cH=getFromStore('clientHash');
     var url = env.node_api_url +"eclaims/policyDetailAccordingToPolicyNumberAndDate";
-
+        // alert('LE');
     $.ajax({
         async: true,
         crossDomain: true,
@@ -225,12 +226,13 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
 
                 }
             }
-            if (Result1 == "[]") {
-                if (insuranceProvider == "TATA AIG" || insuranceProvider == "CHOLAMS" || insuranceProvider == "EUROPASSISTANCE") {
+            if (Result1 == "Details not found") {
+                console.log(Result1);
+                if (insuranceProvider == "EUROPASSISTANCE" || insuranceProvider == "RELIANCE") {
                     window.location = env.app_url + "coverage.html";
                 }
                 else {
-                    toastr.error('invalid policiy number');
+                    toastr.error('invalid policy number');
                 }
             }
             setToStore("incidentDate", incidentDate);

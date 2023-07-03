@@ -24,6 +24,8 @@
       font-size: 14px;
     }
   </style>
+  
+
 
   <script src="js/lib/jquery-1.11.1.min.js"></script>
   <script src="js/lib/jquery.validate.min.js"></script>
@@ -42,12 +44,12 @@
 <body>
 
   <script type="text/javascript">
-    $( function  () {
+    $(function () {
       clearStore();
       var urlParams = new URLSearchParams(window.location.search);
       var myString = urlParams.get('clientId');
-       getClientName(myString);
-       setToStore("clientHash", myString);
+      getClientName(myString);
+      setToStore("clientHash", myString);
       $('#dob').datepicker({
         dateFormat: 'dd-mm-yy',
         changeMonth: true,
@@ -59,9 +61,6 @@
           }, 0);
         },
       });
-
-
-
     });
   </script>
 
@@ -77,7 +76,7 @@
                 <img src="images/logo.jpg" alt="" /></a>
             </div>
             <div style="margin-top: 37px;">
-              <img id="tataEmg" style="height:9vh;margin-top: -29px!important;" src="" alt="" />
+              <img id="tataEmg" style="height:6vh;margin-top: -29px!important;" src="" alt="" />
             </div>
 
           </div>
@@ -99,44 +98,61 @@
                       Sign Up with your email to access and receive claim status updates. your email will not be used
                       for Marketing purposes
                     </p>
-                    <form id="registration" autocomplete="off" action="">
-                      <label>First name: <span style="color: red;">*</span></label>
-                      <input type="text" name="firstname" placeholder="First Name" class="inpt" />
-                      <label>Sur name: <span style="color: red;">*</span></label>
-                      <input type="text" name="lastname" placeholder="Last Name" class="inpt" />
-                      <label>Mobile number: <span style="color: red;">*</span></label>
-                      <input type="text" minlength="10" maxlength="10" name="mobile" placeholder="Indian Mobile Number"
-                        class="inpt" />
+                    <div id="relianceForm" style="display: none;">
+                      <form id="registrationWithoutGender" autocomplete="off" action="">
+                        <label>First Name</label>
+                        <input type="text" name="firstname" placeholder="First Name" class="inpt fName" />
+                        <label>Last Name</label>
+                        <input type="text" id="lName" name="lastname" placeholder="Last Name" class="inpt lName" />
+                        <label>Mobile Number</label>
+                        <input type="text" id="mobile" name="mobile" placeholder="Mobile Number" class="inpt mob" />
+                        <label>Login/Email Address</label>
+                        <input type="text" name="email" placeholder="Email Address" class="inpt" />
+                        <label>Password</label>
+                        <input type="password" name="password" id="id_pwdR" placeholder="Password" class="inpt" />
+                        <label>Confirm Password</label>
+                        <input type="password" name="password_again" placeholder="Confirm Password" class="inpt" />
+                        <input type="submit" class="btn" value="Sign Up">
+                      </form>
+                    </div>
 
-                      <label>
-                        Gender <span style="color: red;">*</span>
-                      </label>
-                      <select name="gender" id="gender" class="inpt">
-                        <option value="" class="inpt">Select Gender</option>
-                        <option value="0" class="inpt">Male</option>
-                        <option value="1" class="inpt">Female</option>
-                        <option value="2" class="inpt">Others</option>
-                      </select>
+                    <div id="otherForm" style="display: none;">
+                      <form id="registrationWithGender" autocomplete="off" action="">
+                        <label>First name: <span style="color: red;">*</span></label>
+                        <input type="text" name="firstname" placeholder="First Name" class="inpt fName" />
+                        <label>Last name: <span style="color: red;">*</span></label>
+                        <input type="text" name="lastname" placeholder="Last Name" class="inpt lName" />
+                        <label>Mobile number: <span style="color: red;">*</span></label>
+                        <input type="text" minlength="10" maxlength="10" name="mobile" placeholder="Mobile Number"
+                          class="inpt mob" />
+
+                        <label>
+                          Gender <span style="color: red;">*</span>
+                        </label>
+                        <select name="gender" id="gender" class="inpt">
+                          <option value="" class="inpt">Select Gender</option>
+                          <option value="0" class="inpt">Male</option>
+                          <option value="1" class="inpt">Female</option>
+                          <option value="2" class="inpt">Others</option>
+                        </select>
 
 
-                      <label>Date of Birth <span style="color: red;">*</span>
-                      </label>
-                      <input type="text" name="dob" id="dob" placeholder="Date of birth" class="inpt" />
+                        <label>Date of Birth <span style="color: red;">*</span>
+                        </label>
+                        <input type="text" name="dob" id="dob" placeholder="Date of birth" class="inpt" />
 
 
 
-                      <label>Email address: <span style="color: red;">*</span></label>
-                      <input type="text" name="email" placeholder="Email Address" class="inpt" />
-                      <label>Password: <span style="color: red;">*</span></label>
-                      <input type="password" name="password" id="id_pwd" placeholder="Password" class="inpt" />
-                      <label>Confirm password: <span style="color: red;">*</span></label>
-                      <input type="password" name="password_again" placeholder="Confrim Password" class="inpt" />
+                        <label>Login/Email address: <span style="color: red;">*</span></label>
+                        <input type="text" name="email" placeholder="Email Address" class="inpt" />
+                        <label>Password: <span style="color: red;">*</span></label>
+                        <input type="password" name="password" id="id_pwd" placeholder="Password" class="inpt" />
+                        <label>Confirm password: <span style="color: red;">*</span></label>
+                        <input type="password" name="password_again" placeholder="Confrim Password" class="inpt" />
 
-
-
-
-                      <input type="submit" class="btn" value="Sign Up">
-                    </form>
+                        <input type="submit" class="btn" value="Sign Up">
+                      </form>
+                    </div>
                   </div>
                 </li>
                 <li>
@@ -152,13 +168,13 @@
                       <a href="#" data-target="#pwdModal" data-toggle="modal">Forgot password?</a>
                     </form>
                     <br>
-<!--
+                    <!--
                     <div  style="float:left">
                     <div class="g-signin2" data-onsuccess="onSignIn"></div>
                     </div>
--->    
-                <div style="float:left;margin-left:2vw">
-                    <!-- <button type="button" class="btn btn-primary btn-lg" onclick="ssologin()"> SSO login</button> -->
+-->
+                    <div style="float:left;margin-left:2vw">
+                      <!-- <button type="button" class="btn btn-primary btn-lg" onclick="ssologin()"> SSO login</button> -->
                     </div>
                   </div>
                 </li>
@@ -182,10 +198,6 @@
 
     <!--Footer-end-->
   </div>
-
-
-
-
 
 
   <!--modal-->
@@ -226,41 +238,65 @@
       </div>
     </div>
   </div>
-
   <script>
-    function ssologin(){
-      let body=JSON.stringify(
+    $(document).ready(function () {
+      $('.mob').on('input', function () {
+        var value = $(this).val();
+        var numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
+
+        if (numericValue.length > 10) {
+          numericValue = numericValue.slice(0, 10); // Truncate the input to 10 digits
+        }
+
+        $(this).val(numericValue); // Update the input value with the numeric value
+      });
+    });
+
+
+    $(document).ready(function () {
+      $('.fName,.lName').on('input', function () {
+        var value = $(this).val();
+        var alphabeticValue = value.replace(/[^A-Za-z]/g, ''); // Remove non-alphabetic characters
+
+        $(this).val(alphabeticValue); // Update the input value with the alphabetic value
+      });
+    });
+
+  </script>
+  <script>
+    function ssologin() {
+      let body = JSON.stringify(
         {
-        base:'eclaimsuat.europassistance.in',
-        clientId:getFromStore("clientHash"),
-        clientIDE:getFromStore("clientIDNM"),
-      }
+          base: 'eclaimsuat.europassistance.in',
+          clientId: getFromStore("clientHash"),
+          clientIDE: getFromStore("clientIDNM"),
+        }
       )
       // base=eclaimsuat.europassistance.in&clientId=996fcc89-8d91-4ffd-9b04-61a116655c7d&clientIDE=TATA%20AIG+ encodeURI(body)
       window.location = `http://13.127.236.87/ssologin?base=eclaimsuat.europassistance.in&clientId=${getFromStore("clientHash")}&clientIDE=${getFromStore("clientIDNM")}`;
-    //   $.ajax({
-    //   async: true,
-    //   crossDomain: true,
-    //   url: 'http://13.127.236.87:3003/api/users/encryptData',
-    //   type: "POST",
-    //   data: JSON.stringify(
-    //     {"text":{
-    //     "email": "email",
-    //       "password":"hjshdj"
-    //   }}
-    //   ),
-    //   contentType: "application/json",
-    //   processData: false,
-    //   success: function (data) {
-    //     alert(Json.stringify(data))
-    //   },
-    //   error: function (err) {
-    //     console.log(err);
-    //     $("#ajaxStart").removeAttr("disabled", false);
-    //     $("#ajaxStart").html("Continue");
-    //     toastr.error('Whoops! This didn\'t work. Please contact us.');
-    //   }
-    // })
+      //   $.ajax({
+      //   async: true,
+      //   crossDomain: true,
+      //   url: 'http://13.127.236.87:3003/api/users/encryptData',
+      //   type: "POST",
+      //   data: JSON.stringify(
+      //     {"text":{
+      //     "email": "email",
+      //       "password":"hjshdj"
+      //   }}
+      //   ),
+      //   contentType: "application/json",
+      //   processData: false,
+      //   success: function (data) {
+      //     alert(Json.stringify(data))
+      //   },
+      //   error: function (err) {
+      //     console.log(err);
+      //     $("#ajaxStart").removeAttr("disabled", false);
+      //     $("#ajaxStart").html("Continue");
+      //     toastr.error('Whoops! This didn\'t work. Please contact us.');
+      //   }
+      // })
     }
     function onSignIn(googleUser) {
       setToStore("googleLogin", 1);
