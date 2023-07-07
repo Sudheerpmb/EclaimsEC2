@@ -12,6 +12,11 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href='css/css-fonts.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 
     <style type="text/css">
         .main {
@@ -289,6 +294,7 @@
             border-right: 20px solid transparent;
             border-top: 20px solid lightgray;
         }
+
         @media only screen and (max-width:330px) {
             .img {
                 width: 60px;
@@ -305,14 +311,18 @@
     <script src="js/lib/const.js"></script>
     <script src="js/controllers/homeController.js"></script>
     <script src="js/controllers/commonController.js"></script>
-   
+
 </head>
 
 <body>
 
-    <!-- <script type="text/javascript">
-        $(function(){ isAuthenticated(); });
-    </script> -->
+    <script type="text/javascript">
+        $(function () { isAuthenticated(); });
+        let cls = getFromStore("clientIDE");
+        $(function () {
+            document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+        })
+    </script>
 
 
     <div class="main">
@@ -327,6 +337,7 @@
                                     style="margin-top:63px;background-color: #00459a;color: white;">Back</button>
                             </a> -->
                         </div>
+                        <img id="tataEmg" style="max-height:11vh;margin-top:19px;float:right;" src="" alt="" />
                         <div class="pull-right" style="margin-top: 50px;">
                             <!-- <input type="text" id="searchInput" placeholder="Search.." style="margin-top: 14px;padding-left: 5px;"> -->
                             <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
@@ -366,86 +377,60 @@
                                         <a onclick="goBack()" class="left-btn" style="cursor:pointer;color:#0458a0;">&#8810;Back</a>
                                     </div> -->
                             </div>
-                            <div id="faqContainer">
-                                <div id="accordion">
-                                    <!-- Second -->
-                                    <div class="card">
-                                        <div class="card-header" id="headingOne">
-                                            <h5 class="mb-0">
-                                                <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                    data-target="#collapseOne" aria-expanded="false"
-                                                    aria-controls="collapseOne">User Journey For E-claim.<span
-                                                        class="down-arw"><i style="font-size:16px"
-                                                            class="fa">&#xf0dd;</i></span>
-                                                </button>
-                                            </h5>
-                                        </div>
-                                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                                            data-parent="#accordion">
-                                            <div class="card-body" style="background-color: #f3f3f3;">
-                                                <!-- <ul>
-                                                    <li>Registering new claim - click on file tab.</li>
-                                                    <li>Enter valid policy/certificate number along with incident date.
-                                                    </li>
-                                                    <li>Select the type of claim.</li>
-                                                    <li>Fill in the claim details form (enter all mandatory details).
-                                                    </li>
-                                                    <li>Upload the required documents as per the type of claim.</li>
-                                                    <li>After submitting the claim, the customer will receive an email
-                                                        with mandatory list of documents.</li>
-                                                    <li>Tracking the claim status - click on the track claim tab.</li>
-                                                    <li>Uploading documents - click on claim status and click on the
-                                                        claim number in which document needs to be uploaded.</li>
-                                                </ul> -->
-                                                <div class="line1 rounded">Registering new claim - Click on file tab.
-                                                </div>
-                                                <div class="container1">
-                                                    <div class="aline1"></div>
-                                                    <div class="arrow-down1"></div>
-                                                </div>
-                                                <div class="line2 rounded">Enter valid policy/certificate number along
-                                                    with incident date.</div>
-                                                <div class="container1">
-                                                    <div class="aline2"></div>
-                                                    <div class="arrow-down2"></div>
-                                                </div>
-                                                <div class="line3 rounded">Select the type of claim.</div>
-                                                <div class="container1">
-                                                    <div class="aline3"></div>
-                                                    <div class="arrow-down3"></div>
-                                                </div>
-                                                <div class="line4 rounded">File in the claim details form (enter all
-                                                    mandatory details).</div>
-                                                <div class="container1">
-                                                    <div class="aline4"></div>
-                                                    <div class="arrow-down4"></div>
-                                                </div>
-                                                <div class="line5 rounded">Upload the required documents as per the type
-                                                    of claim.</div>
-                                                <div class="container1">
-                                                    <div class="aline5"></div>
-                                                    <div class="arrow-down5"></div>
-                                                </div>
-                                                <div class="line6 rounded">After submitting the claim, the customer will
-                                                    receive an email with mandatory list of documents.</div>
-                                                <div class="container1">
-                                                    <div class="aline6"></div>
-                                                    <div class="arrow-down6"></div>
-                                                </div>
-                                                <div class="line7 rounded">Tracking the claim status - click on the
-                                                    track claim tab.</div>
-                                                <div class="container1">
-                                                    <div class="aline7"></div>
-                                                    <div class="arrow-down7"></div>
-                                                </div>
-                                                <div class="line8 rounded">Uploading documents - click on claim status
-                                                    and click on the claim number in which document needs to be
-                                                    uploaded.</div>
-                                            </div>
-                                        </div>
+                            <div class="card">
+                                <div class="card-header bg-danger text-white">
+                                    <Strong>User Journey For E-claim</Strong>
+                                </div>
+
+                                <div class="card-body"  >
+                                    <div class="line1 rounded">Registering new claim - Click on file tab.
                                     </div>
+                                    <div class="container1">
+                                        <div class="aline1"></div>
+                                        <div class="arrow-down1"></div>
+                                    </div>
+                                    <div class="line2 rounded">Enter valid policy/certificate number along
+                                        with incident date.</div>
+                                    <div class="container1">
+                                        <div class="aline2"></div>
+                                        <div class="arrow-down2"></div>
+                                    </div>
+                                    <div class="line3 rounded">Select the type of claim.</div>
+                                    <div class="container1">
+                                        <div class="aline3"></div>
+                                        <div class="arrow-down3"></div>
+                                    </div>
+                                    <div class="line4 rounded">File in the claim details form (enter all
+                                        mandatory details).</div>
+                                    <div class="container1">
+                                        <div class="aline4"></div>
+                                        <div class="arrow-down4"></div>
+                                    </div>
+                                    <div class="line5 rounded">Upload the required documents as per the type
+                                        of claim.</div>
+                                    <div class="container1">
+                                        <div class="aline5"></div>
+                                        <div class="arrow-down5"></div>
+                                    </div>
+                                    <div class="line6 rounded">After submitting the claim, the customer will
+                                        receive an email with mandatory list of documents.</div>
+                                    <div class="container1">
+                                        <div class="aline6"></div>
+                                        <div class="arrow-down6"></div>
+                                    </div>
+                                    <div class="line7 rounded">Tracking the claim status - click on the
+                                        track claim tab.</div>
+                                    <div class="container1">
+                                        <div class="aline7"></div>
+                                        <div class="arrow-down7"></div>
+                                    </div>
+                                    <div class="line8 rounded">Uploading documents - click on claim status
+                                        and click on the claim number in which document needs to be
+                                        uploaded.</div>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>

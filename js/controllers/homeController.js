@@ -103,7 +103,7 @@ function getButtons(clientId) {
         else if (item.name == 'Change Password') {
           html += `<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <div class="section" style="padding-bottom:13px !important;"> <a href="#" data-target="#changePwdModal"
-              data-toggle="modal"><img src="images/file.jpg" alt="" />
+              data-toggle="modal"><img src="images/changePassword.png" alt="" />
               <h5 style="color:#037ebe;">&nbsp;<br>Change Password</h5>
             </a> </div>
         </div>`
@@ -651,6 +651,7 @@ function getCustomerClaims() {
 
 
 }
+
 
 
 function getCustomerRecentClaim() {

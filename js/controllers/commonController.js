@@ -82,7 +82,7 @@ function checkIfOtpverified() {
 
 }
 function sendmail(email, subject, body) {
-    alert("email has been send to your Regestered mail")
+    alert("email has been send to your Registered mail")
     var eclaims_token = getFromStore("eclaimsToken");
     $.ajax({
         async: true,
@@ -229,6 +229,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
             if (Result1 == "Details not found") {
                 console.log(Result1);
                 if (insuranceProvider == "EUROPASSISTANCE" || insuranceProvider == "RELIANCE") {
+                    // setToStore('policyExpiry',json[0].policyEndDate);
                     window.location = env.app_url + "coverage.html";
                 }
                 else {

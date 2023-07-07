@@ -100,10 +100,10 @@
                     </p>
                     <div id="relianceForm" style="display: none;">
                       <form id="registrationWithoutGender" autocomplete="off" action="">
-                        <label>First Name</label>
+                        <label>Name</label>
                         <input type="text" name="firstname" placeholder="First Name" class="inpt fName" />
-                        <label>Last Name</label>
-                        <input type="text" id="lName" name="lastname" placeholder="Last Name" class="inpt lName" />
+                        <!-- <label>Last Name</label>
+                        <input type="text" id="lName" name="lastname" placeholder="Last Name" class="inpt lName" /> -->
                         <label>Mobile Number</label>
                         <input type="text" id="mobile" name="mobile" placeholder="Mobile Number" class="inpt mob" />
                         <label>Login/Email Address</label>
@@ -254,13 +254,14 @@
 
 
     $(document).ready(function () {
-      $('.fName,.lName').on('input', function () {
-        var value = $(this).val();
-        var alphabeticValue = value.replace(/[^A-Za-z]/g, ''); // Remove non-alphabetic characters
+  $('.fName, .lName').on('input', function () {
+    var value = $(this).val();
+    var alphabeticValue = value.replace(/[^A-Za-z ]/g, ''); // Remove non-alphabetic characters and allow space
 
-        $(this).val(alphabeticValue); // Update the input value with the alphabetic value
-      });
-    });
+    $(this).val(alphabeticValue); // Update the input value with the alphabetic value
+  });
+});
+
 
   </script>
   <script>
