@@ -33,10 +33,11 @@
 <body>
 
   <script type="text/javascript">
-   
+
     let cls = getFromStore("clientIDE");
     $(function () {
       document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+
     })
   </script>
 
@@ -57,7 +58,8 @@
                   style="float: right; color: #024695; padding: 10px;"></i> </a>
               <a href="index.html"><i class="fa fa-home fa-2x"
                   style="float: right; color: #024695; padding: 10px;"></i></a>
-                  <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x" style="color: #024695; padding: 10px;float: left;"></i> </a>
+              <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x"
+                  style="color: #024695; padding: 10px;float: left;"></i> </a>
             </div>
           </div>
         </div>
@@ -79,64 +81,88 @@
                                 </div>
                           </div> -->
               </div>
-              <form id="feedback" autocomplete="off" action="">
-                <!-- <label>&nbsp;Name</label> -->
-                <!-- <input type="text" placeholder="Enter Name" name="Name" class="inpt"/><br> -->
-                <!-- <label>&nbsp;Email</label> -->
-                <!-- <input type="text" placeholder="Enter email" name="email" class="inpt"/><br> -->
-                <label>1. How would you rate the ease of submitting your travel claim?<span style="color: red;font-size: 20px;">*</span></label><br>
-                &nbsp;<input type="radio" name="Claimtype" value="Excellent">&nbsp;Excellent<br>
-                &nbsp;<input type="radio" name="Claimtype" value="Good">&nbsp;Good<br>
-                &nbsp;<input type="radio" name="Claimtype" value="Fair">&nbsp;Fair<br>
-                &nbsp;<input type="radio" name="Claimtype" value="Poor">&nbsp;Poor<br>
-                <label id="Claimtype-error" class="error" for="Claimtype"></label>
-                <!-- <br>
-                <label>2. Were you able to complete the desired task?</label><br>
-                  &nbsp;<input type="radio"  id="cb_yes" name="ability" onclick="myFunction()" value="Yes">   Yes<br>
-                  &nbsp;<input type="radio" name="ability" id="cb_no"  onclick="myFunction()" value="No">   No<br>
-                <label id="ability-error" class="error" for="ability"></label>
-                <br>
-                <div id="new_text" style="display:none;">
-                <textarea  style="width:100%;"  name="reasons" placeholder="Mention Here...."></textarea>
-                
-                </div> -->
-                <br>
-                <label>2. How satisfied are you with the level of communication regarding your travel claim?</label><br>
-                &nbsp;<input type="radio" name="fb" value="Very Satisfied">&nbsp;Very Satisfied<br>
-                &nbsp;<input type="radio" name="fb" value="Satisfied ">&nbsp;Satisfied <br>
-                &nbsp;<input type="radio" name="fb" value="Average">&nbsp;Average<br>
-                &nbsp;<input type="radio" name="fb" value="Not Satisfied">&nbsp;Not Satisfied<br>
-                <label id="fb-error" class="error" for="fb"></label>
-                <br>
-                <label>3. Overall were you satisfied with how your claim was handled?</label><br>
-                &nbsp;<input type="radio" name="tb" value="Excellent">&nbsp;Excellent<br>
-                &nbsp;<input type="radio" name="tb" value="Good">&nbsp;Good<br>
-                &nbsp;<input type="radio" name="tb" value="Fair">&nbsp;Fair<br>
-                &nbsp;<input type="radio" name="tb" value="Poor">&nbsp;Poor<br>
-                <label id="tb-error" class="error" for="tb"></label>
-                <br>
-                <!-- <label>&nbsp;4. How can we improve your experience?</label>
-                <textarea class="inpt" name="experience"></textarea> -->
-                <input type="submit" class="btn" value="Submit">
-              </form>
+              <div id="reliance" style="display: none;">
+                <form id="feedback" autocomplete="off" action="">
+                  <!-- <label>&nbsp;Name</label> -->
+                  <!-- <input type="text" placeholder="Enter Name" name="Name" class="inpt"/><br> -->
+                  <!-- <label>&nbsp;Email</label> -->
+                  <!-- <input type="text" placeholder="Enter email" name="email" class="inpt"/><br> -->
+                  <label>1. How would you rate the ease of submitting your travel claim?<span
+                      style="color: red;font-size: 20px;">*</span></label><br>
+                  &nbsp;<input type="radio" name="Claimtype" value="Excellent">&nbsp;Excellent<br>
+                  &nbsp;<input type="radio" name="Claimtype" value="Good">&nbsp;Good<br>
+                  &nbsp;<input type="radio" name="Claimtype" value="Fair">&nbsp;Fair<br>
+                  &nbsp;<input type="radio" name="Claimtype" value="Poor">&nbsp;Poor<br>
+                  <label id="Claimtype-error" class="error" for="Claimtype"></label>
+                  <br>
+                  <label>2. How satisfied are you with the level of communication regarding your travel
+                    claim?</label><br>
+                  &nbsp;<input type="radio" name="fb" value="Very Satisfied">&nbsp;Very Satisfied<br>
+                  &nbsp;<input type="radio" name="fb" value="Satisfied ">&nbsp;Satisfied <br>
+                  &nbsp;<input type="radio" name="fb" value="Average">&nbsp;Average<br>
+                  &nbsp;<input type="radio" name="fb" value="Not Satisfied">&nbsp;Not Satisfied<br>
+                  <label id="fb-error" class="error" for="fb"></label>
+                  <br>
+                  <label>3. Overall were you satisfied with how your claim was handled?</label><br>
+                  &nbsp;<input type="radio" name="tb" value="Excellent">&nbsp;Excellent<br>
+                  &nbsp;<input type="radio" name="tb" value="Good">&nbsp;Good<br>
+                  &nbsp;<input type="radio" name="tb" value="Fair">&nbsp;Fair<br>
+                  &nbsp;<input type="radio" name="tb" value="Poor">&nbsp;Poor<br>
+                  <label id="tb-error" class="error" for="tb"></label>
+                  <br>
+                  <input type="submit" class="btn" value="Submit">
+                </form>
+              </div>
+              <div id="Other" style="display: none;">
+                <form id="feedbackOther" autocomplete="off" action="">
+                  <label>1. For which task did you use this application?</label><br>
+                  &nbsp;<input type="radio" name="Claimtype1" value="New">&nbsp;Filling new claim<br>
+                  &nbsp;<input type="radio" name="Claimtype1" value="Check">&nbsp;Checking claim status<br>
+                  &nbsp;<input type="radio" name="Claimtype1" value="UplodDocs">&nbsp;Uploading documents<br>
+                  &nbsp;<input type="radio" name="Claimtype1" value="CheckInfo">&nbsp;Checking information <br>
+                  <label id="Claimtype-error" class="error" for="Claimtype1"></label>
+                  <br>
+                  <label>2. Were you able to complete the desired task?</label><br>
+                  &nbsp;<input type="radio" id="cb_yes" name="ability" onclick="myFunction()" value="Yes"> Yes<br>
+                  &nbsp;<input type="radio" name="ability" id="cb_no" onclick="myFunction()" value="No"> No<br>
+                  <label id="ability-error" class="error" for="ability"></label>
+                  <br>
+                  <div id="new_text" style="display:none;">
+                    <textarea style="width:100%;" name="reasons" placeholder="Mention Here...."></textarea>
+                  </div>
+                  <br>
+                  <label>3. How was your overall experience with the application?</label><br>
+                  &nbsp;<input type="radio" name="fb1" value="Excellent">&nbsp;Excellent<br>
+                  &nbsp;<input type="radio" name="fb1" value="Very good">&nbsp;Very good<br>
+                  &nbsp;<input type="radio" name="fb1" value="Good">&nbsp;Good<br>
+                  &nbsp;<input type="radio" name="fb1" value="Average">&nbsp;Average <br>
+                  &nbsp;<input type="radio" name="fb1" value=" Poor">&nbsp;Poor<br>
+                  <label id="fb-error" class="error" for="fb1"></label>
+                  <br>
+                  <label>&nbsp;4. How can we improve your experience?</label>
+                  <textarea class="inpt" name="experience"></textarea>
+                  <input type="submit" class="btn" value="Submit">
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!--Footer-start-->
-    <div class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-            <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
-          </div>
+  </div>
+  <!--Footer-start-->
+  <div class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+          <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
         </div>
       </div>
     </div>
+  </div>
 
-    <!--Footer-end-->
+  <!--Footer-end-->
   </div>
   <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </body>

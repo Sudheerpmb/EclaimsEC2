@@ -24,12 +24,25 @@
   let cls = getFromStore("clientIDE");
   $(function () {
     document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+
+    function toggleForms(clientId) {
+      if (clientId === "RELIANCE") {
+        $("#downloadRel").show();
+      } else {
+        $("#downloadOther").show();
+      }
+    }
+
+    // Show/hide forms on page load
+    let client = getFromStore("clientIDNM");
+    var clientId = client; // Set the client ID here
+    toggleForms(clientId);
   })
 
 </script>
 
 <body>
- 
+
   <div class="main">
     <!--Header-start-->
     <div class="header-sec">
@@ -42,7 +55,8 @@
             </div>
             <div>
               <a href="index.html">
-                <i class="fa fa-arrow-circle-left fa-2x icon" style="margin-top:63px;margin-right:-150px ;color:rgb(30, 49, 146);float: right;">
+                <i class="fa fa-arrow-circle-left fa-2x icon"
+                  style="margin-top:63px;margin-right:-150px ;color:rgb(30, 49, 146);float: right;">
                 </i>
               </a>
             </div>
@@ -53,65 +67,76 @@
         </div>
       </div>
     </div>
-    
+
     <!--Header-End-->
     <div class="body-wraper">
       <div class="container">
         <div class="row">
           <div class="col-12">
             <div class="claim-title">
-              
+
             </div>
             <div class="claim-entry">
               <h2><span><i style="font-size:24px" class="fa">&#xf0ed;</i> Download</span> your policy and other
                 documents</h2>
               <h2><span>Documents related to your Policy</span> </h2>
-              <div class="coverage">
-                <h5>Travel Claim From (A)</h5>
-                <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_A.pdf"
-                  download="Travel_Claim_From_A.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+              <div id="downloadRel" style="display: none;">
+                <div class="coverage">
+                  <h5>Travel Claim From (A)</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_A.pdf"
+                    download="Travel_Claim_From_A.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="coverage">
+                  <h5>Travel Claim From C travel</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_C_travel.pdf"
+                    download="Travel_Claim_From_C_travel.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="coverage">
+                  <h5>Travel Claim From Main</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_Main.pdf"
+                    download="Travel_Claim_From_Main.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
               </div>
-              <div class="coverage">
-                <h5>Travel Claim From C travel</h5>
-                <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_C_travel.pdf"
-                  download="Travel_Claim_From_C_travel.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
-              </div>
-              <div class="coverage">
-                <h5>Travel Claim From Main</h5>
-                <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_Main.pdf"
-                  download="Travel_Claim_From_Main.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+
+              <div id="downloadOther" style="display: none;">
+                <div class="coverage">
+                  <h5>Travel Policy Claim Form</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/ABHI_Travel_Policy_Claim_Form.pdf"
+                    download="ABHI_Travel_Policy_Claim_Form.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+
               </div>
 
               <!--
-           <div class="coverage">
-           <h5>Claim Form for Australia</h5>
-           <a href="https://eclaimsuat.europassistance.in/images/Claim_Form_for_Australiav1.3.xlsx"> <i class="fa fa-download" aria-hidden="true"></i></a>
-           </div>
-           <div class="coverage">
-           <h5>Travel claim form </h5>
-           <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_Form-Infosys_(Gold_&_First_Plans).xls"> <i class="fa fa-download" aria-hidden="true"></i></a>
-           </div>
-           <div class="coverage">
-           <h5>Claims process contact matrix</h5>
-           <a href="https://eclaimsuat.europassistance.in/images/Claims_Process_Contact_Matrix-Infosys.pdf" download> <i class="fa fa-download" aria-hidden="true"></i></a>
-           </div>-->
+                <div class="coverage">
+                <h5>Claim Form for Australia</h5>
+                <a href="https://eclaimsuat.europassistance.in/images/Claim_Form_for_Australiav1.3.xlsx"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="coverage">
+                <h5>Travel claim form </h5>
+                <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_Form-Infosys_(Gold_&_First_Plans).xls"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="coverage">
+                <h5>Claims process contact matrix</h5>
+                <a href="https://eclaimsuat.europassistance.in/images/Claims_Process_Contact_Matrix-Infosys.pdf" download> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>-->
 
               <!-- <div class="coverage">
-            <h5>Release of Medical Information</h5>
-            <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_1-ROI.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
-            </div>
-            <div class="coverage">
-            <h5>INSURED's MEDICAL QUESTIONNAIRE</h5>
-            <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_2-IMQ.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
-            </div>
-            <div class="coverage">
-            <h5>PRELIMINARY MEDICAL REPORT</h5>
-            <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_3-PMR.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
-            </div>
-            <div class="coverage">
-            <h5>CENTRAL KYC REGISTRY</h5>
-            <a href="https://eclaimsuat.europassistance.in/images/TATA_Kit_4-KYC.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
-            </div> -->
+                  <h5>Release of Medical Information</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_1-ROI.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                  </div>
+                  <div class="coverage">
+                  <h5>INSURED's MEDICAL QUESTIONNAIRE</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_2-IMQ.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                  </div>
+                  <div class="coverage">
+                  <h5>PRELIMINARY MEDICAL REPORT</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_3-PMR.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                  </div>
+                  <div class="coverage">
+                  <h5>CENTRAL KYC REGISTRY</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/TATA_Kit_4-KYC.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                  </div> -->
             </div>
           </div>
         </div>
