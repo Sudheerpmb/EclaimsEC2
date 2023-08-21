@@ -215,6 +215,8 @@ function getClaimDetails(claimId) {
     success: function (data) {
       // var json = JSON.parse(data[0]);
       var json = data[0];
+      alert('hi');
+
       if (json != null) {
         var Status;
         if (json.Status == 0) {
@@ -557,8 +559,6 @@ function getCustomerClaims() {
     success: function (data) {
       // var json = JSON.parse(data[0]);
       var json = data;
-
-
       if (json.length > 0) {
         var customerClaims = json[0].claims;
         var claimsHtml =

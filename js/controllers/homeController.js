@@ -72,9 +72,8 @@ $(function () {
       return false;
     }
   });
-
-
 });
+
 function getButtons(clientId) {
   // alert(clientId)
   var eclaim_token = getFromStore("eclaimsToken");
@@ -104,7 +103,7 @@ function getButtons(clientId) {
           html += `<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <div class="section" style="padding-bottom:13px !important;"> <a href="#" data-target="#changePwdModal"
               data-toggle="modal"><img src="images/changePassword.png" alt="" />
-              <h5 style="color:#037ebe;">&nbsp;<br>Change Password</h5>
+              <h5 style="color:#0000FF;">&nbsp;<br>Change Password</h5>
             </a> </div>
         </div>`
         }
@@ -120,6 +119,7 @@ function getButtons(clientId) {
     }
   })
 }
+
 function getClaimTypes() {
   var eclaims_token = getFromStore("eclaimsToken");
   var access_token = getFromStore("token");
@@ -225,6 +225,8 @@ function getClaimDetails(claimId) {
 
         $("#claim_id").html(json.ClaimId);
         $("#pnumber").html(json.policy.policyNumber);
+        setToStore("polNum", json.policy.policyNumber);
+
         // $("#status").html(Status);
         $("#claimDate").html(new Date(json.CreationDate).toLocaleDateString('en-GB'));
         // if (json.policy.policyIssuedDate)
@@ -407,7 +409,7 @@ function submitClaims_() {
 
   // let email=html+"<h6>You also need to share the originals of Invoices & payment receipts <br/>Please note that this is just an acknowledgement of the details submitted by you and not an acceptance of your claim. Our team would try to verify your policy details manually and get in touch with you to assist with the next steps.</h6>"
   let display = html + `<br/><h6>We will be sending you the claim form to your registered email id.Claim forms to be filled, signed & submitted along with the requested claim documents`
-  email += `We look forward to hearing from you in due course.<br/>
+  email += `<br/><br/>We look forward to hearing from you in due course.<br/><br/>
   Yours sincerely,<br/>
   Claims Team<br/>
   eclaims<br/> 	
@@ -488,7 +490,7 @@ $("#submitClaim12").click(function () {
   });
   // let email=html+"<h6>You also need to share the originals of Invoices & payment receipts <br/>Please note that this is just an acknowledgement of the details submitted by you and not an acceptance of your claim. Our team would try to verify your policy details manually and get in touch with you to assist with the next steps.</h6>"
   let display = html + `<br/><h6>We will be sending you the claim form to your registered email id.Claim forms to be filled, signed & submitted along with the requested claim documents`
-  email += `We look forward to hearing from you in due course.<br/>
+  email += `<br/>We look forward to hearing from you in due course.<br/>
   Yours sincerely,<br/>
   Claims Team<br/>
   eclaims<br/> 	
@@ -560,7 +562,7 @@ function getCustomerClaims() {
     success: function (data) {
       // var json = JSON.parse(data[0]);
       var json = data;
-
+      
 
       if (json.length > 0) {
         var customerClaims = json[0].claims;
@@ -717,7 +719,7 @@ function myFunctionGetTravel(claimId) {
     },
     success: function (data) {
       var travelData = data;
-      // alert('hi')
+      // alert('its me');  
       setToStore('CTrvelCaseId', travelData[0].travelCaseRef)
       window.location = env.app_url + 'claimdetails.html?claimId=' + claimId;
     }
@@ -742,7 +744,7 @@ function sendmail(email, subject, body) {
       Authorization: "Bearer " + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZjFjMmQ2MjBjM2E2Mjc0NDk3YmZkOCIsInJvbGUiOiJhZ2VudCIsImV4cCI6MTYyNTIwMzc2NywiaWF0IjoxNjIwMDE5NzY3fQ.3ule65iQOmi9wGlb3tnnveK91frgtGUNCTtmGA3ErD8'
     },
     success: function (data) {
-      console.log("mail sent")
+      console.log("mail sent");
     },
     error: function (err) {
       console.log(err);

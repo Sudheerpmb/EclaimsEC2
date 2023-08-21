@@ -67,7 +67,7 @@ $(function () {
 
                         if (!getFromStore("nonExistingCustomer")) {
                             if (pendingDocs.length > 0) {
-                                message += "We have saved your claims details and your reference number is " + claimId + " however, we would not be able to process your claim unless the below mandatory documents are provided <br/> " + pendinghtml + ".";
+                                message += "We have saved your claims details and your reference number is " +  + " however, we would not be able to process your claim unless the below mandatory documents are provided <br/> " + pendinghtml + ".";
                                 message += originals != "" ? "<br/><br/> You also need to share the originals of " + originals : "";
                             } else {
                                 if (mode == "update") {
