@@ -102,7 +102,7 @@ function getButtons(clientId) {
         else if (item.name == 'Change Password') {
           html += `<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <div class="section" style="padding-bottom:13px !important;"> <a href="#" data-target="#changePwdModal"
-              data-toggle="modal"><img src="images/changePassword.png" alt="" />
+              data-toggle="modal"><img src="images/file.jpg" alt="" />
               <h5 style="color:#0000FF;">&nbsp;<br>Change Password</h5>
             </a> </div>
         </div>`
@@ -120,45 +120,109 @@ function getButtons(clientId) {
   })
 }
 
-function getClaimTypes() {
-  var eclaims_token = getFromStore("eclaimsToken");
-  var access_token = getFromStore("token");
-  var clientIde = getFromStore("clientIDE").toUpperCase();
-  $.ajax({
-    async: true,
-    crossDomain: true,
-    // url: env.app_url+"data/claimTypes.json",
-    url: env.node_api_url + "eclaims/masters/getMastersClientWise",
-    type: "POST",
-    data: JSON.stringify({
-      "projectName": "EzTravel",
-      "generalMasterName": "Claim Type",
-      "clientName": getFromStore("clientIDE").toUpperCase()
 
-    }),
-    // dataType: "JSON",
-    contentType: "application/json",
-    processData: false,
-    headers: {
-      Authorization: "Bearer " + eclaims_token
-    },
-  }).success(function (response) {
-    var claimTypes = response;
-    for (var i = 0; i < response.length; i++) {
-      for (var j = i; j < response.length; j++) {
-        if (parseInt(response[i].order) > parseInt(response[j].order)) {
-          let temp = response[i];
-          response[i] = response[j]
-          response[j] = temp;
-        }
-      }
-    }
-    var result = '';
-    Object.values(claimTypes).forEach(value => {
-      result += `<div class="coverage0_"><a href="claimform.html?id=${value.name}"><h5>${value.subName}</h5>
+  function getClaimTypes() {
+    var eclaims_token = getFromStore("eclaimsToken");
+    var access_token = getFromStore("token");
+    var clientIde = getFromStore("clientIDE").toUpperCase();
+
+    // Function to fetch and display claim types based on the selected radio button name
+    function displayClaimTypesBasedOnRadioName(radioName) {
+      showLoader();
+      $.ajax({
+        async: true,
+        crossDomain: true,
+        url: env.node_api_url + "eclaims/masters/getMastersEclaims",
+        type: "POST",
+        data: JSON.stringify({
+          "projectName": "EzTravel",
+          "generalMasterName": "Claim Type",
+          "name": radioName,
+          "clientName": getFromStore("clientIDE").toUpperCase()
+
+        }),
+        contentType: "application/json",
+        processData: false,
+        headers: {
+          Authorization: "Bearer " + eclaims_token
+        },
+        success: function (claimTypesResponse) {
+          setTimeout(function () {
+            hideLoader();
+        }, 500);
+          // Sort claim types within claimTypesResponse
+          claimTypesResponse.sort(function (a, b) {
+            return parseInt(a.order) - parseInt(b.order);
+          });
+
+          // Append claim types to the claimContainer
+          var claimTypesHTML = '';
+          claimTypesResponse.forEach(function (value) {
+            claimTypesHTML += `<div class="coverage0_"><a href="claimform.html?id=${value.name}" data-subname="${value.subName}"><h5>${value.subName}</h5>
                             <p>${value.narratio}</p></a></div>`;
+                            
+          });
+          
+          document.getElementById("claimContainer").innerHTML = claimTypesHTML;
+          $('.coverage0_').on('click', 'a', function (event) {
+            event.preventDefault();
+            
+            // Get the subName from the data attribute
+            var subName = $(this).data('subname');
+        
+            // Store the subName in localStorage
+            localStorage.setItem('clickedSubName', subName);
+        
+            // Redirect to the claimform.html page
+            var href = $(this).attr('href');
+            window.location.href = href;
+          });
+          // You can also add any additional handling for the claim types response here.
+        },
+        error: function (error) {
+          console.error("Error fetching claim types based on radio name:", error);
+        },
+      });
+    }
+
+    // Fetch and append radio buttons to the radioButtonsContainer
+    $.ajax({
+      async: true,
+      crossDomain: true,
+      url: env.node_api_url + "eclaims/masters/getMastersEclaims",
+      type: "POST",
+      data: JSON.stringify({
+        "projectName": "EzTravel",
+        "generalMasterName": "Claim Type",
+        "clientName": getFromStore("clientIDE").toUpperCase()
+      }),
+      contentType: "application/json",
+      processData: false,
+      headers: {
+        Authorization: "Bearer " + eclaims_token
+      },
+      success: function (radioResponse) {
+        var result = '';
+
+        radioResponse.forEach(function (name) {
+          result += `<input type="radio" name="claimTypeRadio" value="${name.name}" style="margin-right: 7px; font-size: 15px"><label><span style="margin-right: 10px; font-size: 20px">${name.name}</span></label>`;
+        });
+
+        // Append the radio buttons to the radioButtonsContainer
+        document.getElementById("radioButtonsContainer").innerHTML = result;
+
+        // Attach click event handler to radio buttons
+        $('input[name="claimTypeRadio"]').on('click', function () {
+          var radioName = $(this).val(); // Get the selected radio button's value
+          displayClaimTypesBasedOnRadioName(radioName); // Call the function with the selected value
+        });
+      },
+      error: function (error) {
+        console.error("Error fetching radio button names from API:", error);
+      },
     });
-    document.getElementById("claimContainer").innerHTML = result;
+
+    // Fetch and handle insurance provider details (existing code)
     $.ajax({
       async: true,
       crossDomain: true,
@@ -169,21 +233,28 @@ function getClaimTypes() {
       headers: {
         Authorization: "Bearer " + eclaims_token
       },
-    }).success(function (response) {
-      let policycopyrequired = 0;
-      for (var i = 0; i < response.length; i++) {
-        if (clientIde == response[i].clientName) {
-          if (response[i].policycopyrequired) {
-            policycopyrequired = 1;
+      success: function (response) {
+        let policycopyrequired = 0;
+        for (var i = 0; i < response.length; i++) {
+          if (clientIde == response[i].clientName) {
+            if (response[i].policycopyrequired) {
+              policycopyrequired = 1;
+            }
+            break;
           }
-          break;
         }
-      }
-      setToStore("policyCopyReq", policycopyrequired);
-    })
-  });
+        setToStore("policyCopyReq", policycopyrequired);
 
-}
+        // Append the second result (existing code)
+        // You can place your existing code here to append the second result
+        // based on your requirements.
+      },
+      error: function (error) {
+        console.error("Error fetching insurance provider details:", error);
+      },
+    });
+  }
+
 
 function getClaimDetails(claimId) {
 
@@ -347,16 +418,130 @@ function submitClaims_tw() {
 }
 
 
+// function submitClaims_() {
+//   // alert("hi11")
+//   var eclaim_token = getFromStore("eclaimsToken");
+//   var tcID_l = getFromStore("CTrvelCaseId");
+//   var arr = [];
+//   var html = `<h6><strong> We have saved your claims details.and your reference number is ${claimId}. however, you still need to provide the below mandatory documents </strong> </h6>`
+//   var submitedDoc = ``
+//   var email = `<strong>CLAIM REFERENCE: Helloo ${claimId}</strong><br>
+//   Thank you for your following enclosures sent to us. {Policy_Copy_}
+//   <br/><span>In order for us to proceed with our assessment we will require the following additional information/documentation:</span>`
+
+//   $(".upload").each(function () {
+//     var fd = new FormData();
+//     let scm = $(this).attr('name');
+
+//     if (typeof $(this)[0].files[0] === 'undefined' && !scm.includes("Other Document")) {
+//       html += `<div class="col-xs-12 pull-left" style="width: 100%;">
+//       <div class="col-xs-6 pull-left">
+//       <li style="margin-left:20px">${scm} &nbsp; 
+//       </li>`;
+//       email += `<strong> <li style="margin-left:20px">${scm} &nbsp; 
+//       </li></strong>`
+//       // alert(scm);
+//     }
+//     else {
+//       if (scm.includes("Other Document")) {
+//         if (typeof $(this)[0].files[0] !== 'undefined')
+//           submitedDoc += `<br><strong><li>${scm}</li></strong>`
+//       }
+//       else {
+//         submitedDoc += `<br><strong><li>${scm}</li></strong>`
+//       }
+
+//     }
+//     let kj = $(this)[0].files[0];
+
+//     fd.append('imgUploader', $(this)[0].files[0]);
+//     if (typeof $(this)[0].files[0] !== 'undefined') {
+//       // alert( env.node_api_url+'api/uploadDocuments?docTypeId='+scm+ '&travelCaseId='+tcID_l)
+//       $.ajax({
+//         async: true,
+//         crossDomain: true,
+//         url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + scm + '&travelCaseId=' + tcID_l,
+//         type: "POST",
+//         data: fd,
+//         // dataType: "JSON",
+//         contentType: false,
+//         processData: false,
+//         headers: {
+//           Authorization: "Bearer " + eclaim_token
+//         },
+//         success: function (data) {
+//           // alert(`${scm} inserted`)
+//         }
+//       })
+//     }
+
+//   });
+
+
+//   // let email=html+"<h6>You also need to share the originals of Invoices & payment receipts <br/>Please note that this is just an acknowledgement of the details submitted by you and not an acceptance of your claim. Our team would try to verify your policy details manually and get in touch with you to assist with the next steps.</h6>"
+//   let display = html + `<br/><h6>We will be sending you the claim form to your registered email id.Claim forms to be filled, signed & submitted along with the requested claim documents`
+//   email += `<br/><br/>We look forward to hearing from you in due course.<br/><br/>
+//   Yours sincerely,<br/>
+//   Claims Team<br/>
+//   eclaims<br/> 	
+//   Europ Assistance India`
+//   email = email.replace('{Policy_Copy_}', submitedDoc);
+//   // alert(email);
+
+//   // https://eztraveluat.europassistance.in:3000/eclaims/itemByCaseNumber?CaseNumber=
+
+
+//   // $.ajax({
+//   //   async: true,
+//   //   crossDomain: true,
+//   //   url: env.node_api_url+'eclaims/itemByCaseNumber?CaseNumber=' + claimId,
+//   //   type: "GET",
+//   //   // data: fd,
+//   //   // dataType: "JSON",
+//   //   contentType: false,
+//   //   processData: false,
+//   //   headers: {
+//   //     Authorization: "Bearer " + eclaim_token
+//   //   },
+//   //   success: function (data) {
+//   //     var travelData = data;
+//   //     $.ajax({
+//   //       async: true,
+//   //       crossDomain: true,
+//   //       url: env.node_api_url+'eclaims/addAttachmentToClaims/multiple?travelCaseId=' + travelData[0].travelCaseRef,
+//   //       type: "POST",
+//   //       data: fd,
+//   //       // dataType: "JSON",
+//   //       contentType: false,
+//   //       processData: false,
+//   //       headers: {
+//   //         Authorization: "Bearer " + eclaim_token
+//   //       },
+//   //       success: function (data) {
+//   //         var user_F = JSON.parse(getFromStore("user"));
+//   //         sendmail(user_F.email, `${claimId} updated`, email);
+//   //         window.location = env.app_url + "index.html";
+//   //       }
+//   //     })
+//   //   }
+//   // })
+
+//   var user_F = JSON.parse(getFromStore("user"));
+//   sendmail(user_F.email, `${claimId} updated`, email);
+
+//   alert('The document has been successfully uploaded');
+//   window.location = env.app_url + "index.html";
+
+// }
 function submitClaims_() {
-  // alert("hi11")
   var eclaim_token = getFromStore("eclaimsToken");
   var tcID_l = getFromStore("CTrvelCaseId");
   var arr = [];
-  var html = `<h6><strong> We have saved your claims details.and your reference number is ${claimId}. however, you still need to provide the below mandatory documents </strong> </h6>`
-  var submitedDoc = ``
-  var email = `<strong>CLAIM REFERENCE:  ${claimId}</strong><br>
+  var html = `<h6><strong>We have saved your claims details, and your reference number is ${claimId}. However, you still need to provide the below mandatory documents</strong></h6>`;
+  var submitedDoc = ``;
+  var email = `<strong>CLAIM REFERENCE:${claimId}</strong><br>
   Thank you for your following enclosures sent to us. {Policy_Copy_}
-  <br/><span>In order for us to proceed with our assessment we will require the following additional information/documentation:</span>`
+  <br/><span>In order for us to proceed with our assessment, we will require the following additional information/documentation:</span>`;
 
   $(".upload").each(function () {
     var fd = new FormData();
@@ -368,31 +553,26 @@ function submitClaims_() {
       <li style="margin-left:20px">${scm} &nbsp; 
       </li>`;
       email += `<strong> <li style="margin-left:20px">${scm} &nbsp; 
-      </li></strong>`
-      // alert(scm);
-    }
-    else {
+      </li></strong>`;
+    } else {
       if (scm.includes("Other Document")) {
         if (typeof $(this)[0].files[0] !== 'undefined')
-          submitedDoc += `<br><strong><li>${scm}</li></strong>`
+          submitedDoc += `<br><strong><li>${scm}</li></strong>`;
+      } else {
+        submitedDoc += `<br><strong><li>${scm}</li></strong>`;
       }
-      else {
-        submitedDoc += `<br><strong><li>${scm}</li></strong>`
-      }
-
     }
+
     let kj = $(this)[0].files[0];
 
     fd.append('imgUploader', $(this)[0].files[0]);
     if (typeof $(this)[0].files[0] !== 'undefined') {
-      // alert( env.node_api_url+'api/uploadDocuments?docTypeId='+scm+ '&travelCaseId='+tcID_l)
       $.ajax({
         async: true,
         crossDomain: true,
         url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + scm + '&travelCaseId=' + tcID_l,
         type: "POST",
         data: fd,
-        // dataType: "JSON",
         contentType: false,
         processData: false,
         headers: {
@@ -401,66 +581,43 @@ function submitClaims_() {
         success: function (data) {
           // alert(`${scm} inserted`)
         }
-      })
+      });
     }
-
   });
 
-
-  // let email=html+"<h6>You also need to share the originals of Invoices & payment receipts <br/>Please note that this is just an acknowledgement of the details submitted by you and not an acceptance of your claim. Our team would try to verify your policy details manually and get in touch with you to assist with the next steps.</h6>"
-  let display = html + `<br/><h6>We will be sending you the claim form to your registered email id.Claim forms to be filled, signed & submitted along with the requested claim documents`
+  let display = html + `<br/><h6>We will be sending you the claim form to your registered email id. Claim forms to be filled, signed & submitted along with the requested claim documents.</h6>`;
   email += `<br/><br/>We look forward to hearing from you in due course.<br/><br/>
   Yours sincerely,<br/>
   Claims Team<br/>
-  eclaims<br/> 	
-  Europ Assistance India`
+  eclaims<br/> 
+  Europ Assistance India`;
   email = email.replace('{Policy_Copy_}', submitedDoc);
-  // alert(email);
+  
+  // Check if all documents are uploaded
+  var allDocumentsUploaded = $(".upload").toArray().every(function (elem) {
+    return $(elem)[0].files.length > 0;
+  });
 
-  // https://eztraveluat.europassistance.in:3000/eclaims/itemByCaseNumber?CaseNumber=
-
-
-  // $.ajax({
-  //   async: true,
-  //   crossDomain: true,
-  //   url: env.node_api_url+'eclaims/itemByCaseNumber?CaseNumber=' + claimId,
-  //   type: "GET",
-  //   // data: fd,
-  //   // dataType: "JSON",
-  //   contentType: false,
-  //   processData: false,
-  //   headers: {
-  //     Authorization: "Bearer " + eclaim_token
-  //   },
-  //   success: function (data) {
-  //     var travelData = data;
-  //     $.ajax({
-  //       async: true,
-  //       crossDomain: true,
-  //       url: env.node_api_url+'eclaims/addAttachmentToClaims/multiple?travelCaseId=' + travelData[0].travelCaseRef,
-  //       type: "POST",
-  //       data: fd,
-  //       // dataType: "JSON",
-  //       contentType: false,
-  //       processData: false,
-  //       headers: {
-  //         Authorization: "Bearer " + eclaim_token
-  //       },
-  //       success: function (data) {
-  //         var user_F = JSON.parse(getFromStore("user"));
-  //         sendmail(user_F.email, `${claimId} updated`, email);
-  //         window.location = env.app_url + "index.html";
-  //       }
-  //     })
-  //   }
-  // })
-
-  var user_F = JSON.parse(getFromStore("user"));
-  sendmail(user_F.email, `${claimId} updated`, email);
-
-  alert('The document has been successfully uploaded');
+  if (allDocumentsUploaded) {
+    sendSeparateEmail();
+  } else {
+    // Not all documents are uploaded, continue with the existing email content
+    var user_F = JSON.parse(getFromStore("user"));
+    sendmail(user_F.email, `${claimId} updated`, email);
+  }
+  alert('The documents have been successfully uploaded');
   window.location = env.app_url + "index.html";
 
+  function sendSeparateEmail() {
+    // Define your separate email content and subject
+    var separateEmailContent = `Thank you for submitting all required documents. Your claim is now under review.`;
+    var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
+
+    // Get the user's email from where you have it
+    var user_F = JSON.parse(getFromStore("user"));
+    // Send the separate email
+    sendmail(user_F.email, separateEmailSubject, separateEmailContent);
+  }
 }
 
 $("#submitClaim12").click(function () {
@@ -468,7 +625,7 @@ $("#submitClaim12").click(function () {
   var fd = new FormData();
   var arr = [];
   var html = `<h6><strong> We have saved your claims details.and your reference number is ${claimId}. however, you still need to provide the below mandatory documents </strong> </h6>`
-  var email = `<strong>CLAIM REFERENCE:  ${claimId}</strong><br>
+  var email = `<strong>CLAIM REFERENCE:${claimId}</strong><br>
   Thank you for your following enclosures sent to us. <br><strong><li>Policy Copy</li></strong>
   <br/><span>In order for us to proceed with our assessment we will require the following additional information/documentation:</span>`
   $(".upload").each(function () {
@@ -488,12 +645,14 @@ $("#submitClaim12").click(function () {
     fd.append(scm, $(this)[0].files[0]);
 
   });
+
+
   // let email=html+"<h6>You also need to share the originals of Invoices & payment receipts <br/>Please note that this is just an acknowledgement of the details submitted by you and not an acceptance of your claim. Our team would try to verify your policy details manually and get in touch with you to assist with the next steps.</h6>"
   let display = html + `<br/><h6>We will be sending you the claim form to your registered email id.Claim forms to be filled, signed & submitted along with the requested claim documents`
   email += `<br/>We look forward to hearing from you in due course.<br/>
   Yours sincerely,<br/>
   Claims Team<br/>
-  eclaims<br/> 	
+  eclaims hello<br/> 	
   Europ Assistance India`
   // alert(tkId)
   // alert(fd);
@@ -610,10 +769,10 @@ function getCustomerClaims() {
                                     <h6>${value.travelPolicy[0] ? value.travelPolicy[0].policyNumber : 'NA'}</h6> 
                                 </div>
                                 <div class="clm-row">
-                                    <h6>${value.travelCases.subClaimType}</h6> 
+                                    <h6>${value.travelCases.subClaimType}</h6>
                                 </div>
                                 <div class="clm-row">
-                                  <h6>${value.travelCases.claimSatus}</h6> 
+                                  <h6>${value.travelCases.claimSatus}</h6>
                                 </div>
                               </div>`;
           }

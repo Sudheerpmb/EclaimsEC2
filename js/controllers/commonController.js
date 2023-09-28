@@ -82,7 +82,8 @@ function checkIfOtpverified() {
 
 }
 function sendmail(email, subject, body) {
-    alert("email has been send to your Registered mail")
+    alert("Email has been send to your Registered mail");
+    // alert("hello");
     var eclaims_token = getFromStore("eclaimsToken");
     $.ajax({
         async: true,
@@ -184,9 +185,8 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
     insuranceProviderpath = insuranceProvider.split(" ").join("").toUpperCase();    
     var eclaims_token = getFromStore("eclaimsToken");
     var access_token = getFromStore("token");
-    let cH=getFromStore('clientHash');
+    let cH = getFromStore('clientHash');
     var url = env.node_api_url +"eclaims/policyDetailAccordingToPolicyNumberAndDate";
-        // alert('LE');
     $.ajax({
         async: true,
         crossDomain: true,
@@ -228,7 +228,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
             }
             if (Result1 == "Details not found") {
                 console.log(Result1);
-                if (insuranceProvider == "EUROPASSISTANCE" || insuranceProvider == "RELIANCE") {
+                if (insuranceProvider == "EUROP ASSISTANCE" || insuranceProvider == "RELIANCE" || insuranceProvider == 'ASEGO ABHI' ) {
                     // setToStore('policyExpiry',json[0].policyEndDate);
                     window.location = env.app_url + "coverage.html";
                 }

@@ -46,7 +46,29 @@
         width: 70px;
       }
     }
+    #radioButtonsContainer {
+            text-align: center;
+        }
+        #loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+
+        }
 </style>
+<script>
+          function showLoader() {
+            document.getElementById("loader").style.display = "block";
+        }
+
+        // Function to hide the loader
+        function hideLoader() {
+            document.getElementById("loader").style.display = "none";
+        }
+</script>
   <div class="main">
     <!--Header-start-->
     <div class="header-sec">
@@ -55,7 +77,7 @@
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
             <div class="pull-left">
               <a href="#" title="">
-                <img src="images/logo.jpg" alt="" class="img"/></a>
+                <img src="images/Europ.jpg" alt="" class="img"/></a>
               <!-- <a href="eligibility.html"><button type="btn" class="btn"
                   style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
             </div>
@@ -102,7 +124,17 @@
                 <p>Select an appropriate Cause for filing this claim.
                 <p>Please note that the details provided here are indicative and have been provided to assist speedy
                   claim filing. For exact benefit and coverage details, please refer your policy document.</p>
-                <div id="claimContainer"></div>
+                  <div>
+                    <div id="loader">
+                      <img src="images/loader.gif" alt="Loader">
+                  </div>
+                    <div id="radioButtonsContainer">
+                    </div>
+                  </div>
+                 
+                    <div id="claimContainer"></div>
+
+  
                 <!-- <div class="coverage"><a href="claimform.html">
            <div class="coverage"><a href="claimform.html">
            <h5>Baggage Loss</h5>

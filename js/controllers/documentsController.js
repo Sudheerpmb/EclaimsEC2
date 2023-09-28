@@ -141,12 +141,15 @@ $(function () {
         var newForm = new FormData();
         newForm.append("clientId", clientId);
         newForm.append("eclaimToken", eclaims_token);
-        var claimTypeId = getFromStore("claimTypeIdM")
-
-
+        var claimTypeId = getFromStore("claimTypeIdM");
+        // Get an item from local storage by its key
+        var claimSubType = localStorage.getItem('clickedSubName');
         // var url =  env.api_url+"/api/Claims/GetAttachmentList?claimNo="+claimId;
         var url = env.node_api_url + 'eclaims/documents/list?claimtype=' + claimTypeId;
         //  removeFromStore("uploadedDocsList");
+        if (claimSubType) {
+            url += '&claimSubType=' + encodeURIComponent(claimSubType); 
+          }
         $.ajax({
             async: true,
             crossDomain: true,

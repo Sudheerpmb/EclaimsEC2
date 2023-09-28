@@ -40,6 +40,14 @@ $(function () {
 
             });
         });
+        var url = "js/json/countriesOther.json";
+        $.getJSON(url, function (data) {
+            $.each(data, function (name, value) {
+                $('#sel2').append('<option value="' + value.code + '">' + value.name + '</option>');
+                $('#permanent_country').append('<option value="' + value.code + '">' + value.name + '</option>');
+
+            });
+        });
     }
     /*
     function getAllClaimTypes(claimTypeId){
@@ -244,7 +252,8 @@ $(function () {
                                         "city": form.elements.permanentCity.value,
                                         "country": form.elements.permanentCountry.value,
                                         "zip": form.elements.permanentZipCode.value,
-                                        "Remarks": form.elements.Remarks.value
+                                        "Remarks": form.elements.Remarks.value,
+                                        "createdFrom":localStorage.getItem('type')
                 });
             
             let body = ''
@@ -295,8 +304,6 @@ $(function () {
             newForm.append("travelPolicyRef", travelPolicyRef);
             newForm.append("policycopy", policyCopy)
 
-
-
             /*newForm.append("Passport_Copy", form.elements.passportUpload.value);
             newForm.append("Visa_Exit_And_Entry", form.elements.visaUpload.value);
             newForm.append("PAN_Card", form.elements.panCardUpload.value);
@@ -312,7 +319,7 @@ $(function () {
             for (var pair of newForm.entries()) {
                 console.log(pair[0] + ', ' + pair[1]);
             }
-
+            // alert(claimData,'Hare Krishna');
             $.ajax({
                 async: true,
                 crossDomain: true,
