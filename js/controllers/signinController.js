@@ -26,6 +26,7 @@ function getClientName(uuid) {
       });
 
       window.clientId = response[0].clientName;
+      setToStore("prefix",response[0].prefix);
       setToStore("clientIDNM", clientId);
       document.getElementById("tataEmg").src = 'images/' + clientId + '.jpg';
       if (!clientId) {

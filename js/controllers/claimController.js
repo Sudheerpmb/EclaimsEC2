@@ -253,7 +253,8 @@ $(function () {
                                         "country": form.elements.permanentCountry.value,
                                         "zip": form.elements.permanentZipCode.value,
                                         "Remarks": form.elements.Remarks.value,
-                                        "createdFrom":localStorage.getItem('type')
+                                        "createdFrom":localStorage.getItem('type'),
+                                        "prefix":getFromStore('prefix')
                 });
             
             let body = ''
@@ -263,7 +264,7 @@ $(function () {
 
             }
             setToStore("policyFormPrs", body);
-
+console.log(claimData,'hello');
             let policyCopy = $('#policyCopy')[0].files[0]
             // document.write(policyCopy);
             var policyForm = new FormData();
