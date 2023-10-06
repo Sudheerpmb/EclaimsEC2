@@ -44,7 +44,7 @@
       top: 0;
       left: 0;
       z-index: 999;
-      background: rgba(255, 255, 255, 0.8) url("images/1495.gif") center no-repeat;
+      background: rgba(255, 255, 255, 0.8) url("images/loader.gif") center no-repeat;
     }
 
     /* Turn off scrollbar when body element has the loading class */
@@ -555,23 +555,9 @@
   }
     });
 
-   
-
-    //  else if (getFromStore("user")) {
-    //   var userObj = JSON.parse(getFromStore("user"));
-    //   // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
-    //   if (getFromStore("clientIDE") != "TATA AIG") {
-    //     $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
-    //     // $("#beneficiarySurName").val(userObj.lastName);
-    //     $("#beneficiaryEmail").val(userObj.email);
-    //     $("#beneficiaryNumber").val(userObj.mobile);
-    //   }
-    // }
-
-    if (getFromStore("user")) {
-      var userObj = JSON.parse(getFromStore("user"));
-      if (getFromStore("policyDetails")) {
+    if (getFromStore("policyDetails")) {
       var userObj = JSON.parse(getFromStore("policyDetails"));
+      // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
       $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName );
       // $("#beneficiarySurName").val(userObj.lastName);
       $("#policyNumberId").val(userObj.policyNumber);
@@ -613,40 +599,27 @@
                   );
 
     }
-    else{
-      if (getFromStore("clientIDE") != "TATA AIG"){
-        $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
-        $("#otherGender").show();
-        console.log("userObj.gender:", userObj.gender);
-
-                $("#gender").val(
-                  userObj.gender === "0" ? "Male" :
-                  userObj.gender === "1" ? "Female" :
-                  userObj.gender === "2" ? "Other" :
-                    userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined' 
-                    ? (typeof userObj.gender === 'number' && userObj.gender in genderMapping ? genderMapping[userObj.gender] : userObj.gender)
-                    : ""
-                );
-
-        $("#beneficiaryEmail").val(userObj.email);
-        $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
-        // $("#beneficiarySurName").val(userObj.lastName);
-        $("#beneficiaryEmail").val(userObj.email);
-        $("#beneficiaryNumber").val(userObj.mobile);
-
-      }
-    }
-  }
+    //  else if (getFromStore("user")) {
+    //   var userObj = JSON.parse(getFromStore("user"));
+    //   // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
+    //   if (getFromStore("clientIDE") != "TATA AIG") {
+    //     $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
+    //     // $("#beneficiarySurName").val(userObj.lastName);
+    //     $("#beneficiaryEmail").val(userObj.email);
+    //     $("#beneficiaryNumber").val(userObj.mobile);
+    //   }
+    // }
 
     // if (getFromStore("user")) {
     //   var userRefObj = JSON.parse(getFromStore("user"));
-    //   if (getFromStore("clientIDE") != "TATA AIG")
+    //   if (getFromStore("clientIDE") != "TATA AIG"){
     //     // $("#dob").val(userRefObj.dob);
-    //     $("#dob").val(userRefObj.dob ? userRefObj.dob : "");
+    //     $("#dob").val(userRefObj.dob !== undefined && userRefObj.dob !== null && userRefObj.dob !== 'undefined' ? userRefObj.dob : "");
     //     $("#otherGender").show();
     //     $("#gender").val(userRefObj.gender);
+    //   }
     // }
-    
+
     $("#policyNumberId").val(getFromStore("PolicyNumber_"));
     if (claimTypeId == 'FinancialAssistance') {
       // alert('hk')

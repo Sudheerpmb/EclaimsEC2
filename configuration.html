@@ -1,0 +1,312 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <style>
+          input::-webkit-outer-spin-button,
+          input::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+               margin: 0;
+           }
+        </style>   
+      </head>
+    <body>
+        <div style="padding: 40px;">
+            <h1 class="text-black-50">
+                Configuration
+            </h1>
+            <hr>
+            <div>
+                <form class="row  needs-validation" novalidate id="configurationForm">
+                    <div class="col-2">
+                        <label for="validationCustom04" class="form-label">Master Name</label>
+                        <select class="form-select" id="masterName" required>
+                          <option selected disabled value="">Choose...</option>
+                          <option value="Product Type">Product Type</option>
+                          <option value="Vehicle Type">Vehicle Type</option>
+                          <option value="Services">Services</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select a valid Name.
+                        </div>
+                      </div>
+                    
+                    <div class="col-2">
+                        <label for="validationCustom03" class="form-label">Parms</label>
+                        <input type="text" class="form-control" id="parms" required autocomplete="off">
+                        <div class="invalid-feedback">
+                          Please provide a valid Name.
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <label for="validationCustom04" class="form-label">Status</label>
+                        <select class="form-select" id="status" required>
+                          <option selected disabled value="">Choose...</option>
+                          <option value="active">Active</option>
+                          <option value="Inactive">Inactive</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select a valid Name.
+                        </div>
+                      </div>
+
+                    
+
+                      <div class="mb-3 col-2" style="margin-top: 32px;display: none;" id="savechanges">
+                        <button type="button" class="btn bg-danger text-light" id="saveChangeMaster">Updated</button>
+                        </div>
+                                          
+                     <div class="mb-3 col-2" style="margin-top: 32px;display: block;" id="saveMaster">
+                      <button type="button" class="btn bg-danger text-light" onclick="saveMaster()">Save</button>
+                      </div>
+                    
+                  </form>
+                  <div class="row">
+                  <div class="col-3">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                      </svg>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Master Name" aria-label="Mastername" aria-describedby="basic-addon1" id="masterSearch">
+                  </div>
+                  </div>
+                  <div class="mb-3 col-3">
+                    <button type="button" class="btn bg-danger text-light" onclick="masterName()">Search</button>
+                    </div>
+                    </div>
+            </div>
+           
+
+            <div class="table-container " style="margin-top: 30px;">
+                <table class="table table-responsive " id="table">
+                       <thead >
+                          <tr class="table-head" style="background-color: #144ca0; color: white;">
+                            <th class="text-light" style="text-align: center;">Sr No.</th>
+                            <th class="text-light" style="text-align: center;">Master Name</th>
+                            <th class="text-light" style="text-align: center;">Parms</th>
+                            <th class="text-light" style="text-align: center;">status</th>  
+                            <th></th>
+                            <th></th>                         
+                          </tr>
+                        </thead>
+                        <tbody id="tableBody">                         
+                        </tbody>  
+                  </table>
+                 </div>
+
+        </div>
+
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+
+function masterName(){
+         const master_Search = document.getElementById('masterSearch').value;
+         console.log(master_Search);
+
+         fetch(`https://epriceuatapi.europassistance.in/conf/${master_Search}`,{
+        
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+       })
+        .then(response => response.json()) 
+        .then(data => {
+           console.log(data);
+
+           let locationData = ""
+           for(var i = 0; i < data.length ; i++){
+
+
+            locationData += ` <tr>
+        <td scope= "row" style="text-align: center;">${i + 1}</td>
+        <td style="text-align: center;">${data[i].name}</td>
+        <td style="text-align: center;">${data[i].service}</td>
+        <td style="text-align: center;">${data[i].status}</td>
+        <td style="text-align: center;"> 
+          <button type="button" class="btn" onclick="editMaster('${data[i]._id}' , ${i})">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square text-primary" viewBox="0 0 16 16"  style="color: #144ca0;">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+</svg>
+</button>
+          </td>
+        <td style="text-align: center;">
+          <button type="button"  class="btn" onclick="deleteMaster('${data[i]._id}' , ${i})">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill " viewBox="0 0 16 16" style="color: #144ca0;">
+  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+</svg>
+</button>
+          </td>
+        </tr>`
+        
+       document.getElementById("tableBody").innerHTML = locationData;
+           }
+        })   
+       
+        document.getElementById('masterSearch').value = "";
+      }
+    
+
+const configuration_Form = document.getElementById('configurationForm');
+
+function saveMaster(){
+  if(configuration_Form.checkValidity())
+    {
+      const master_Name = document.getElementById('masterName').value;
+      const parm_s = document.getElementById('parms').value;
+      const statu_s = document.getElementById('status').value;
+      //const orde_r = document.getElementById('order').value;
+      //orde_r = parseInt(orde_r);
+
+      let masterData = {
+        name: master_Name,
+        service: parm_s,
+        status: statu_s
+      }
+
+      //console.log(masterData);
+
+      
+       
+        fetch('https://epriceuatapi.europassistance.in/conf', {
+           method: "POST",
+           body: JSON.stringify(masterData),
+           headers: {"Content-type": "application/json; charset=UTF-8"}
+         })
+          .then(response => response.json()) 
+
+
+     
+        configuration_Form.reset();
+    }
+    else{
+      configurationForm.reportValidity();
+    }
+
+ 
+}
+
+
+
+function deleteMaster(deleteId , r){
+
+  fetch(`https://epriceuatapi.europassistance.in/${deleteId}`, {
+        method: "DELETE",    
+         headers: {"Content-type": "application/json; charset=UTF-8"}})
+       .then(response => response.json()) 
+       .then(data => {
+          console.log("deleted record",data);
+       })
+
+       console.log(r + 1);
+       //var i = (r + 1).parentNode.rowIndex;
+       document.getElementById("table").deleteRow(r + 1);
+
+       alert('Do you want the record to be deleted');
+
+       masterName();
+
+}
+
+function editMaster(editId , num){
+
+  const save_changes = document.getElementById('savechanges');
+  save_changes.style.display = "block";
+
+  const save_Master = document.getElementById('saveMaster');
+  save_Master.style.display = "none";
+
+  fetch(`https://epriceuatapi.europassistance.in/getmaster/${editId}`)
+         .then(response => response.json()) 
+         .then(data => {
+            console.log(data);  
+
+            document.getElementById('masterName').value = data.name;
+            document.getElementById('parms').value = data.service;
+            document.getElementById('status').value = data.status;
+       })
+
+       const saveChange_Master = document.getElementById("saveChangeMaster");
+
+        saveChange_Master.onclick = function(){
+
+     if(configuration_Form.checkValidity())
+    {
+      const master_Name = document.getElementById('masterName').value;
+      const parm_s = document.getElementById('parms').value;
+      const statu_s = document.getElementById('status').value;
+
+      let updatedMasterData = {
+        name: master_Name,
+        service: parm_s,
+        status: statu_s
+      }
+
+      //console.log(masterData);
+
+      fetch(`https://epriceuatapi.europassistance.in/putMaster/${editId}`, {
+        method: "PUT",
+        body: JSON.stringify(updatedMasterData),
+         headers: {"Content-type": "application/json; charset=UTF-8"}
+         })
+        .then(response => response.json())  
+        
+        // displaing the changes in the respective row of table
+       var row = table.rows[num + 1];
+       row.cells[1].textContent = master_Name;    
+       row.cells[2].textContent = parm_s;
+       row.cells[3].textContent = statu_s;
+
+       configuration_Form.reset();
+       const save_changes = document.getElementById('savechanges');
+  save_changes.style.display = "none";
+
+  const save_Master = document.getElementById('saveMaster');
+  save_Master.style.display = "block";
+
+}
+else
+    {
+      configuration_Form.reportValidity();
+    } 
+}
+
+}
+
+var invalidChars = [
+    "-",
+    "+",
+    "e",
+    ".",
+  ];
+
+
+function numericOnly(event){
+   if (invalidChars.includes(event.key)) {
+    event.preventDefault();
+  }
+  }
+              
+            
+        </script>
+    </body>
+</html>
