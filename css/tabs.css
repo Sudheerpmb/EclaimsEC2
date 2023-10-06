@@ -17,6 +17,7 @@
 .tabs,#tab:after {
 	content:"";
 	clear:both;
+	display:;
 }
 .tabs li {
 	display:inline-block;

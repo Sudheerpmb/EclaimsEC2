@@ -31,6 +31,7 @@
       isAuthenticated();
 
 
+
     });
   </script>
   <style>
@@ -55,7 +56,7 @@
                 <img src="images/logo.jpg" alt="" /></a>
             </div>
             <div style="margin-top: 50px;">
-              <img id="" style="height:11vh;margin-top: -29px!important;" src="images/MCHI.jpg" alt="" />
+              <img id="tataEmg" style="height:11vh;margin-top: -29px!important;" src="images/MCHI.jpg" alt="" />
               <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
                   style="float: left; color: #024695; padding: 10px;"></i> </a>
               <a href="index.html"><i class="fa fa-home fa-2x"
@@ -99,7 +100,7 @@
               </a> </div>
           </div>
 
-           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <div class="section"  style="padding-bottom:13px !important;"> <a href="http://eahomecare.in/flight-track/" target="_blank"><img src="images/track.jpg" alt=""/>
             <h5 style="color:#037ebe;">&nbsp;<br>Flight Tracking</h5>
             </a> </div>
@@ -235,7 +236,7 @@
       getButtons(user.clientId.toUpperCase());
       if (user.clientId.toUpperCase() == 'TATA AIG')
         $("#geoCodingDiv").show();
-      document.getElementById("").src = 'images/' + user.clientId + '.jpg'
+      document.getElementById("tataEmg").src = 'images/' + user.clientId + '.jpg'
     })
   </script>
 

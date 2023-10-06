@@ -1,0 +1,754 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
+  <title>Travel e-claims</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/tabs.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href='css/css-fonts.css' rel='stylesheet'>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link href="plugins/toastr/toastr.css" rel="stylesheet">
+  <style type="text/css">
+    .main {
+      padding-bottom: 65px;
+    }
+
+    .footer {
+      position: relative;
+    }
+
+    .error {
+      display: block !important;
+    }
+
+    #sel2 {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 12px;
+      font-family: "Roboto", sans-serif;
+      cursor: pointer;
+      opacity: 0.6;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.8) url("images/loader.gif") center no-repeat;
+    }
+
+    /* Turn off scrollbar when body element has the loading class */
+    body.loading {
+      overflow: hidden;
+    }
+
+    /* Make spinner image visible when body element has the loading class */
+    body.loading .overlay {
+      display: block;
+    }
+  </style>
+
+
+  <script src="js/lib/jquery-1.11.1.min.js"></script>
+  <script src="js/lib/jquery.validate.min.js"></script>
+  <script src="js/lib/additional-methods.min.js"></script>
+  <script src="js/lib/jquery-ui.js"></script>
+  <script src="js/lib/util.js"></script>
+  <script src="js/lib/const.js"></script>
+  <script src="js/controllers/claimController.js"></script>
+  <script src="js/controllers/commonController.js"></script>
+  <script src="plugins/toastr/toastr.js"></script>
+  <script>
+    // Add remove loading class on body element based on Ajax request status
+    $(document).on({
+      ajaxStart: function () {
+        $("body").addClass("loading");
+      },
+      ajaxStop: function () {
+        $("body").removeClass("loading");
+      }
+    });
+  </script>
+</head>
+
+<body class="loading">
+  <div class="overlay"></div>
+  <script type="text/javascript">
+
+    let cls = getFromStore("clientIDE");
+
+    $(function () {
+      $('#airport__').hide();
+      $('#laungeDiv').hide();
+      $('#baggageLossDiv').hide();
+      $('#luggageLossDiv').hide();
+      $('#AirportServicecsDiv').hide();
+      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg'; isAuthenticated();
+      var urlParams = new URLSearchParams(window.location.search);
+      if(cls=='TATA AIG'){
+    document.getElementById("incidentDateLabel").innerHTML = "Date Of Loss / Claims Date / Treatment Date";
+      }
+
+      $('#incidentDate').datepicker({ dateFormat: 'dd-mm-yy' });
+      $('#dob').datepicker({
+        dateFormat: 'dd-mm-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-115:+10', beforeShow: function () {
+          setTimeout(function () {
+            $('.ui-datepicker').css('z-index', 99999999999999);
+
+          }, 0);
+        },
+      });
+
+      window.claimTypeId = urlParams.get('id');
+
+      setToStore("claimTypeIdM", claimTypeId);
+      if (!claimTypeId) {
+        toastr.error('Invalid url');
+        window.history.back();
+      }
+
+      if (claimTypeId != 4) {
+        $("#paymentTypeContainer").hide();
+      }
+
+      isAuthenticated();
+
+      if (claimTypeId) {
+
+        $.ajax({
+          url: env.app_url + "data/claimTypes.json",
+          method: "GET"
+        }).success(function (response) {
+          var claimTypes = response;
+          var result = '';
+          Object.values(claimTypes).forEach(value => {
+            if (value.id == claimTypeId) {
+              $("#eventId").val(value.Event);
+              $("#eventLabel").val(value.EventLabel);
+              $("#eventDetails").val(value.EventDetails);
+              $("#eventDetailLabel").val(value.EventDetailLabel);
+              $("#cause").val(value.ClaimName);
+            }
+          });
+
+        });
+      }
+
+
+      $('input[type="file"]').change(function (e) {
+
+        //alert($('#upload_id')[0].files[0].name);
+        var i = $(this).next('label').clone();
+        var file = e.target.files[0].name;
+        $(this).next('label').text(file);
+      });
+
+
+    });
+  </script>
+
+  <div class="main">
+    <!--Header-start-->
+    <div class="header-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
+            <div class="pull-left">
+              <a href="#" title="">
+                <img src="images/logo.jpg" alt="" /></a>
+                <a href="coverage.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a>
+            </div>
+            <div style="margin-top: 50px;">
+              <img id="tataEmg" style="max-height:11vh;margin-top: -29px!important;" src="" alt="" />
+              <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                  style="float: left; color: #024695; padding: 10px;"></i> </a>
+              <a href="index.html"><i class="fa fa-home fa-2x"
+                  style="float: left; color: #024695; padding: 10px;"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Header-End-->
+    <div class="body-wraper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="claim-title">
+              <h1>File a new claim</h1>
+
+              <div class="status-bar">
+                <ul class="progressbar">
+                  <li class="active"></li>
+
+                  <li class="active"></li>
+
+                  <li class="active"></li>
+
+                  <li class="spc"><span>Claim form</span></li>
+                  <li></li>
+                </ul>
+              </div>
+            </div>
+            <div class="claim-entry">
+
+              <h2><span><i style="font-size:16px" class="fa">&#xf2ba;</i> Claim form</span> </h2>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="navigate">
+                  <a href="coverage.html" class="left-btn">&#8810;Back</a>
+                  <a href="documentsuploadpage.html" class="right-btn">&#8702;Back</a>
+                </div>
+
+              </div>
+              <br>
+              <div class="mandatory">
+                <sup>*</sup> These fields are required.
+              </div>
+              <form id="createClaim" autocomplete="off" action="">
+                <h3>Policy Details</h3>
+                <hr/>
+                <div id="airport__">
+                  <label>
+                    AirPort
+                  </label>
+                  <input type="text" name="airPort" id="airport" placeholder="Enter Airport" class="inpt" />
+                </div>
+                <div id="laungeDiv">
+
+                  <label>
+                    Launge
+                  </label>
+                  <input type="text" name="launge" id="Launge" placeholder="Enter Launge" class="inpt" />
+                </div>
+                <div id="luggageLossDiv">
+                  <!-- <label>
+                      TagNo
+                    </label>
+                    <input type="text" name="Tagno" id="Tagno" placeholder="Enter Tag No"
+                      class="inpt" /> -->
+                </div>
+
+                <div id="AirportServicecsDiv">
+                  <label>
+                    airport services
+                  </label>
+                  <input type="text" name="airportservices" id="airportServices" placeholder="Enter Tag No" class="inpt" />
+                </div>
+
+                <div id="baggageLossDiv">
+                  <label>
+                    TagNo
+                  </label>
+                  <input type="text" name="Tagno" id="Tagno" placeholder="Enter Tag No" class="inpt" />
+                </div>
+                <label>
+                  Policy Number
+                </label>
+                <input type="text" name="policyNumber" id="policyNumberId" placeholder="Enter policy number"
+                  class="inpt" />
+
+                <label id="incidentDateLabel">Date of Loss <span style="color: red;">*</span>
+                </label>
+                <input type="text" name="incidentDate" id="incidentDate" placeholder="Enter incident date"
+                  class="inpt" />
+
+
+                <label> Current Address <span style="color: red;">*</span></label>
+                <input type="text" name="incidentAddress" id="incident_Address_id" placeholder="Enter address"
+                  class="inpt" />
+
+                <label>
+                  City of Loss <span style="color: red;">*</span>
+                </label>
+                <input type="text" name="incidentCity" placeholder="Enter city" class="inpt" />
+
+
+
+                <label>
+                  Country of Loss <span style="color: red;">*</span>
+                </label>
+                <select name="incidentCountry" id="sel2" class="inpt">
+                  <option value="" class="inpt">Select Country of Loss
+                  </option>
+                </select>
+
+
+
+                <label> Postal code (Optional)</label>
+                <input type="text" name="zipCode" placeholder="Enter Zip Code" class="inpt" />
+
+
+                <label>Date of Birth <span style="color: red;">*</span>
+                </label>
+                <input type="text" name="dob" id="dob" placeholder="Enter date of birth" class="inpt" />
+
+                <label>
+                  Gender <span style="color: red;">*</span>
+                </label>
+                <select name="gender" id="gender" class="inpt">
+                  <option value="" class="inpt">Select Gender</option>
+                  <option value="0" class="inpt">Male</option>
+                  <option value="1" class="inpt">Female</option>
+                  <option value="2" class="inpt">Others</option>
+                </select>
+
+                <div class="row">
+                  <div class="col-md-6 col-xs-6">
+                    <label> Claim Amount <span style="color: red;">*</span>
+                    </label>
+                    <input type="text" name="claimAmount" placeholder="Enter Claim Amount" class="inpt" />
+                  </div>
+                  <div class="col-md-6 col-xs-6">
+
+                    <label>
+                      Type of Currency <span style="color: red;">*</span>
+                    </label>
+                    <select name="TypeOfCurrency" id="TypeOfCurrency" class="inpt">
+                      <option value="" class="inpt">Select Currency Type</option>
+                    </select>
+
+
+                  </div>
+
+                </div>
+                <div id="paymentTypeContainer">
+                  <div class="devide-sec"></div>
+                  <div id="space" style="height: 10px;"></div>
+                  <div class="inpt row" style="margin-left: 0px;">
+                    <div> <input type="radio" id="reimbursement" name="paymentType" value="reimbursement"
+                        checked><label>Reimbursement</label></div> &nbsp;&nbsp;&nbsp;
+                    <div id="cashType"><input type="radio" id="cashless" name="paymentType"
+                        value="cashless"><label>Cashless</label></div>
+                  </div>
+                </div>
+
+
+
+
+                <!-- <div  style="padding: 0px;" id="policyForm"> -->
+
+                <div class="devide-sec"></div>
+
+                <div class="col-md-12 " style="margin: 5px;">
+                  <label>Policy Copy<sup>*</sup></label>
+                  <div class="button-red-wrapper">
+                    <span class="label">Upload</span>
+                    <input type="file" name="Policy copy" id="policyCopy" accept="image/jpeg,image/png,application/pdf"
+                      data-msg-accept="File type should be PDF, jpeg or png." class=" form-control upload upload-box"
+                      placeholder="Upload File">
+                    <label for="Policy copy"></label>
+                  </div>
+                </div>
+                <div class="devide-sec"></div>
+                <!-- </div> -->
+
+                <!-- <div class="row" id="uploadDocuments" style="padding: 0px;">
+                  <div class="col-md-12 form-group">
+                  <label style="margin-bottom: 1.5rem;">Passport copy<sup>*</sup></label>
+                  <div  class="button-wrapper" >
+                    <span class="label"> Upload</span>
+                    <input type="file"   name="Passport copy" accept="application/pdf"  data-msg-accept="File type should be only PDF." class="form-control upload upload-box" placeholder="Upload File">
+                    <label for="Passport copy"></label>
+                  </div>
+                </div>
+          <br>
+          <div class="col-md-12 form-group">
+                  <label style="margin-bottom: 1.5rem;">Immigration entry and exit<sup>*</sup></label>
+                  <div class="button-wrapper" >
+                    <span class="label">Upload</span>
+                   <input type="file"  name="Immigration entry and exit" accept="application/pdf"  data-msg-accept="File type should be only PDF."  class="form-control upload upload-box" placeholder="Upload File">
+                   <label for="Immigration entry and exit"></label>
+                  </div>
+                  </div>
+				   <br>
+                 </div> -->
+
+                <!-- <div class="row" id="uploadDocuments2" style="padding: 0px;">
+                  <div class="col-md-12 form-group">
+                  <label style="margin-bottom: 1.5rem;">PAN card<sup>*</sup></label>
+                  <div class="button-wrapper" >
+                    <span class="label">Upload</span>
+                    <input type="file"  name="PAN card" accept="application/pdf"  data-msg-accept="File type should be only PDF."  class="form-control upload upload-box" placeholder="Upload File">
+                    <label for="PAN Card"></label>
+                  </div>
+                </div>
+          <br>
+          <div class=" col-md-12 form-group">
+                  <label style="margin-bottom: 1.5rem;">Cancelled cheque<sup>*</sup></label>
+                  <div class="button-wrapper" >
+                    <span class="label">Upload</span>
+                    <input type="file" name="Cancelled cheque" accept="application/pdf"  data-msg-accept="File type should be only PDF." class="form-control upload upload-box"
+                      placeholder="Upload File">
+                      <label for="Cancelled cheque"></label>
+                    </div>
+                </div>
+				  <br>
+                </div> -->
+
+
+
+
+
+                <label>
+                  Insured Person / Policy Holder First Name <span style="color: red;">*</span>
+                </label>
+                <input type="text" name="customerName" id="beneficiaryName" placeholder="Enter first name"
+                  class="inpt" />
+
+                <label>
+                  Insured Person / Policy Holder Surname<span style="color: red;">*</span>
+                </label>
+                <input type="text" name="customerSurName" id="beneficiarySurName" placeholder="Enter surname"
+                  class="inpt" />
+
+                  <label id="EmployeeNoL">
+                    Employee Number <span style="color: red;">*</span>
+                  </label>
+                  <input type="text" name="EmployeeNumber" id="EmployeeNumber" placeholder="Enter Employee number"
+                    class="inpt" />
+
+                    <label>
+                      Claimed Person Type <span style="color: red;">*</span>
+                    </label>
+                    <select name="ClaimedPersonType" id="ClaimedPersonType" class="inpt">
+                      <option value="" class="inpt">Select Claimed Person Type</option>
+                    </select>
+
+                <label>
+                  Mobile Number <span style="color: red;">*</span>
+                </label>
+                <input type="text" name="contactNumber" id="beneficiaryNumber" placeholder="Enter beneficiary number"
+                  class="inpt" />
+                <label>
+                  Beneficiary Email <span style="color: red;">*</span>
+                </label>
+                <input type="text" name="contactEmail" id="beneficiaryEmail" placeholder="Enter beneficiary email"
+                  class="inpt" />
+
+
+                <label>
+                  Residential Address (Optional)
+                </label>
+                <input type="text" name="permanentAddress" id="permanent_address_id" placeholder="Enter  address"
+                  class="inpt" />
+
+                <label>
+                  Street 1
+                </label>
+                <input type="text" name="permanenetStreetOne" id="permanent_street_one" placeholder="Enter street one"
+                  class="inpt" />
+
+                <label>
+                  Street 2
+                </label>
+                <input type="text" name="permanenrStreetTwo" id="permanent_street_two" placeholder="Enter street two"
+                  class="inpt" />
+
+
+                <label>
+                  City
+                </label>
+                <input type="text" name="permanentCity" id="permanent_city" placeholder="Enter city" class="inpt" />
+
+                <label>
+                  State
+                </label>
+                <input type="text" name="permanentRegion" id="permanent_region" placeholder="Enter state"
+                  class="inpt" />
+
+
+
+
+                <label>
+                  Country
+                </label>
+                <select name="permanentCountry" id="permanent_country" class="inpt">
+                  <option value="" class="inpt">Select Country
+                  </option>
+                </select>
+
+
+                <label> Postal Code</label>
+                <input type="text" name="permanentZipCode" id="permanent_zip_code" placeholder="Enter postal code"
+                  class="inpt" />
+                <label> Brief Description Of Loss</label>
+                <input type="text" name="Remarks" id="Remarks" placeholder="please enter your comments" class="inpt" />
+
+                <input type="hidden" name="eventId" id="eventId" />
+                <input type="hidden" name="eventLabel" id="eventLabel" />
+                <input type="hidden" name="eventDetails" id="eventDetails" />
+                <input type="hidden" name="eventDetailLabel" id="eventDetailLabel" />
+                <input type="hidden" name="cause" id="cause" />
+                <button type="submit" id="ajaxStart" class="btn-two" style="cursor: pointer;"> Continue</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Footer-start-->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+            <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer-end-->
+  </div>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+</body>
+
+</html>
+<script>
+  $(document).ready(function () {
+    $('#EmployeeNumber').hide();
+    $('#EmployeeNoL').hide();
+    if(getFromStore("clientIDE")=='TATA AIG'){
+      $('#EmployeeNumber').show();
+    $('#EmployeeNoL').show();
+    }
+    var eclaim_token = getFromStore("eclaimsToken");
+    var user_F = JSON.parse(getFromStore("user"));
+    $.ajax({
+      async: true,
+      crossDomain: true,
+      url: env.node_api_url + `eclaims/customers/getCustomerListByEmail?email=${user_F.email}&phone=${user_F.mobile}`,
+      type: "GET",
+      contentType: false,
+      processData: false,
+      headers: {
+        Authorization: "Bearer " + eclaim_token
+      },
+      success: function (data) {
+        let json = data;
+        // alert(json)
+      }
+    });
+
+    if (getFromStore("policyDetails")) {
+      var userObj = JSON.parse(getFromStore("policyDetails"));
+      // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
+      $("#beneficiaryName").val(userObj.firstName);
+      $("#beneficiarySurName").val(userObj.lastName);
+      $("#policyNumberId").val(userObj.policyNumber);
+
+      $("#beneficiaryEmail").val(userObj.email);
+      $("#beneficiaryNumber").val(userObj.mobile);
+
+    } else if (getFromStore("user")) {
+      var userObj = JSON.parse(getFromStore("user"));
+      // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
+      if(getFromStore("clientIDE")!="TATA AIG"){
+      $("#beneficiaryName").val(userObj.firstName);
+      $("#beneficiarySurName").val(userObj.lastName);
+      $("#beneficiaryEmail").val(userObj.email);
+      $("#beneficiaryNumber").val(userObj.mobile);
+      }
+    }
+
+    if (getFromStore("user")) {
+      var userRefObj = JSON.parse(getFromStore("user"));
+      if(getFromStore("clientIDE")!="TATA AIG")
+      $("#dob").val(userRefObj.dob);
+      $("#gender").val(userRefObj.gender);
+    }
+    $("#policyNumberId").val(getFromStore("PolicyNumber_"));
+    if (claimTypeId == 'FinancialAssistance') {
+      // alert('hk')
+      setToStore('policyCopyReq', 0)
+      $("#policyNumberId").val('');
+      setToStore('claimTypeIdM', 'FinancialAssistance')
+    }
+    if (claimTypeId == 'LoungeService') {
+      $('#airport__').show();
+      $('#laungeDiv').show();
+
+      setToStore('policyCopyReq', 0)
+      $("#policyNumberId").val('');
+      setToStore('claimTypeIdM', 'LoungeService')
+    }
+
+    if (claimTypeId == 'BaggageLoss') {
+      $('#baggageLossDiv').show();
+      $('#airport__').show();
+      setToStore('policyCopyReq', 0)
+      $("#policyNumberId").val('');
+      setToStore('claimTypeIdM', 'BaggageLoss')
+    }
+    if (claimTypeId == 'luggageLoss') {
+      $('#luggageLossDiv').show();
+      $('#airport__').show();
+      setToStore('policyCopyReq', 0)
+      $("#policyNumberId").val('');
+      setToStore('claimTypeIdM', 'luggageLoss')
+    }
+    if (claimTypeId == 'AirportServicecs') {
+      $('#AirportServicecsDiv').show();
+      $('#airport__').show();
+      setToStore('policyCopyReq', 0)
+      $("#policyNumberId").val('');
+      setToStore('claimTypeIdM', 'AirportServicecs')
+    }
+
+
+
+
+
+    var url = location.href;
+    if (url.search('sts') >= 0) {
+
+      $('#navigate').show();
+    }
+    else {
+      $('#navigate').hide();
+
+    }
+  });
+
+</script>
+<script>
+
+  $(document).ready(function () {
+    data = [
+      "CAD", "HKD", "ISK", "PHP", "DKK", "HUF", "CZK", "GBP", "RON", "SEK", "IDR", "INR", "BRL", "RUB", "HRK",
+      "JPY", "THB", "CHF", "EUR", "MYR", "BGN", "TRY", "CNY", "NOK", "NZD", "ZAR", "USD", "MXN", "SGD", "AUD",
+      "ILS", "KRW", "USD", "PLN"]
+    for (var index = 0; index < data.length; index++) {
+      $('#TypeOfCurrency').append('<option value="' + data[index] + '">' + data[index] + '</option>');
+    }
+    data = ["Employee", "Spouse", "Child"]
+    for (var index = 0; index < data.length; index++) {
+      $('#ClaimedPersonType').append('<option value="' + data[index] + '">' + data[index] + '</option>');
+    }
+    $('#uploadDocuments2').show();
+    $('input[type=radio]').on("change", function () {
+      $('#uploadDocuments').show();
+      $('#uploadDocuments2').show();
+
+      if ($(this).prop('id') === "cashless") {
+        $('#uploadDocuments2').hide();
+      }
+    });
+  });
+
+
+
+</script>
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCHE63tfw3AxMsCuRYUF6oqXd8Feu-cXts"></script>
+
+<script>
+  google.maps.event.addDomListener(window, 'load', function () {
+    var places = new google.maps.places.Autocomplete(document.getElementById('incident_Address_id'));
+
+    var permanentPlaces = new google.maps.places.Autocomplete(document.getElementById('permanent_address_id'));
+
+
+    google.maps.event.addListener(permanentPlaces, 'place_changed', function () {
+
+      var getaddress = permanentPlaces.getPlace(); //alert(getaddress.address_components[0].long_name);
+      var whole_address = getaddress.address_components;  //alert(whole_address + 'whole_address');   
+      console.log(whole_address);
+      console.log(permanentPlaces.getPlace());
+      $("#permanent_region").val('');
+      $("#permanent_city").val('');
+      $("#permanent_country").val('');
+      $("#permanent_zip_code").val('');
+
+
+      $.each(whole_address, function (key1, value1) {
+
+        if ((value1.types[0]) == 'locality') {
+          var prev_long_name_city = value1.long_name;
+          $("#permanent_city").val(prev_long_name_city);
+        }
+
+
+        if ((value1.types[0]) == 'administrative_area_level_1') {
+          var prev_long_name_state = value1.long_name;
+          $("#permanent_region").val(prev_long_name_state);
+        }
+
+        if ((value1.types[0]) == 'country') {
+          var prev_long_name_country = value1.short_name;
+          $("#permanent_country").val(prev_long_name_country);
+        }
+
+        if ((value1.types[0]) == 'postal_code') {
+          var prev_long_name_pincode = value1.long_name;
+          //alert(prev_long_name_pincode + '__prev_long_name_pincode');
+          $("#permanent_zip_code").val(prev_long_name_pincode);
+        }
+
+      });
+
+    });
+
+
+
+    google.maps.event.addListener(places, 'place_changed', function () {
+      console.log(places.getPlace());
+      var getaddress = places.getPlace(); //alert(getaddress.address_components[0].long_name);
+      var whole_address = getaddress.address_components;  //alert(whole_address + 'whole_address');   
+      $("input[name='incidentCity']").val('');
+      // $("input[name='incidentState']").val('');
+      $("input[name='incidentCountry']").val('');
+      $("input[name='zipCode']").val('');
+
+      $.each(whole_address, function (key1, value1) {
+        //alert(value1.long_name);
+        //alert(value1.types[0]);
+
+
+        if ((value1.types[0]) == 'locality') {
+          var prev_long_name_city = value1.long_name;
+          //alert(prev_long_name_city + '__prev_long_name_city');
+          $("input[name='incidentCity']").val(prev_long_name_city);
+        }
+
+
+        // if ((value1.types[0]) == 'administrative_area_level_1') {
+        //   var prev_long_name_state = value1.long_name;
+        //   //alert(prev_long_name_state + '__prev_long_name_state');
+        //   $("input[name='incidentState']").val(prev_long_name_state);
+        // }
+
+        if ((value1.types[0]) == 'country') {
+          var prev_long_name_country = value1.short_name;
+          //alert(prev_long_name_country + '__prev_long_name_country');
+          $("#sel2").val(prev_long_name_country);
+        }
+
+        if ((value1.types[0]) == 'postal_code') {
+          var prev_long_name_pincode = value1.long_name;
+          //alert(prev_long_name_pincode + '__prev_long_name_pincode');
+          $("input[name='zipCode']").val(prev_long_name_pincode);
+        }
+
+      });
+
+    });
+
+
+
+
+  });
+</script>

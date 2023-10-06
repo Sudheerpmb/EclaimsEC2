@@ -162,7 +162,7 @@ function getPolicy(policyNumber) {
             })
 }
 async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
-    $('#loader').show();
+    showLoader();
     if (policyNumber == '') {
         toastr.error('Please Enter Policy Number');
         return false;
@@ -203,7 +203,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
             Authorization: "Bearer " + eclaims_token
         },
         success:  function (Result1) {
-            $('#loader').hide();
+            hideLoader();
             let json = Result1;
             // alert(json.length);
             if (Array.isArray(json) && json.length > 1) {

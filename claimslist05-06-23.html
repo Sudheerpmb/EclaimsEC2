@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-signin-client_id" content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
+<title>Travel e-claims</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="css/tabs.css" rel="stylesheet" type="text/css"/>
+<link href="css/style.css" rel="stylesheet" type="text/css"/>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link rel="stylesheet" href="css/font-awesome.min.css">
+
+<script src="js/lib/jquery-1.11.1.min.js"></script>
+<script src="js/lib/jquery.validate.min.js"></script>
+<script src="js/lib/additional-methods.min.js"></script>
+<script src="js/lib/util.js"></script>
+<script src="js/lib/const.js"></script>
+<script src="js/controllers/homeController.js"></script>
+<script src="js/controllers/commonController.js"></script>
+ <style>
+		 .btn2 {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}</style>
+</head>
+
+<body>
+
+<!-- <script type="text/javascript">
+
+let cls=getFromStore("clientIDE");
+ $(function(){
+  document.getElementById("tataEmg").src ='images/'+ cls+'.jpg';
+    isAuthenticated();
+    getCustomerClaims();
+ });
+</script> -->
+
+<div class="main"> 
+ <!--Header-start-->
+ <div class="header-sec">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
+        <div class="pull-left"> 
+          <a href="#" title="">
+          <img src="images/logo.jpg" alt=""/></a> 
+          <a href="index.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a>
+        </div>
+        <div  style="margin-top: 50px;">
+          <img id ="tataEmg"style="max-height:11vh;margin-top: -29px!important;"src=""  alt=""/>  
+          <a href="#" onclick="javascript:signOut()" ><i class="fa fa-sign-out fa-2x" style="float: left; color: #024695; padding: 10px;"></i> </a>            
+          <a href="index.html"><i class="fa fa-home fa-2x" style="float: left; color: #024695; padding: 10px;"></i></a>
+        </div>          
+      </div>
+    </div>
+  </div>
+</div>  
+<!--Header-End-->
+  <div class="body-wraper">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- <div class="claim-title"> -->
+          <!-- <h1></h1> -->
+          <!-- </div> -->
+          <div class="claim-entry">
+          <h2><span>Claim list</span></h2>
+         <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+		<div class="navigate" id="navigate2">
+		<a href="index.html" class="left-btn"> &#8810;Back</a>
+		<a href="claim-ummary.html" class="right-btn">&#8702;</a>
+		</div>
+		<div class="navigate" id="navigate">
+		<a href="index.html" class="left-btn">&#8810;Back</a>
+		<a href="documentsuploadpage.html" class="right-btn">&#8702;</a>
+		</div>
+		</div> -->
+          
+         <div id="claimsListContainer"></div>
+          <!--  <div class="search-criteria" align="center">
+			 <label style="text-decoration: none;background-color:transparent;">Unable to find your claim? Search old claims here...</label><br>
+		  <select class="filter"  id="sel-filter" >
+		<option>Search criteria</option>
+             <option>Claim Number</option>
+              <option>Email</option>
+			 <option>Policy Number</option>
+             <option>Mobile Number</option>
+			
+		  </select>
+		 
+		  <input type="text" name="search-input" style="width:30%;height: 0%;" >
+		   <button class="btn2"> <i class="fa fa-search"></i></button>
+		  </div> -->
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Footer-start-->
+  <div class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+          <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!--Footer-end--> 
+</div>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+</body>
+</html>
+
+<script>
+$(document).ready(function() {
+  var url = location.href;
+  if (url.search('sts') >= 0) {
+  $('#navigate2').hide();
+   $('#navigate').show();
+
+   }
+  else{
+  $('#navigate').hide();
+  $('#navigate2').show();
+  }
+});
+</script>

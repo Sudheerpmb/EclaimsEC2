@@ -128,7 +128,7 @@ function getButtons(clientId) {
 
     // Function to fetch and display claim types based on the selected radio button name
     function displayClaimTypesBasedOnRadioName(radioName) {
-      $('#loader').show();
+      showLoader();
       $.ajax({
         async: true,
         crossDomain: true,
@@ -148,8 +148,8 @@ function getButtons(clientId) {
         },
         success: function (claimTypesResponse) {
           setTimeout(function () {
-            $('#loader').hide();
-        }, 800);
+            hideLoader();
+        }, 500);
           // Sort claim types within claimTypesResponse
           claimTypesResponse.sort(function (a, b) {
             return parseInt(a.order) - parseInt(b.order);
