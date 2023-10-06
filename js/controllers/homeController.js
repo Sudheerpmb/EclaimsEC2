@@ -128,7 +128,7 @@ function getButtons(clientId) {
 
     // Function to fetch and display claim types based on the selected radio button name
     function displayClaimTypesBasedOnRadioName(radioName) {
-      showLoader();
+      $('#loader').show();
       $.ajax({
         async: true,
         crossDomain: true,
@@ -148,8 +148,8 @@ function getButtons(clientId) {
         },
         success: function (claimTypesResponse) {
           setTimeout(function () {
-            hideLoader();
-        }, 500);
+            $('#loader').hide();
+        }, 800);
           // Sort claim types within claimTypesResponse
           claimTypesResponse.sort(function (a, b) {
             return parseInt(a.order) - parseInt(b.order);
@@ -293,6 +293,7 @@ function getClaimDetails(claimId) {
         }
         var type = json.travelCases.claimType;
         var travelTdocs = json.travelCases.documents;
+        var subtype = json.travelCases.subClaimType;
 
         $("#claim_id").html(json.ClaimId);
         $("#pnumber").html(json.policy.policyNumber);
@@ -305,8 +306,10 @@ function getClaimDetails(claimId) {
         // else
         // $("#policyIssuelabel").hide()
         // $("#policyIssueDate").html(`NA`)
-        var urlTo = env.node_api_url + 'eclaims/documents/list?claimtype=' + type;
-
+        var urlTo = env.node_api_url  + 'eclaims/documents/list?claimtype=' + type;
+        if (subtype) {
+          urlTo += '&claimSubType=' + encodeURIComponent(subtype); 
+        }
 
         $.ajax({
           async: true,
@@ -610,7 +613,8 @@ function submitClaims_() {
 
   function sendSeparateEmail() {
     // Define your separate email content and subject
-    var separateEmailContent = `Thank you for submitting all required documents. Your claim is now under review.`;
+    var user_F = JSON.parse(getFromStore("user"));
+    var separateEmailContent = `Dear ${user_F.firstName + ' '+ user_F.lastName }<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
     var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
 
     // Get the user's email from where you have it
@@ -749,7 +753,7 @@ function getCustomerClaims() {
         let contacts = new Map()
         let claimCount = 0;
         Object.values(json).forEach(value => {
-          if (value.CaseNumber.substring(0, 2) == user.clientId.substring(0, 2).toUpperCase() && !contacts.has(value.CaseNumber)) {
+          if (value.CaseNumber.substring(0, 2) == getFromStore('prefix').substring(0, 2).toUpperCase() && !contacts.has(value.CaseNumber)) {
             contacts.set(value.CaseNumber, 1)
             let insuProvider = 'NA'
             if (value.insuranceProvider)

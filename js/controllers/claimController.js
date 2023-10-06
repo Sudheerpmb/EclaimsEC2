@@ -217,34 +217,35 @@ $(function () {
                                         "dateOfBirth": form.elements.dob.value,
                                         "gender": form.elements.gender.value,
                                         "caseType": "3",
-                                        "title": "Mr.",
+                                        "title": "",
                                         "ClaimedPersonType":form.elements.ClaimedPersonType.value,
-                                        "claimDescription": "test desc",
-                                        "claimEvent": "Client Esclation",
-                                        "claimMode": "cash",
-                                        "claimNote": "test claim",
-                                        "claimReported": "Eclaims",
+                                        "claimDescription": "",
+                                        "claimEvent": "",
+                                        "claimMode": "",
+                                        "claimNote": "",
+                                        "claimReported": "",
                                         "claimType": claimTypeId,
                                         "contactEmail": form.elements.contactEmail.value,
                                         "contactNumber": form.elements.contactNumber.value,
                                         "currency": form.elements.TypeOfCurrency.value,
                                         "customerRef": customerRef,
                                         "hopsitalZipCode": form.elements.zipCode.value,
-                                        "hospital": "Test Hosp",
-                                        "hospitalAddress": "Test Hosp Address",
-                                        "hospitalCity": "Visakhapatnam",
-                                        "hospitalCountry": "IND",
-                                        "hospitalState": "Andhra Pradesh",
-                                        "hospitaltype": "Government",
+                                        "hospital": "",
+                                        "hospitalAddress": "",
+                                        "hospitalCity": "",
+                                        "hospitalCountry": "",
+                                        "hospitalState": "",
+                                        "hospitaltype": "",
                                         "incidentAddress": form.elements.incidentAddress.value,
                                         "incidentCity": form.elements.incidentCity.value,
                                         "incidentCountry": form.elements.incidentCountry.value,
                                         "incidentDate": incCreateDate,
-                                        "incidentState": "Andhra Pradesh",
+                                        "incidentState": "",
                                         "initialReservAmountUSD": form.elements.claimAmount.value,
-                                        "clientId": clientId,
-                                        "subClaimType": "Medical Out-patient",
-                                        "travelDate": "2021-04-02",
+                                        "clientId": getFromStore('prefix'),
+                                        "clientName":getFromStore('clientIDNM'),
+                                        "subClaimType": getFromStore('clickedSubName'),
+                                        "travelDate": "",
                                         "travelPolicyRef": travelPolicyRef,
                                         "address1": form.elements.permanentAddress.value,
                                         "address2": form.elements.permanenetStreetOne.value + ',' + form.elements.permanenrStreetTwo.value,
@@ -254,7 +255,7 @@ $(function () {
                                         "zip": form.elements.permanentZipCode.value,
                                         "Remarks": form.elements.Remarks.value,
                                         "createdFrom":localStorage.getItem('type'),
-                                        "prefix":getFromStore('prefix')
+                                        "customerId":getFromStore('policyDetails.customerId')
                 });
             
             let body = ''
@@ -264,7 +265,7 @@ $(function () {
 
             }
             setToStore("policyFormPrs", body);
-console.log(claimData,'hello');
+            console.log(claimData,'hello');
             let policyCopy = $('#policyCopy')[0].files[0]
             // document.write(policyCopy);
             var policyForm = new FormData();

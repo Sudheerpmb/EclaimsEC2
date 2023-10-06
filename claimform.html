@@ -44,7 +44,7 @@
       top: 0;
       left: 0;
       z-index: 999;
-      background: rgba(255, 255, 255, 0.8) url("images/loader.gif") center no-repeat;
+      background: rgba(255, 255, 255, 0.8) url("images/1495.gif") center no-repeat;
     }
 
     /* Turn off scrollbar when body element has the loading class */
@@ -276,19 +276,19 @@
                 <input type="text" name="dob" id="dob" placeholder="Enter date of birth" class="inpt" />
                 <div id="otherGender" style="display: none;">
                   <label>
-                    Gender <span style="color: red;">*</span>
+                    Gender<span style="color: red;">*</span>
                   </label>
                   <select name="gender" id="gender" class="inpt">
                     <option value="" class="inpt">Select Gender</option>
-                    <option value="0" class="inpt">Male</option>
-                    <option value="1" class="inpt">Female</option>
-                    <option value="2" class="inpt">Others</option>
+                    <option value="Male" class="inpt">Male</option>
+                    <option value="Female" class="inpt">Female</option>
+                    <option value="Other" class="inpt">Others</option>
                   </select>
                 </div>
 
                 <div id="relGender" style="display: none;">
                   <label>
-                    Gender <span style="color: red;">*</span>
+                    Gender<span style="color: red;">*</span>
                   </label>
                   <select name="gender" id="genderRel" class="inpt">
                     <option value="" class="inpt">Select Gender</option>
@@ -523,26 +523,26 @@
         if (data.length > 0) {
         let json = data[0];
         // alert(json)
-        $("#permanent_address_id").val(json.Address1 + ' ' + json.Address2 ? json.Address1 + ' ' +  json.Address2 : '');
-        $("#permanent_city").val(json.city);
-        $("#permanent_region").val(json.state);
-        $("#permanent_zip_code").val(json.zip);
+        // $("#permanent_address_id").val(json.Address1 + ' ' + json.Address2 ? json.Address1 + ' ' +  json.Address2 : '');
+        // $("#permanent_city").val(json.city);
+        // $("#permanent_region").val(json.state);
+        // $("#permanent_zip_code").val(json.zip);
 
         
-        var url = "js/json/countriesOther.json";
-            // Load the countries from the JSON file
-            $.getJSON(url, function (data) {
-              // Populate the select element with the country options
-              $.each(data, function (index, value) {
-                $('#permanent_country').append('<option value="' + value.code + '">' + value.name + '</option>');
-              });
+        // var url = "js/json/countriesOther.json";
+        //     // Load the countries from the JSON file
+        //     $.getJSON(url, function (data) {
+        //       // Populate the select element with the country options
+        //       $.each(data, function (index, value) {
+        //         $('#permanent_country').append('<option value="' + value.code + '">' + value.name + '</option>');
+        //       });
 
-              // Get the country code you want to set based on json.country
-              var jsonCountryCode = json.country; // Assuming json.country contains "IND" or other country codes
+        //       // Get the country code you want to set based on json.country
+        //       var jsonCountryCode = json.country; // Assuming json.country contains "IND" or other country codes
 
-              // Set the selected option in the #permanent_country element
-              $('#permanent_country').val(jsonCountryCode);
-            });
+        //       // Set the selected option in the #permanent_country element
+        //       $('#permanent_country').val(jsonCountryCode);
+        //     });
 
         }
         else {
@@ -555,34 +555,98 @@
   }
     });
 
-    if (getFromStore("policyDetails")) {
+   
+
+    //  else if (getFromStore("user")) {
+    //   var userObj = JSON.parse(getFromStore("user"));
+    //   // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
+    //   if (getFromStore("clientIDE") != "TATA AIG") {
+    //     $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
+    //     // $("#beneficiarySurName").val(userObj.lastName);
+    //     $("#beneficiaryEmail").val(userObj.email);
+    //     $("#beneficiaryNumber").val(userObj.mobile);
+    //   }
+    // }
+
+    if (getFromStore("user")) {
+      var userObj = JSON.parse(getFromStore("user"));
+      if (getFromStore("policyDetails")) {
       var userObj = JSON.parse(getFromStore("policyDetails"));
-      // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
       $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName );
       // $("#beneficiarySurName").val(userObj.lastName);
       $("#policyNumberId").val(userObj.policyNumber);
       $("#beneficiaryEmail").val(userObj.email);
       $("#beneficiaryNumber").val(userObj.mobile);
+      $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
+      $("#permanent_address_id").val(userObj.address);
+      $("#permanent_city").val(userObj.city);
+      $("#permanent_region").val(userObj.state);
+      // $("#permanent_country").val(userObj.country);
+              var url = "js/json/countries.json";
+            // Load the countries from the JSON file
+            $.getJSON(url, function (data) {
+              // Populate the select element with the country options
+              $.each(data, function (index, value) {
+                $('#permanent_country').append('<option value="' + value.name + '">' + value.name + '</option>');
+              });
 
-    } else if (getFromStore("user")) {
-      var userObj = JSON.parse(getFromStore("user"));
-      // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
-      if (getFromStore("clientIDE") != "TATA AIG") {
+              // Get the country code you want to set based on json.country
+              var jsonCountryCode = userObj.country; // Assuming json.country contains "IND" or other country codes
+
+              // Set the selected option in the #permanent_country element
+              $('#permanent_country').val(jsonCountryCode);
+            });
+            $("#permanent_zip_code").val(userObj.zip);
+            $("#otherGender").show();
+            // $("#gender").val(userObj.gender? userObj.gender : '');
+            console.log("userObj.gender:", userObj.gender);
+            var genderMapping = {
+                      0: "Male",
+                      1: "Female",
+                      2: "Other"
+                  };
+
+                  $("#gender").val(
+                      userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined' 
+                      ? (typeof userObj.gender === 'number' ? genderMapping[userObj.gender] : userObj.gender)
+                      : ""
+                  );
+
+    }
+    else{
+      if (getFromStore("clientIDE") != "TATA AIG"){
+        $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
+        $("#otherGender").show();
+        console.log("userObj.gender:", userObj.gender);
+
+                $("#gender").val(
+                  userObj.gender === "0" ? "Male" :
+                  userObj.gender === "1" ? "Female" :
+                  userObj.gender === "2" ? "Other" :
+                    userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined' 
+                    ? (typeof userObj.gender === 'number' && userObj.gender in genderMapping ? genderMapping[userObj.gender] : userObj.gender)
+                    : ""
+                );
+
+        $("#beneficiaryEmail").val(userObj.email);
         $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
         // $("#beneficiarySurName").val(userObj.lastName);
         $("#beneficiaryEmail").val(userObj.email);
         $("#beneficiaryNumber").val(userObj.mobile);
+
       }
     }
+  }
 
-    if (getFromStore("user")) {
-      var userRefObj = JSON.parse(getFromStore("user"));
-      if (getFromStore("clientIDE") != "TATA AIG")
-        // $("#dob").val(userRefObj.dob);
-        $("#dob").val(userRefObj.dob ? userRefObj.dob : "");
-        $("#otherGender").show();
-        $("#gender").val(userRefObj.gender);
-    }
+    // if (getFromStore("user")) {
+    //   var userRefObj = JSON.parse(getFromStore("user"));
+    //   if (getFromStore("clientIDE") != "TATA AIG")
+    //     // $("#dob").val(userRefObj.dob);
+    //     $("#dob").val(userRefObj.dob ? userRefObj.dob : "");
+    //     $("#otherGender").show();
+    //     $("#gender").val(userRefObj.gender);
+    // }
+    
     $("#policyNumberId").val(getFromStore("PolicyNumber_"));
     if (claimTypeId == 'FinancialAssistance') {
       // alert('hk')
