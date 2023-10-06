@@ -44,7 +44,7 @@
       top: 0;
       left: 0;
       z-index: 999;
-      background: rgba(255, 255, 255, 0.8) url("images/loader.gif") center no-repeat;
+      background: rgba(255, 255, 255, 0.8) url("images/1495.gif") center no-repeat;
     }
 
     /* Turn off scrollbar when body element has the loading class */
@@ -68,6 +68,8 @@
   <script src="js/controllers/claimController.js"></script>
   <script src="js/controllers/commonController.js"></script>
   <script src="plugins/toastr/toastr.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+
   <script>
     // Add remove loading class on body element based on Ajax request status
     $(document).on({
@@ -95,8 +97,8 @@
       $('#AirportServicecsDiv').hide();
       document.getElementById("tataEmg").src = 'images/' + cls + '.jpg'; isAuthenticated();
       var urlParams = new URLSearchParams(window.location.search);
-      if(cls=='TATA AIG'){
-    document.getElementById("incidentDateLabel").innerHTML = "Date Of Loss / Claims Date / Treatment Date";
+      if (cls == 'TATA AIG') {
+        document.getElementById("incidentDateLabel").innerHTML = "Date Of Loss / Claims Date / Treatment Date";
       }
 
       $('#incidentDate').datepicker({ dateFormat: 'dd-mm-yy' });
@@ -168,10 +170,13 @@
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
             <div class="pull-left">
               <a href="#" title="">
-                <img src="images/logo.jpg" alt="" /></a>
+                <img src="images/Europ.jpg" alt="" /></a>
+              <!-- <a href="coverage.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
             </div>
             <div style="margin-top: 50px;">
-              <img id="tataEmg" style="height:11vh;margin-top: -29px!important;" src="" alt="" />
+              <a href="coverage.html"><i class="fa fa-arrow-circle-left fa-2x"
+                  style="color: #024695; padding: 10px;float: left;"></i> </a>
+              <img id="tataEmg" style="max-height:11vh;margin-top: -29px!important;" src="" alt="" />
               <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
                   style="float: left; color: #024695; padding: 10px;"></i> </a>
               <a href="index.html"><i class="fa fa-home fa-2x"
@@ -203,14 +208,12 @@
               </div>
             </div>
             <div class="claim-entry">
-
               <h2><span><i style="font-size:16px" class="fa">&#xf2ba;</i> Claim form</span> </h2>
               <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="navigate">
+                <div class="navigate" style="display: none;">
                   <a href="coverage.html" class="left-btn">&#8810;Back</a>
                   <a href="documentsuploadpage.html" class="right-btn">&#8702;Back</a>
                 </div>
-
               </div>
               <br>
               <div class="mandatory">
@@ -218,18 +221,13 @@
               </div>
               <form id="createClaim" autocomplete="off" action="">
                 <h3>Policy Details</h3>
-                <hr/>
+                <hr />
                 <div id="airport__">
-                  <label>
-                    AirPort
-                  </label>
+                  <label> AirPort</label>
                   <input type="text" name="airPort" id="airport" placeholder="Enter Airport" class="inpt" />
                 </div>
                 <div id="laungeDiv">
-
-                  <label>
-                    Launge
-                  </label>
+                  <label>Launge</label>
                   <input type="text" name="launge" id="Launge" placeholder="Enter Launge" class="inpt" />
                 </div>
                 <div id="luggageLossDiv">
@@ -239,28 +237,20 @@
                     <input type="text" name="Tagno" id="Tagno" placeholder="Enter Tag No"
                       class="inpt" /> -->
                 </div>
-
                 <div id="AirportServicecsDiv">
-                  <label>
-                    airport services
-                  </label>
-                  <input type="text" name="airportservices" id="airportServices" placeholder="Enter Tag No" class="inpt" />
+                  <label> airport services</label>
+                  <input type="text" name="airportservices" id="airportServices" placeholder="Enter Tag No"
+                    class="inpt" />
                 </div>
-
                 <div id="baggageLossDiv">
-                  <label>
-                    TagNo
-                  </label>
+                  <label>TagNo</label>
                   <input type="text" name="Tagno" id="Tagno" placeholder="Enter Tag No" class="inpt" />
                 </div>
-                <label>
-                  Policy Number
-                </label>
+                <label>Policy Number</label>
                 <input type="text" name="policyNumber" id="policyNumberId" placeholder="Enter policy number"
                   class="inpt" />
 
-                <label id="incidentDateLabel">Date of Loss <span style="color: red;">*</span>
-                </label>
+                <label id="incidentDateLabel">Date of Loss <span style="color: red;">*</span></label>
                 <input type="text" name="incidentDate" id="incidentDate" placeholder="Enter incident date"
                   class="inpt" />
 
@@ -268,23 +258,14 @@
                 <label> Current Address <span style="color: red;">*</span></label>
                 <input type="text" name="incidentAddress" id="incident_Address_id" placeholder="Enter address"
                   class="inpt" />
-
-                <label>
-                  City of Loss <span style="color: red;">*</span>
-                </label>
+                <label> City of Loss <span style="color: red;">*</span></label>
                 <input type="text" name="incidentCity" placeholder="Enter city" class="inpt" />
 
-
-
-                <label>
-                  Country of Loss <span style="color: red;">*</span>
-                </label>
+                <label>Country of Loss <span style="color: red;">*</span></label>
                 <select name="incidentCountry" id="sel2" class="inpt">
                   <option value="" class="inpt">Select Country of Loss
                   </option>
                 </select>
-
-
 
                 <label> Postal code (Optional)</label>
                 <input type="text" name="zipCode" placeholder="Enter Zip Code" class="inpt" />
@@ -293,22 +274,36 @@
                 <label>Date of Birth <span style="color: red;">*</span>
                 </label>
                 <input type="text" name="dob" id="dob" placeholder="Enter date of birth" class="inpt" />
+                <div id="otherGender" style="display: none;">
+                  <label>
+                    Gender<span style="color: red;">*</span>
+                  </label>
+                  <select name="gender" id="gender" class="inpt">
+                    <option value="" class="inpt">Select Gender</option>
+                    <option value="Male" class="inpt">Male</option>
+                    <option value="Female" class="inpt">Female</option>
+                    <option value="Other" class="inpt">Others</option>
+                  </select>
+                </div>
 
-                <label>
-                  Gender <span style="color: red;">*</span>
-                </label>
-                <select name="gender" id="gender" class="inpt">
-                  <option value="" class="inpt">Select Gender</option>
-                  <option value="0" class="inpt">Male</option>
-                  <option value="1" class="inpt">Female</option>
-                  <option value="2" class="inpt">Others</option>
-                </select>
+                <div id="relGender" style="display: none;">
+                  <label>
+                    Gender<span style="color: red;">*</span>
+                  </label>
+                  <select name="gender" id="genderRel" class="inpt">
+                    <option value="" class="inpt">Select Gender</option>
+                    <option value="MALE" class="inpt">Male</option>
+                    <option value="FEMALE" class="inpt">Female</option>
+                    <option value="OTHER" class="inpt">Others</option>
+                  </select>
+                </div>
+
 
                 <div class="row">
                   <div class="col-md-6 col-xs-6">
                     <label> Claim Amount <span style="color: red;">*</span>
                     </label>
-                    <input type="text" name="claimAmount" placeholder="Enter Claim Amount" class="inpt" />
+                    <input type="text" name="claimAmount" id="sumAmount" placeholder="Enter Claim Amount" class="inpt" />
                   </div>
                   <div class="col-md-6 col-xs-6">
 
@@ -333,10 +328,6 @@
                         value="cashless"><label>Cashless</label></div>
                   </div>
                 </div>
-
-
-
-
                 <!-- <div  style="padding: 0px;" id="policyForm"> -->
 
                 <div class="devide-sec"></div>
@@ -363,8 +354,8 @@
                     <label for="Passport copy"></label>
                   </div>
                 </div>
-          <br>
-          <div class="col-md-12 form-group">
+                <br>
+               <div class="col-md-12 form-group">
                   <label style="margin-bottom: 1.5rem;">Immigration entry and exit<sup>*</sup></label>
                   <div class="button-wrapper" >
                     <span class="label">Upload</span>
@@ -372,7 +363,7 @@
                    <label for="Immigration entry and exit"></label>
                   </div>
                   </div>
-				   <br>
+				          <br>
                  </div> -->
 
                 <!-- <div class="row" id="uploadDocuments2" style="padding: 0px;">
@@ -384,8 +375,8 @@
                     <label for="PAN Card"></label>
                   </div>
                 </div>
-          <br>
-          <div class=" col-md-12 form-group">
+                <br>
+                <div class=" col-md-12 form-group">
                   <label style="margin-bottom: 1.5rem;">Cancelled cheque<sup>*</sup></label>
                   <div class="button-wrapper" >
                     <span class="label">Upload</span>
@@ -394,37 +385,33 @@
                       <label for="Cancelled cheque"></label>
                     </div>
                 </div>
-				  <br>
+				       <br>
                 </div> -->
 
-
-
-
-
                 <label>
-                  Insured Person / Policy Holder First Name <span style="color: red;">*</span>
+                  Insured Person / Policy Holder Full Name <span style="color: red;">*</span>
                 </label>
                 <input type="text" name="customerName" id="beneficiaryName" placeholder="Enter first name"
                   class="inpt" />
 
-                <label>
+                <label style="display: none;">
                   Insured Person / Policy Holder Surname<span style="color: red;">*</span>
                 </label>
                 <input type="text" name="customerSurName" id="beneficiarySurName" placeholder="Enter surname"
+                  class="inpt" style="display: none;"/>
+
+                <label id="EmployeeNoL">
+                  Employee Number <span style="color: red;">*</span>
+                </label>
+                <input type="text" name="EmployeeNumber" id="EmployeeNumber" placeholder="Enter Employee number"
                   class="inpt" />
 
-                  <label id="EmployeeNoL">
-                    Employee Number <span style="color: red;">*</span>
-                  </label>
-                  <input type="text" name="EmployeeNumber" id="EmployeeNumber" placeholder="Enter Employee number"
-                    class="inpt" />
-
-                    <label>
-                      Claimed Person Type <span style="color: red;">*</span>
-                    </label>
-                    <select name="ClaimedPersonType" id="ClaimedPersonType" class="inpt">
-                      <option value="" class="inpt">Select Claimed Person Type</option>
-                    </select>
+                <label>
+                  Claimed Person Type <span style="color: red;">*</span>
+                </label>
+                <select name="ClaimedPersonType" id="ClaimedPersonType" class="inpt">
+                  <option value="" class="inpt">Select Claimed Person Type</option>
+                </select>
 
                 <label>
                   Mobile Number <span style="color: red;">*</span>
@@ -468,9 +455,6 @@
                 <input type="text" name="permanentRegion" id="permanent_region" placeholder="Enter state"
                   class="inpt" />
 
-
-
-
                 <label>
                   Country
                 </label>
@@ -485,7 +469,6 @@
                   class="inpt" />
                 <label> Brief Description Of Loss</label>
                 <input type="text" name="Remarks" id="Remarks" placeholder="please enter your comments" class="inpt" />
-
                 <input type="hidden" name="eventId" id="eventId" />
                 <input type="hidden" name="eventLabel" id="eventLabel" />
                 <input type="hidden" name="eventDetails" id="eventDetails" />
@@ -520,9 +503,9 @@
   $(document).ready(function () {
     $('#EmployeeNumber').hide();
     $('#EmployeeNoL').hide();
-    if(getFromStore("clientIDE")=='TATA AIG'){
+    if (getFromStore("clientIDE") == 'TATA AIG') {
       $('#EmployeeNumber').show();
-    $('#EmployeeNoL').show();
+      $('#EmployeeNoL').show();
     }
     var eclaim_token = getFromStore("eclaimsToken");
     var user_F = JSON.parse(getFromStore("user"));
@@ -537,38 +520,106 @@
         Authorization: "Bearer " + eclaim_token
       },
       success: function (data) {
-        let json = data;
+        if (data.length > 0) {
+        let json = data[0];
         // alert(json)
-      }
+        // $("#permanent_address_id").val(json.Address1 + ' ' + json.Address2 ? json.Address1 + ' ' +  json.Address2 : '');
+        // $("#permanent_city").val(json.city);
+        // $("#permanent_region").val(json.state);
+        // $("#permanent_zip_code").val(json.zip);
+
+        
+        // var url = "js/json/countriesOther.json";
+        //     // Load the countries from the JSON file
+        //     $.getJSON(url, function (data) {
+        //       // Populate the select element with the country options
+        //       $.each(data, function (index, value) {
+        //         $('#permanent_country').append('<option value="' + value.code + '">' + value.name + '</option>');
+        //       });
+
+        //       // Get the country code you want to set based on json.country
+        //       var jsonCountryCode = json.country; // Assuming json.country contains "IND" or other country codes
+
+        //       // Set the selected option in the #permanent_country element
+        //       $('#permanent_country').val(jsonCountryCode);
+        //     });
+
+        }
+        else {
+      // Handle the case where no data is returned
+      console.error("No data found for the given email and phone.");
+    }
+  },
+  error: function (error) {
+    console.error("Error fetching customer data: " + error);
+  }
     });
 
     if (getFromStore("policyDetails")) {
       var userObj = JSON.parse(getFromStore("policyDetails"));
       // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
-      $("#beneficiaryName").val(userObj.firstName);
-      $("#beneficiarySurName").val(userObj.lastName);
+      $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName );
+      // $("#beneficiarySurName").val(userObj.lastName);
       $("#policyNumberId").val(userObj.policyNumber);
-
       $("#beneficiaryEmail").val(userObj.email);
       $("#beneficiaryNumber").val(userObj.mobile);
+      $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
+      $("#permanent_address_id").val(userObj.address);
+      $("#permanent_city").val(userObj.city);
+      $("#permanent_region").val(userObj.state);
+      // $("#permanent_country").val(userObj.country);
+              var url = "js/json/countries.json";
+            // Load the countries from the JSON file
+            $.getJSON(url, function (data) {
+              // Populate the select element with the country options
+              $.each(data, function (index, value) {
+                $('#permanent_country').append('<option value="' + value.name + '">' + value.name + '</option>');
+              });
 
-    } else if (getFromStore("user")) {
-      var userObj = JSON.parse(getFromStore("user"));
-      // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
-      if(getFromStore("clientIDE")!="TATA AIG"){
-      $("#beneficiaryName").val(userObj.firstName);
-      $("#beneficiarySurName").val(userObj.lastName);
-      $("#beneficiaryEmail").val(userObj.email);
-      $("#beneficiaryNumber").val(userObj.mobile);
-      }
-    }
+              // Get the country code you want to set based on json.country
+              var jsonCountryCode = userObj.country; // Assuming json.country contains "IND" or other country codes
 
-    if (getFromStore("user")) {
-      var userRefObj = JSON.parse(getFromStore("user"));
-      if(getFromStore("clientIDE")!="TATA AIG")
-      $("#dob").val(userRefObj.dob);
-      $("#gender").val(userRefObj.gender);
+              // Set the selected option in the #permanent_country element
+              $('#permanent_country').val(jsonCountryCode);
+            });
+            $("#permanent_zip_code").val(userObj.zip);
+            $("#otherGender").show();
+            // $("#gender").val(userObj.gender? userObj.gender : '');
+            console.log("userObj.gender:", userObj.gender);
+            var genderMapping = {
+                      0: "Male",
+                      1: "Female",
+                      2: "Other"
+                  };
+
+                  $("#gender").val(
+                      userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined' 
+                      ? (typeof userObj.gender === 'number' ? genderMapping[userObj.gender] : userObj.gender)
+                      : ""
+                  );
+
     }
+    //  else if (getFromStore("user")) {
+    //   var userObj = JSON.parse(getFromStore("user"));
+    //   // $("#beneficiaryName").val(userObj.firstName + " " + userObj.lastName);
+    //   if (getFromStore("clientIDE") != "TATA AIG") {
+    //     $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
+    //     // $("#beneficiarySurName").val(userObj.lastName);
+    //     $("#beneficiaryEmail").val(userObj.email);
+    //     $("#beneficiaryNumber").val(userObj.mobile);
+    //   }
+    // }
+
+    // if (getFromStore("user")) {
+    //   var userRefObj = JSON.parse(getFromStore("user"));
+    //   if (getFromStore("clientIDE") != "TATA AIG"){
+    //     // $("#dob").val(userRefObj.dob);
+    //     $("#dob").val(userRefObj.dob !== undefined && userRefObj.dob !== null && userRefObj.dob !== 'undefined' ? userRefObj.dob : "");
+    //     $("#otherGender").show();
+    //     $("#gender").val(userRefObj.gender);
+    //   }
+    // }
+
     $("#policyNumberId").val(getFromStore("PolicyNumber_"));
     if (claimTypeId == 'FinancialAssistance') {
       // alert('hk')
@@ -620,6 +671,48 @@
       $('#navigate').hide();
 
     }
+    if (getFromStore("clientIDE") == "RELIANCE") {
+      let policyNumberRel = getFromStore('PolicyNumber_')
+        // Make an AJAX request to fetch RELIANCE-specific data
+        $.ajax({
+            async: true,
+            crossDomain: true,
+            url: env.node_api_url + `eclaims/getRGICCustomerData?certifiacteNumber=${policyNumberRel}`,
+            type: "GET",
+            contentType: false,
+            processData: false,
+            headers: {
+                Authorization: "Bearer " + eclaim_token
+            },
+            success: function (relianceData) {
+              var policyDetails = relianceData.PolicyDetails;
+                // Patch the data according to your API response
+                if (policyDetails && policyDetails.Table && policyDetails.Table.length > 0) {
+                  let policy = policyDetails.Table[0]; // Assuming you only need the first policy
+                  $("#dob").val(policy.DOB ? policy.DOB.split(' ')[0] : "");
+                  // Set the values of your HTML fields based on the API data
+                  $("#PolicyNo").val(policy.PolicyNo);
+                  $("#beneficiaryName").val(policy.InsuredFName + " " + policy.InsuredMName + ' ' + policy.InsuredLName);
+                  $("#dob").val(formattedDOB);
+                  // $("#sumAmount").val(policy.SumInsured);
+                  $("#beneficiaryNumber").val(policy.ContactNo);
+                  $("#permanent_address_id").val(policy.InsuredAddress);
+                  $("#permanent_city").val(policy.City);
+                  $("#beneficiaryEmail").val(policy.EmailId);
+                  $("#permanent_region").val(policy.State);
+                  $("#relGender").show();
+                  $("#otherGender").hide();
+                  $("#genderRel ").val(policy.Gender);
+                  $("#permanent_zip_code").val(policy.PinCode);
+
+
+                }
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+    }
   });
 
 </script>
@@ -651,103 +744,84 @@
 
 
 </script>
-<script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCHE63tfw3AxMsCuRYUF6oqXd8Feu-cXts"></script>
-
-<script>
-  google.maps.event.addDomListener(window, 'load', function () {
-    var places = new google.maps.places.Autocomplete(document.getElementById('incident_Address_id'));
-
-    var permanentPlaces = new google.maps.places.Autocomplete(document.getElementById('permanent_address_id'));
 
 
-    google.maps.event.addListener(permanentPlaces, 'place_changed', function () {
-
-      var getaddress = permanentPlaces.getPlace(); //alert(getaddress.address_components[0].long_name);
-      var whole_address = getaddress.address_components;  //alert(whole_address + 'whole_address');   
-      console.log(whole_address);
-      console.log(permanentPlaces.getPlace());
-      $("#permanent_region").val('');
-      $("#permanent_city").val('');
-      $("#permanent_country").val('');
-      $("#permanent_zip_code").val('');
-
-
-      $.each(whole_address, function (key1, value1) {
-
-        if ((value1.types[0]) == 'locality') {
-          var prev_long_name_city = value1.long_name;
-          $("#permanent_city").val(prev_long_name_city);
-        }
-
-
-        if ((value1.types[0]) == 'administrative_area_level_1') {
-          var prev_long_name_state = value1.long_name;
-          $("#permanent_region").val(prev_long_name_state);
-        }
-
-        if ((value1.types[0]) == 'country') {
-          var prev_long_name_country = value1.short_name;
-          $("#permanent_country").val(prev_long_name_country);
-        }
-
-        if ((value1.types[0]) == 'postal_code') {
-          var prev_long_name_pincode = value1.long_name;
-          //alert(prev_long_name_pincode + '__prev_long_name_pincode');
-          $("#permanent_zip_code").val(prev_long_name_pincode);
-        }
-
-      });
-
-    });
-
-
-
-    google.maps.event.addListener(places, 'place_changed', function () {
-      console.log(places.getPlace());
-      var getaddress = places.getPlace(); //alert(getaddress.address_components[0].long_name);
-      var whole_address = getaddress.address_components;  //alert(whole_address + 'whole_address');   
-      $("input[name='incidentCity']").val('');
-      // $("input[name='incidentState']").val('');
-      $("input[name='incidentCountry']").val('');
-      $("input[name='zipCode']").val('');
-
-      $.each(whole_address, function (key1, value1) {
-        //alert(value1.long_name);
-        //alert(value1.types[0]);
-
-
-        if ((value1.types[0]) == 'locality') {
-          var prev_long_name_city = value1.long_name;
-          //alert(prev_long_name_city + '__prev_long_name_city');
-          $("input[name='incidentCity']").val(prev_long_name_city);
-        }
-
-
-        // if ((value1.types[0]) == 'administrative_area_level_1') {
-        //   var prev_long_name_state = value1.long_name;
-        //   //alert(prev_long_name_state + '__prev_long_name_state');
-        //   $("input[name='incidentState']").val(prev_long_name_state);
-        // }
-
-        if ((value1.types[0]) == 'country') {
-          var prev_long_name_country = value1.short_name;
-          //alert(prev_long_name_country + '__prev_long_name_country');
-          $("#sel2").val(prev_long_name_country);
-        }
-
-        if ((value1.types[0]) == 'postal_code') {
-          var prev_long_name_pincode = value1.long_name;
-          //alert(prev_long_name_pincode + '__prev_long_name_pincode');
-          $("input[name='zipCode']").val(prev_long_name_pincode);
-        }
-
-      });
-
-    });
-
-
-
-
-  });
-</script>
+  <script>
+    var googleMapsApiLoaded = false; // Track whether the Google Maps API has loaded
+  
+    function initializeMap() {
+      if (googleMapsApiLoaded) {
+        var places = new google.maps.places.Autocomplete(document.getElementById('incident_Address_id'));
+        var permanentPlaces = new google.maps.places.Autocomplete(document.getElementById('permanent_address_id'));
+  
+        google.maps.event.addListener(permanentPlaces, 'place_changed', function () {
+          var getaddress = permanentPlaces.getPlace();
+          var whole_address = getaddress.address_components;
+          console.log(whole_address);
+          console.log(permanentPlaces.getPlace());
+          $("#permanent_region").val('');
+          $("#permanent_city").val('');
+          $("#permanent_country").val('');
+          $("#permanent_zip_code").val('');
+  
+          $.each(whole_address, function (key1, value1) {
+            if ((value1.types[0]) == 'locality') {
+              var prev_long_name_city = value1.long_name;
+              $("#permanent_city").val(prev_long_name_city);
+            }
+  
+            if ((value1.types[0]) == 'administrative_area_level_1') {
+              var prev_long_name_state = value1.long_name;
+              $("#permanent_region").val(prev_long_name_state);
+            }
+  
+            if ((value1.types[0]) == 'country') {
+              var prev_long_name_country = value1.short_name;
+              $("#permanent_country").val(prev_long_name_country);
+            }
+  
+            if ((value1.types[0]) == 'postal_code') {
+              var prev_long_name_pincode = value1.long_name;
+              $("#permanent_zip_code").val(prev_long_name_pincode);
+            }
+          });
+        });
+  
+        google.maps.event.addListener(places, 'place_changed', function () {
+          console.log(places.getPlace());
+          var getaddress = places.getPlace();
+          var whole_address = getaddress.address_components;
+          $("input[name='incidentCity']").val('');
+          $("input[name='incidentCountry']").val('');
+          $("input[name='zipCode']").val('');
+  
+          $.each(whole_address, function (key1, value1) {
+            if ((value1.types[0]) == 'locality') {
+              var prev_long_name_city = value1.long_name;
+              $("input[name='incidentCity']").val(prev_long_name_city);
+            }
+  
+            if ((value1.types[0]) == 'country') {
+              var prev_long_name_country = value1.short_name;
+              $("#sel2").val(prev_long_name_country);
+            }
+  
+            if ((value1.types[0]) == 'postal_code') {
+              var prev_long_name_pincode = value1.long_name;
+              $("input[name='zipCode']").val(prev_long_name_pincode);
+            }
+          });
+        });
+      } else {
+        // Handle the case where the Google Maps API failed to load
+        console.log('Google Maps API failed to load');
+      }
+    }
+  
+    function onGoogleMapsApiLoaded() {
+      googleMapsApiLoaded = true;
+      initializeMap(); // Check if API has loaded and execute the code accordingly
+    }
+  </script>
+  <script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCHE63tfw3AxMsCuRYUF6oqXd8Feu-cXts" onload="onGoogleMapsApiLoaded();"></script>

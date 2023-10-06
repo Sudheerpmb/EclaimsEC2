@@ -25,6 +25,8 @@
   <script src="js/controllers/commonController.js"></script>
   <script src="js/lib/bootbox.min.js"></script>
   <script src="plugins/toastr/toastr.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+
 </head>
 
 <body>
@@ -57,7 +59,32 @@
     function goBack() {
       window.history.back();
     }
-
+    var newForm = new FormData();
+    var eclaim_token = getFromStore("eclaimsToken");
+    var policySubmitForm = getFromStore("policyFormPrs");
+    var doc = new jsPDF();
+    doc.setFontSize(7);
+    doc.text(policySubmitForm, 15, 5);
+    // let docOutput = doc.output('blob');
+    // newForm.append('imgUploader', docOutput);
+    var pdfOutput = doc.output('blob');
+    var file = new File([pdfOutput], "filename.pdf", { type: 'application/pdf' });
+    newForm.append('imgUploader', file, 'OriginalClaimForm.pdf');
+    $.ajax({
+      async: true,
+      crossDomain: true,
+      url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + 'Original Claim Form' + '&travelCaseId=' + tkId,
+      type: "POST",
+      data: newForm,
+      dataType: 'text',
+      contentType: false,
+      processData: false,
+      headers: {
+        Authorization: "Bearer " + eclaim_token
+      },
+      success: function (data) {
+      }
+    })
 
 
   </script>
@@ -72,9 +99,12 @@
             <div class="pull-left">
               <a href="#" title="">
                 <img src="images/logo.jpg" alt="" /></a>
+              <!-- <a href="claimform.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
             </div>
             <div style="margin-top: 50px;">
-              <img id="tataEmg" style="height:11vh;margin-top: -29px!important;" src="" alt="" />
+              <a href="claimform.html"><i class="fa fa-arrow-circle-left fa-2x"
+                  style="color: #024695; padding: 10px;float: left;"></i> </a>
+              <img id="tataEmg" style="max-height:11vh;margin-top: -29px!important;" src="" alt="" />
               <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
                   style="float: left; color: #024695; padding: 10px;"></i> </a>
               <a href="index.html"><i class="fa fa-home fa-2x"
@@ -119,23 +149,28 @@
 
                 </div>
                 <!-- <div style="font-size: large;"> -->
-                <p style="font-size: 13px" >Upload necessary documents required to process your claim as mentioned below. </p>
-                <p style="font-size: 13px">In case you don’t have all of them ready at this moment, you can upload the remaining ones later in
+                <p style="font-size: 13px">Upload necessary documents required to process your claim as mentioned below.
+                </p>
+                <p style="font-size: 13px">In case you don’t have all of them ready at this moment, you can upload the
+                  remaining ones later in
                   the
                   “Upload documents” section. </p>
-                <p style="font-size: 13px"> <b><u> NOTE:</u> </b>:Click on the plus sign below to add additional document please ensure the attachment size doesn’t exceeds more than 10 MB.<br>
-                  &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp All claims are processed as per policy benefits, terms and condition. Final decision of any claim made will be done after receiving and assessment of all the required documents.
-                  
-              
+                <p style="font-size: 13px"> <b><u> NOTE:</u> </b>:Click on the plus sign below to add additional
+                  document please ensure the attachment size doesn’t exceeds more than 10 MB.<br>
+                  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp All claims are processed as per policy benefits, terms and
+                  condition. Final decision of any claim made will be done after receiving and assessment of all the
+                  required documents.
+
+
                 </p>
-              <!-- </div> -->
+                <!-- </div> -->
                 <div id="docs_container"></div>
 
                 <form id="uploadDoc" action="" style="margin-top: 10px;">
                   <div id="upload_container"></div>
                   <hr>
                   <span style="color:blue">Total uploaded size:</span><span id="totalsize">0 MB</span><br>
-                  <span style="color:blue">Max size:</span><span >10 MB</span>
+                  <span style="color:blue">Max size:</span><span>10 MB</span>
                   <button type="submit" class="btn-two" id="submitClaim">Submit</button>
                 </form>
 
@@ -204,7 +239,7 @@
   function scrollWin() {
     window.scrollBy(0, 9000);
   }
-  function showname(name, name1,flag) {
+  function showname(name, name1, flag) {
     var fileD = document.getElementById(name);
     let fsize = fileD.files.item(0).size / 1024;
     totalsize += (fsize / 1024);
@@ -229,11 +264,11 @@
       </span>`)
     // document.getElementById(name1).innerHTML=(filename+`<br><span style="color:#00bcff">(${(fsize/1024).toFixed(3)} MB)</span>`)
   }
-  function resetInput(name,size,name1){
-    document.getElementById(name).value=null;
-    totalsize -=size;
+  function resetInput(name, size, name1) {
+    document.getElementById(name).value = null;
+    totalsize -= size;
     document.getElementById("totalsize").innerHTML = `${totalsize.toFixed(3)} MB`;
-    document.getElementById(name1).style.display ="none";
+    document.getElementById(name1).style.display = "none";
   }
   function addDiv(name) {
     //  alert(`#${name}-`)

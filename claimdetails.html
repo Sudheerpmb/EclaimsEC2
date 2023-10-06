@@ -39,17 +39,17 @@
 <body>
 
   <script type="text/javascript">
-  let cls=getFromStore("clientIDE");
- $(function(){
-  document.getElementById("tataEmg").src ='images/'+ cls+'.jpg';
-})
+    let cls = getFromStore("clientIDE");
+    $(function () {
+      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+    })
     var urlParams = new URLSearchParams(window.location.search);
     window.claimId = urlParams.get("claimId");
     if (!claimId) {
       alert('Invalid url');
       goBack();
     } else {
-
+      setToStore('claimId', claimId);
       getClaimDetails(claimId);
     }
 
@@ -73,16 +73,20 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
-            <div class="pull-left"> 
+            <div class="pull-left">
               <a href="#" title="">
-              <img src="images/logo.jpg" alt=""/></a> 
+                <img src="images/Europ.jpg" alt="" /></a>
+              <!-- <a href="claimslist.html"><button type="btn" class="btn"
+                  style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
             </div>
-            <div  style="margin-top: 50px;">
-              <img id ="tataEmg"style="height:11vh;margin-top: -29px!important;"src=""  alt=""/>  
-             <a href="#" onclick="javascript:signOut()" ><i class="fa fa-sign-out fa-2x" style="float: left; color: #024695; padding: 10px;"></i> </a>            
-             <a href="index.html"><i class="fa fa-home fa-2x" style="float: left; color: #024695; padding: 10px;"></i></a>
-            </div> 
-                        
+            <div style="margin-top: 50px;">
+              <img id="tataEmg" style="max-height:11vh;margin-top: -29px!important;" src="" alt="" />
+              <a href="claimslist.html"><i class="fa fa-arrow-circle-left fa-2x" style="color: #024695; padding: 10px;float: left;"></i> </a>
+              <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                  style="float: left; color: #024695; padding: 10px;"></i> </a>
+              <a href="index.html"><i class="fa fa-home fa-2x"
+                  style="float: left; color: #024695; padding: 10px;"></i></a>
+            </div>
           </div>
         </div>
       </div>
@@ -99,40 +103,45 @@
               <label>
                 <h2>Claim details</h2>
               </label>
-              
+
               <br>
 
-              <div  style="display: flex;justify-content: space-between;">
-              <label><b>Claim id :&nbsp; <span id="cID">alex</span></b></label>
-              <b><label>Claim date :&nbsp;<span id="claimDate"></span></b></label>
-            </div>
               <div style="display: flex;justify-content: space-between;">
-              <b><label>Policy Number :&nbsp;<span id="pnumber"></span></b></label>
-             <!-- <b><label id="policyIssuelabel">policy Issue Date :&nbsp;<span id="policyIssueDate"></span></b></label> -->
+                <label><b>Claim id :&nbsp; <span id="cID">alex</span></b></label>
+                <b><label>Claim date :&nbsp;<span id="claimDate"></span></b></label>
+              </div>
 
-            </div>              
-          <div id="Details">
+              <div style="display: flex;justify-content: space-between;">
+                <b><label>Policy Number :&nbsp;<span id="pnumber"></span></b></label>
+                <!-- <b><label id="policyIssuelabel">policy Issue Date :&nbsp;<span id="policyIssueDate"></span></b></label> -->
+              </div>
 
+              <div id="Details">
 
-                <!-- <b> <label >
-			Claim status :
-		  </b></label>&nbsp;<span id="status"></span><br>
-		   -->
+                <!-- <b> <label >Claim status</b></label>&nbsp;<span id="status"></span><br> -->
 
                 <hr>
 
-                <!-- 
-                <form id="uploadDoc"  style="margin-top: 10px;"> -->
+                <!-- <form id="uploadDoc" style="margin-top: 10px;"> -->
+
                 <div id="uploadDocDiv"></div>
+
                 <hr>
-                <span style="color:blue">Total uploaded size:</span><span id="totalsize">0 MB</span><br>
-                <span style="color:blue">Max size:</span><span >10 MB</span>
-                <button type="submit" class="btn-two" id="submitClaim1" onclick="submitClaims_()" >Submit</button>
+
+                <span style="color:blue">Total uploaded size:</span><span id="totalsize">0 MB</span>
+
+                <br>
+
+                <span style="color:blue">Max size:</span><span>10 MB</span>
+
+                <button type="submit" class="btn-two" id="submitClaim1" onclick="submitClaims_()">Submit</button>
+
                 <!-- </form> -->
 
                 <!-- <a class="btn" href="#" onclick="navigateToDocs()">Upload Documents</a> -->
                 <!--   <a class="btn" href="documentsuploadpage.html?claimId=M110425.70&claimType=1&mode=update">Upload Documents</a> -->
                 <!-- <input  class="btn"   type="button" value="Upload documents" >-->
+                
               </div>
             </div>
           </div>
@@ -159,13 +168,13 @@
 </html>
 
 <script>
-    let totalsize = 0;
-    let sizeMap=[]
-    let sizeMapSize=[];
+  let totalsize = 0;
+  let sizeMap = []
+  let sizeMapSize = [];
   function scrollWin() {
     window.scrollBy(0, 9000);
   }
-   function addDiv(name) {
+  function addDiv(name) {
     //  alert(`#${name}-`)
     // $().hide();
     // let name2=`${name+'__'}`;
@@ -175,14 +184,14 @@
 
     let div = ` <div id ="${name}-" style="display: flex;justify-content: space-between;color:#174eab">
                     <div>
-                    <i class="fa fa-circle" id="${name + "_" + random+'__'}" style="margin:2px;font-size:18px;cursor:pointer" aria-hidden="true"></i>  
+                    <i class="fa fa-circle" id="${name + "_" + random + '__'}" style="margin:2px;font-size:18px;cursor:pointer" aria-hidden="true"></i>  
                     <span  data-id= ${name} class="myLink" > ${name}</span> 
                     </div>
                     
                     <div class="col-xs-6" style="float: right !important;">
                     <div class="button-wrapper" style="width: 100px !important;text-align: center;padding:5px;">
                          <span class="label">Upload</span>
-                         <input type="file" id ="${name + "_" + random}" onchange="showname('${name + "_" + random}','${name + "_" + random + '_'}')" name="${name+ "_" + random }"  accept="image/jpeg,image/png,application/pdf"
+                         <input type="file" id ="${name + "_" + random}" onchange="showname('${name + "_" + random}','${name + "_" + random + '_'}')" name="${name + "_" + random}"  accept="image/jpeg,image/png,application/pdf"
                      data-msg-accept="File type should be PDF, jpeg or png." class="upload upload-box" placeholder="Attach">
                      <label id ="${name + "_" + random + '_'}" style="display:none">  </label>
                      </div></div></div>
@@ -190,35 +199,35 @@
     $('#uploadDocDiv').append(div)
 
   }
-      //  function showname (name,name1) {
-      //   var fileD = document.getElementById(name); 
-      //   document.getElementById(name1).style.display = "inline-block";
-      //   let filename=fileD.files.item(0).name;
-      //   let fsize=fileD.files.item(0).size/1024;
-      //   var n = filename.lastIndexOf(".");
-      //   if(n>15)
-      //   filename=filename.substring(0,10)+'...'+filename.substring(n-3)
-      //   document.getElementById(name1).innerHTML=(filename+`<br><span style="color:#00bcff">(${(fsize/1024).toFixed(3)} MB)</span>`)
-      //  }
-      function subDiv(name){
-        // alert(name)
-        let name2=`${name+'___'}`;
-        var fileD = document.getElementById(name2);
-        fileD.remove();
-        let index=sizeMap.indexOf(name);
-        // alert(index)
-        if(index>-1){
-          totalsize-=sizeMapSize[index];
-          document.getElementById("totalsize").innerHTML = `${totalsize.toFixed(3)} MB`
-        }
-      }
-      function resetInput(name,size,name1){
-    document.getElementById(name).value=null;
-    totalsize -=size;
-    document.getElementById("totalsize").innerHTML = `${totalsize.toFixed(3)} MB`;
-    document.getElementById(name1).style.display ="none";
+  //  function showname (name,name1) {
+  //   var fileD = document.getElementById(name); 
+  //   document.getElementById(name1).style.display = "inline-block";
+  //   let filename=fileD.files.item(0).name;
+  //   let fsize=fileD.files.item(0).size/1024;
+  //   var n = filename.lastIndexOf(".");
+  //   if(n>15)
+  //   filename=filename.substring(0,10)+'...'+filename.substring(n-3)
+  //   document.getElementById(name1).innerHTML=(filename+`<br><span style="color:#00bcff">(${(fsize/1024).toFixed(3)} MB)</span>`)
+  //  }
+  function subDiv(name) {
+    // alert(name)
+    let name2 = `${name + '___'}`;
+    var fileD = document.getElementById(name2);
+    fileD.remove();
+    let index = sizeMap.indexOf(name);
+    // alert(index)
+    if (index > -1) {
+      totalsize -= sizeMapSize[index];
+      document.getElementById("totalsize").innerHTML = `${totalsize.toFixed(3)} MB`
+    }
   }
-       function showname(name, name1) {
+  function resetInput(name, size, name1) {
+    document.getElementById(name).value = null;
+    totalsize -= size;
+    document.getElementById("totalsize").innerHTML = `${totalsize.toFixed(3)} MB`;
+    document.getElementById(name1).style.display = "none";
+  }
+  function showname(name, name1) {
     var fileD = document.getElementById(name);
     let fsize = fileD.files.item(0).size / 1024;
     totalsize += (fsize / 1024);
@@ -229,7 +238,7 @@
       return
     }
     sizeMap.push(name);
-    sizeMapSize.push(fsize/1024);
+    sizeMapSize.push(fsize / 1024);
     // let name2=`${name+'__'}`;
     // document.getElementById(name2).style.visibility = "visible";
     document.getElementById("totalsize").innerHTML = `${totalsize.toFixed(3)} MB`

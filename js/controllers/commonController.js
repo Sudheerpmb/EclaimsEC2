@@ -82,7 +82,9 @@ function checkIfOtpverified() {
 
 }
 function sendmail(email, subject, body) {
-    alert("email has been send to your Regestered mail")
+    alert("Email has been send to your Registered mail");
+    // alert("hello");
+    var eclaims_token = getFromStore("eclaimsToken");
     $.ajax({
         async: true,
         crossDomain: true,
@@ -97,7 +99,7 @@ function sendmail(email, subject, body) {
         contentType: "application/json",
         processData: false,
         headers: {
-            Authorization: "Bearer " + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5ZjFjMmQ2MjBjM2E2Mjc0NDk3YmZkOCIsInJvbGUiOiJhZ2VudCIsImV4cCI6MTYyNTIwMzc2NywiaWF0IjoxNjIwMDE5NzY3fQ.3ule65iQOmi9wGlb3tnnveK91frgtGUNCTtmGA3ErD8'
+            Authorization: "Bearer " + eclaims_token
         },
         success: function (data) {
             console.log("mail sent")
@@ -160,6 +162,7 @@ function getPolicy(policyNumber) {
             })
 }
 async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
+    showLoader();
     if (policyNumber == '') {
         toastr.error('Please Enter Policy Number');
         return false;
@@ -170,6 +173,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
         return false;
     }
     setToStore("PolicyNumber_", policyNumber);
+    setToStore("incidentDate", incidentDate);
     let incDate = incidentDate.split('-');
     var incCreateDate = incDate[2] + "-" + incDate[1] + "-" + incDate[0];
     var varDate = new Date(incCreateDate);
@@ -179,13 +183,11 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
         toastr.error('Incident date cannot be a future date');
         return false;
     }
-    insuranceProviderpath = insuranceProvider.split(" ").join("").toUpperCase();
-
+    insuranceProviderpath = insuranceProvider.split(" ").join("").toUpperCase();    
     var eclaims_token = getFromStore("eclaimsToken");
     var access_token = getFromStore("token");
-    let cH=getFromStore('clientHash');
+    let cH = getFromStore('clientHash');
     var url = env.node_api_url +"eclaims/policyDetailAccordingToPolicyNumberAndDate";
-
     $.ajax({
         async: true,
         crossDomain: true,
@@ -201,8 +203,21 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
             Authorization: "Bearer " + eclaims_token
         },
         success:  function (Result1) {
+            hideLoader();
             let json = Result1;
-            if (insuranceProvider == 'RELIANCE') {
+            // alert(json.length);
+            if (Array.isArray(json) && json.length > 1) {
+                // Display an alert if there is more than one record
+                toastr.error('Please enter a certificate number to narrow down the search.');
+                return;
+              }
+        
+              // Check if the policy details are not found
+              if (Result1 == "Details not found") {
+                handlePolicyNotFound(insuranceProvider);
+                return;
+              }
+            if (insuranceProvider == 'RELIANCEE') {
                 if (json.length > 0) {
                     $.ajax({
                         async: true,
@@ -225,15 +240,16 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
 
                 }
             }
-            if (Result1 == "[]") {
-                if (insuranceProvider == "TATA AIG" || insuranceProvider == "CHOLAMS" || insuranceProvider == "EUROPASSISTANCE") {
-                    window.location = env.app_url + "coverage.html";
-                }
-                else {
-                    toastr.error('invalid policiy number');
-                }
-            }
-            setToStore("incidentDate", incidentDate);
+            // if (Result1 == "Details not found") {
+            //     console.log(Result1);
+            //     if (insuranceProvider == "EUROP ASSISTANCE" || insuranceProvider == "RELIANCE" || insuranceProvider == 'ASEGO ABHI' ) {
+            //         // setToStore('policyExpiry',json[0].policyEndDate);
+            //         window.location = env.app_url + "coverage.html";
+            //     }
+            //     else {
+            //         toastr.error('invalid policy number');
+            //     }
+            // }
 
             if (json.length > 0) {
                 var policyStartDate = new Date(json[0].policyStartDate);
@@ -244,13 +260,22 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
                 $("#policy_notfound_block").hide();
 
                 if (policyStartDate < incDate && policyEndDate > incDate) {
-
+                    console.log(json);
                     var user = {};
                     user.firstName = json[0].customers.FirstName;
                     user.lastName = json[0].customers.LastName;
                     user.email = json[0].customers.Email;
                     user.mobile = json[0].customers.PhoneNumber;
                     user.policyNumber = json[0].policyNumber;
+                    user.customerId = json[0].customers._id;
+                    user.dob = json[0].customers.DateOfBirth;
+                    user.address = json[0].customers.Address1 + '' + json[0].customers.Address2  ;
+                    user.city = json[0].customers.city;
+                    user.country = json[0].customers.country;
+                    user.state = json[0].customers.state;
+                    user.zip = json[0].customers.zip;
+                    user.gender = json[0].customers.Gender;
+                    // setToStore("customerId",json[0]._id);
                     // user.customerRef = json[0].customers.customerRef;
                     // user.travelPolicyRef = json[0].travelPolicyRef;
                     var userjson = JSON.stringify(user);
@@ -259,7 +284,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
 
                     window.location = env.app_url + "coverage.html";
                 } else {
-                    toastr.error("Policy Expired");
+                    toastr.error(`incident date must be with in ${policyStartDate} and ${policyEndDate}`);
                     $("#expired_block").show();
                     $("#btn_continue").hide();
                 }
@@ -286,6 +311,14 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
 
         }
     });
-
+    function handlePolicyNotFound(insuranceProvider) {
+        console.log("Policy not found");
+        if (insuranceProvider == "EUROP ASSISTANCE" || insuranceProvider == "RELIANCE" || insuranceProvider == 'ASEGO ABHI') {
+          // setToStore('policyExpiry',json[0].policyEndDate);
+          window.location = env.app_url + "coverage.html";
+        } else {
+          toastr.error('Invalid policy number');
+        }
+      }
 
 }

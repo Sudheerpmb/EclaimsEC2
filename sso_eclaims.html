@@ -46,11 +46,12 @@
       // alert(userData)
       $.ajax({
         type: "POST",
-        url: "https://wrapperapi.europassistance.in/api/Customer/GoogleLogin",
+        url: "https://eztraveluatapi.europassistance.in/auth/ssoEclaimsLogin",
         cache: false,
         data: userData,
         success: function (res) {
-          let response = JSON.parse(res);
+//          alert(JSON.stringify(res))
+          let response = res;
           var user = {};
           user.firstName = response.firstName;
           user.lastName = response.lastName;
@@ -60,7 +61,9 @@
           setToStore("clientHash",urlParams.get('uuid'));
           setToStore("user", JSON.stringify(user));
           setToStore("eclaimsToken", response.eclaimToken);
-          setToStore("token", response.access_token);
+          // setToStore("token", response.access_token);
+          setToStore("token", response.eclaimToken);
+          console.log(response)
           window.location = "https://eclaimsuat.europassistance.in/index.html";
         },
         error: function () {

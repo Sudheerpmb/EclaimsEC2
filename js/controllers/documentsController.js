@@ -30,8 +30,12 @@ $(function () {
                 }
                 newForm.append($('input[type=file]')[i].name, $('input[type=file]')[i].files[0]);
             }
-
-
+            // var policySubmitForm = getFromStore("policyFormPrs");
+            // var doc = new jsPDF();
+            // doc.setFontSize(7);
+            // doc.text(policySubmitForm, 15, 5);
+            // let docOutput = doc.output();
+            // newForm.append('policySubmitForm', docOutput);
             $.ajax({
                 async: true,
                 crossDomain: true,
@@ -63,7 +67,7 @@ $(function () {
 
                         if (!getFromStore("nonExistingCustomer")) {
                             if (pendingDocs.length > 0) {
-                                message += "We have saved your claims details and your reference number is " + claimId + " however, we would not be able to process your claim unless the below mandatory documents are provided <br/> " + pendinghtml + ".";
+                                message += "We have saved your claims details and your reference number is " +  + " however, we would not be able to process your claim unless the below mandatory documents are provided <br/> " + pendinghtml + ".";
                                 message += originals != "" ? "<br/><br/> You also need to share the originals of " + originals : "";
                             } else {
                                 if (mode == "update") {
@@ -104,7 +108,7 @@ $(function () {
                 },
                 error: function (err) {
                     console.log(err);
-                    alert('Whoops! This didn\'t work. Plxease contact us.');
+                    //                    alert('Whoops! This didn\'t work. Plxease contact us.');
                 }
             });
             return false;
@@ -137,12 +141,15 @@ $(function () {
         var newForm = new FormData();
         newForm.append("clientId", clientId);
         newForm.append("eclaimToken", eclaims_token);
-        var claimTypeId = getFromStore("claimTypeIdM")
-
-
+        var claimTypeId = getFromStore("claimTypeIdM");
+        // Get an item from local storage by its key
+        var claimSubType = localStorage.getItem('clickedSubName');
         // var url =  env.api_url+"/api/Claims/GetAttachmentList?claimNo="+claimId;
-        var url = env.node_api_url+'eclaims/documents/list?claimtype=' + claimTypeId;
+        var url = env.node_api_url + 'eclaims/documents/list?claimtype=' + claimTypeId;
         //  removeFromStore("uploadedDocsList");
+        if (claimSubType) {
+            url += '&claimSubType=' + encodeURIComponent(claimSubType); 
+          }
         $.ajax({
             async: true,
             crossDomain: true,
@@ -162,7 +169,11 @@ $(function () {
                 var result = '';
                 var html = "";
                 // var uploaded_docs = JSON.parse(json.AttachmentList);
-                var uploaded_docs = json.Documents;
+                var uploaded_docss = json.Documents;
+                let uploaded_docs = [];
+                for (let elem of uploaded_docss)
+                    if (elem.Eclaims)
+                        uploaded_docs.push(elem)
                 var uploadDocsList = [];
                 Object.values(uploaded_docs).forEach(value => {
                     let color = 'blue';
@@ -171,7 +182,7 @@ $(function () {
                     }
                     result += ` <div style="display: flex;justify-content: space-between;color:${color}">
                     <div onclick="scrollWin()">
-                    <i class="fa fa-plus-square" id="${value.Name+'__'}" onclick="addDiv('${value.Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
+                    <i class="fa fa-plus-square" id="${value.Name + '__'}" onclick="addDiv('${value.Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
                      <span  data-id= ${value.Name} class="myLink" data-toggle="tooltip" title="${value.Name}" style="cursor: pointer;"> ${value.Name}</span>
                     </div>
                     
@@ -261,7 +272,7 @@ $(function () {
 
     $("#submitClaim").click(function () {
         var arr = [];
-        let uploadedDocArr=[];
+        let uploadedDocArr = [];
         let totalSize = 0;
         var eclaims_token = getFromStore("eclaimsToken");
         var userObj = JSON.parse(getFromStore("user"));
@@ -290,7 +301,7 @@ $(function () {
             }
             else {
                 // alert(scm);
-                if (!scm.includes("Other Document")&&!uploadedDocArr.includes(scm)){
+                if (!scm.includes("Other Document") && !uploadedDocArr.includes(scm)) {
                     uploadedDocArr.push(scm)
                     uploadDOc += `<strong> <li style="margin-left:20px;margin-bottom: 5px;">${scm} &nbsp; 
                     </li></strong>  `}
@@ -339,7 +350,7 @@ $(function () {
             $.ajax({
                 async: true,
                 crossDomain: true,
-                url: env.node_api_url+'api/communicate/sendEmails_new',
+                url: env.node_api_url + 'api/communicate/sendEmails_new',
                 type: "POST",
                 data: JSON.stringify({
                     "email": emailID,

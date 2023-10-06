@@ -1,98 +1,161 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel e-claims</title>
-<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="css/tabs.css" rel="stylesheet" type="text/css"/>
-<link href="css/style.css" rel="stylesheet" type="text/css"/>
-<link href='css/css-fonts.css' rel='stylesheet'>
-<link rel="stylesheet" href="css/font-awesome.min.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel e-claims</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/tabs.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href='css/css-fonts.css' rel='stylesheet'>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/lib/jquery-1.11.1.min.js"></script>
+  <script src="js/lib/jquery.validate.min.js"></script>
+  <script src="js/lib/additional-methods.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/lib/util.js"></script>
+  <script src="js/lib/const.js"></script>
+  <script src="js/controllers/homeController.js"></script>
+  <script src="js/controllers/commonController.js"></script>
 </head>
+<script type="text/javascript">
+  let cls = getFromStore("clientIDE");
+  $(function () {
+    document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+
+    function toggleForms(clientId) {
+      if (clientId === "RELIANCE") {
+        $("#downloadRel").show();
+      } else {
+        $("#downloadOther").show();
+      }
+    }
+
+    // Show/hide forms on page load
+    let client = getFromStore("clientIDNM");
+    var clientId = client; // Set the client ID here
+    toggleForms(clientId);
+  })
+
+</script>
 
 <body>
-<div class="main"> 
-  <!--Header-start-->
-  <div class="header-sec">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-          <div class="logo"> <a href="index.html" title=""><img src="images/logo.jpg" alt=""/></a> </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-          
-        </div>
-		<div class="col-lg-12 col-md-12 col-sm-12 col-12">
-		<div class="navigate">
-		<a href="faqs.html" class="left-btn"> &#8810;</a>
-		<a href="tracking.html" class="right-btn">&#8702;</a>
-		</div>
-		</div>
-      </div>
-    </div>
-  </div>
-  <!--Header-End-->
-  <div class="body-wraper">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="claim-title">
-          <h1><a href="index.html">< Back</a></h1>
-          </div>
-          <div class="claim-entry">
-          <h2><span><i style="font-size:24px" class="fa">&#xf0ed;</i> Download</span> your policy and other documents</h2>
-          
-           <h2><span>Documents related to your Policy</span> </h2>
-           <div class="coverage">
-           <h5>Claim Form for Australia</h5>
-           <a href="https://eclaimsuat.europassistance.in/images/Claim_Form_for_Australiav1.3.xlsx"> <i class="fa fa-download" aria-hidden="true"></i></a>
-           </div>
-           <div class="coverage">
-           <h5>Travel claim form </h5>
-           <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_Form-Infosys_(Gold_&_First_Plans).xls"> <i class="fa fa-download" aria-hidden="true"></i></a>
-           </div>
-           <div class="coverage">
-           <h5>Claims process contact matrix</h5>
-           <a href="https://eclaimsuat.europassistance.in/images/Claims_Process_Contact_Matrix-Infosys.pdf" download> <i class="fa fa-download" aria-hidden="true"></i></a>
-           </div>
 
+  <div class="main">
+    <!--Header-start-->
+    <div class="header-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-12" style="display:flex; justify-content: space-between;">
+            <div class="pull-left"> <a href="index.html" title="">
+                <img src="images/Europ.jpg" alt="" /></a>
 
-           <!-- <div class="coverage">
-            <h5>Release of Medical Information</h5>
-            <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_1-ROI.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
             </div>
-            <div class="coverage">
-            <h5>INSURED's MEDICAL QUESTIONNAIRE</h5>
-            <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_2-IMQ.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
+            <div>
+              <a href="index.html">
+                <i class="fa fa-arrow-circle-left fa-2x icon"
+                  style="margin-top:63px;margin-right:-150px ;color:rgb(30, 49, 146);float: right;">
+                </i>
+              </a>
             </div>
-            <div class="coverage">
-            <h5>PRELIMINARY MEDICAL REPORT</h5>
-            <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_3-PMR.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
+            <div>
+              <img id="tataEmg" style="max-height:11vh;margin-top:20px!important;" src="" alt="" />
             </div>
-            <div class="coverage">
-            <h5>CENTRAL KYC REGISTRY</h5>
-            <a href="https://eclaimsuat.europassistance.in/images/TATA_Kit_4-KYC.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
-            </div> -->
-          
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!--Footer-start-->
-  <div class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-          <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+
+    <!--Header-End-->
+    <div class="body-wraper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="claim-title">
+
+            </div>
+            <div class="claim-entry">
+              <h2><span><i style="font-size:24px" class="fa">&#xf0ed;</i> Download</span> your policy and other
+                documents</h2>
+              <h2><span>Documents related to your Policy</span> </h2>
+              <div id="downloadRel" style="display: none;">
+                <div class="coverage">
+                  <h5>Travel Claim From (A)</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_A.pdf"
+                    download="Travel_Claim_From_A.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="coverage">
+                  <h5>Travel Claim From C travel</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_C_travel.pdf"
+                    download="Travel_Claim_From_C_travel.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="coverage">
+                  <h5>Travel Claim From Main</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_Main.pdf"
+                    download="Travel_Claim_From_Main.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+              </div>
+
+              <div id="downloadOther" style="display: none;">
+                <div class="coverage">
+                  <h5>Travel Policy Claim Form</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/ABHI_Travel_Policy_Claim_Form.pdf"
+                    download="ABHI_Travel_Policy_Claim_Form.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+
+              </div>
+
+              <!--
+                <div class="coverage">
+                <h5>Claim Form for Australia</h5>
+                <a href="https://eclaimsuat.europassistance.in/images/Claim_Form_for_Australiav1.3.xlsx"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="coverage">
+                <h5>Travel claim form </h5>
+                <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_Form-Infosys_(Gold_&_First_Plans).xls"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+                <div class="coverage">
+                <h5>Claims process contact matrix</h5>
+                <a href="https://eclaimsuat.europassistance.in/images/Claims_Process_Contact_Matrix-Infosys.pdf" download> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>-->
+
+              <!-- <div class="coverage">
+                  <h5>Release of Medical Information</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_1-ROI.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                  </div>
+                  <div class="coverage">
+                  <h5>INSURED's MEDICAL QUESTIONNAIRE</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_2-IMQ.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                  </div>
+                  <div class="coverage">
+                  <h5>PRELIMINARY MEDICAL REPORT</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/TATA_KIT_3-PMR.PDF"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                  </div>
+                  <div class="coverage">
+                  <h5>CENTRAL KYC REGISTRY</h5>
+                  <a href="https://eclaimsuat.europassistance.in/images/TATA_Kit_4-KYC.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                  </div> -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <!--Footer-start-->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+            <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer-end-->
   </div>
-  
-  <!--Footer-end--> 
-</div>
 </body>
+
 </html>

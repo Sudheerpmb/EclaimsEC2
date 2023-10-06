@@ -1,0 +1,573 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
+    <title>Travel e-claims</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/tabs.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href='css/css-fonts.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <style type="text/css">
+        .main {
+            padding-bottom: 65px;
+        }
+
+        /* .navigate a.left-btn {
+            cursor: pointer;
+            color: #0458a0;
+        } */
+
+        .line1 {
+            background-color: #0d498f;
+            color: white;
+            width: 40%;
+            padding-left: 1%;
+            padding-right: 1%;
+            margin-left: 5%;
+            margin-top: 3%;
+            line-height: 40px;
+            position: relative;
+            z-index: 1;
+
+        }
+
+        .line2 {
+            background-color: #0d498f;
+            color: white;
+            width: 40%;
+            line-height: 40px;
+            padding-left: 1%;
+            padding-right: 1%;
+            margin-left: 10%;
+            margin-top: -3%;
+
+        }
+
+        .line3 {
+            background-color: #0d498f;
+            color: white;
+            width: 40%;
+
+            padding-left: 1%;
+            padding-right: 1%;
+            margin-left: 15%;
+            line-height: 40px;
+            margin-top: -3%;
+
+        }
+
+        .line4 {
+            background-color: #0d498f;
+            color: white;
+            width: 40%;
+            padding-left: 1%;
+            padding-right: 1%;
+            margin-left: 20%;
+            margin-top: -3%;
+            line-height: 40px;
+        }
+
+        .line5 {
+            background-color: #0d498f;
+            color: white;
+            width: 40%;
+            padding-left: 1%;
+            padding-right: 1%;
+            margin-left: 25%;
+            margin-top: -3%;
+            line-height: 40px;
+
+        }
+
+        .line6 {
+            background-color: #0d498f;
+            color: white;
+            width: 40%;
+            padding-left: 1%;
+            padding-right: 1%;
+            margin-left: 30%;
+            margin-top: -3%;
+            line-height: 20px;
+
+        }
+
+        .line7 {
+            background-color: #0d498f;
+            color: white;
+            width: 40%;
+            padding-left: 1%;
+            padding-right: 1%;
+            margin-left: 35%;
+            margin-top: -3%;
+            line-height: 40px;
+
+        }
+
+        .line8 {
+            background-color: #0d498f;
+            color: white;
+            width: 40%;
+            padding-left: 1%;
+            padding-right: 1%;
+            margin-left: 40%;
+            margin-top: -3%;
+            line-height: 20px;
+            margin-bottom: 3%;
+        }
+
+        .container1 {
+            position: relative;
+            height: 60px;
+        }
+
+        .aline1 {
+            position: absolute;
+            top: -25%;
+            left: 42%;
+            width: 2%;
+            height: 30px;
+
+
+            background-color: lightgray;
+            transform: translateX(-50%, -100%);
+            z-index: 2;
+        }
+
+        .arrow-down1 {
+            position: absolute;
+            top: 20%;
+            left: 43%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid lightgray;
+            z-index: 2;
+        }
+
+        .aline2 {
+            position: absolute;
+            top: -25%;
+            left: 47%;
+            width: 2%;
+            height: 30px;
+
+            background-color: lightgray;
+            transform: translateX(-50%, -100%);
+        }
+
+        .arrow-down2 {
+            position: absolute;
+            top: 20%;
+            left: 48%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid lightgray;
+        }
+
+        .aline3 {
+            position: absolute;
+            top: -25%;
+            left: 52%;
+            width: 2%;
+            height: 30px;
+
+            background-color: lightgray;
+            transform: translateX(-50%, -100%);
+        }
+
+        .arrow-down3 {
+            position: absolute;
+            top: 20%;
+            left: 53%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid lightgray;
+        }
+
+        .aline4 {
+            position: absolute;
+            top: -25%;
+            left: 57%;
+            width: 2%;
+            height: 30px;
+
+            background-color: lightgray;
+            transform: translateX(-50%, -100%);
+        }
+
+        .arrow-down4 {
+            position: absolute;
+            top: 20%;
+            left: 58%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid lightgray;
+        }
+
+        .aline5 {
+            position: absolute;
+            top: -25%;
+            left: 62%;
+            width: 2%;
+            height: 30px;
+
+            background-color: lightgray;
+            transform: translateX(-50%, -100%);
+        }
+
+        .arrow-down5 {
+            position: absolute;
+            top: 20%;
+            left: 63%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid lightgray;
+        }
+
+        .aline6 {
+            position: absolute;
+            top: -25%;
+            left: 67%;
+            width: 2%;
+            height: 30px;
+
+            background-color: lightgray;
+            transform: translateX(-50%, -100%);
+        }
+
+        .arrow-down6 {
+            position: absolute;
+            top: 20%;
+            left: 68%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid lightgray;
+        }
+
+        .aline7 {
+            position: absolute;
+            top: -25%;
+            left: 72%;
+            width: 2%;
+            height: 30px;
+
+            background-color: lightgray;
+            transform: translateX(-50%, -100%);
+        }
+
+        .arrow-down7 {
+            position: absolute;
+            top: 20%;
+            left: 73%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid lightgray;
+        }
+        @media only screen and (max-width:330px) {
+            .img {
+                width: 60px;
+            }
+
+        }
+    </style>
+
+    <script src="js/lib/jquery-1.11.1.min.js"></script>
+    <script src="js/lib/jquery.validate.min.js"></script>
+    <script src="js/lib/additional-methods.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/util.js"></script>
+    <script src="js/lib/const.js"></script>
+    <script src="js/controllers/homeController.js"></script>
+    <script src="js/controllers/commonController.js"></script>
+   
+</head>
+
+<body>
+
+    <!-- <script type="text/javascript">
+        $(function(){ isAuthenticated(); });
+    </script> -->
+
+
+    <div class="main">
+        <!--Header-start-->
+        <div class="header-sec">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="pull-left"> <a href="index.html" title="">
+                                <img src="images/EuropAssistance.png" alt="" class="img" /></a>
+                            <!-- <a href="index.html"><button type="btn" class="btn"
+                                    style="margin-top:63px;background-color: #00459a;color: white;">Back</button>
+                            </a> -->
+                        </div>
+                        <div class="pull-right" style="margin-top: 50px;">
+                            <!-- <input type="text" id="searchInput" placeholder="Search.." style="margin-top: 14px;padding-left: 5px;"> -->
+                            <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                                    style="float: right; color: #024695; padding: 10px;"></i> </a>
+                            <a href="index.html"><i class="fa fa-home fa-2x"
+                                    style="float: right; color: #024695; padding: 10px;"></i>
+                                <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x"
+                                        style="color: #024695; padding: 10px;float:right;"></i> </a>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Header-End-->
+
+        <script type="text/javascript">
+
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+
+        <div class="body-wraper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                    </div>
+                    <div class="claim-entry">
+                        <div class="claim-title">
+                            <!--<h1><a href="index.html">&#8592; back</a></h1> -->
+                            <h1 style="color: #0458a0;">Help</h1>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <!-- <div class="navigate">
+                                        <a onclick="goBack()" class="left-btn" style="cursor:pointer;color:#0458a0;">&#8810;Back</a>
+                                    </div> -->
+                            </div>
+                            <div id="faqContainer">
+                                <div id="accordion">
+                                    <!-- first -->
+                                    <div class="card">
+                                        <div class="card-header" id="headingOne">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link" data-toggle="collapse"
+                                                    data-target="#collapseOne" aria-expanded="true"
+                                                    aria-controls="collapseOne">Step by Step Guide for Cashless Medical
+                                                    Claim Overseas Travel Policies.
+                                                    <span class="down-arw"><i style="font-size:16px"
+                                                            class="fa">&#xf0dd;</i></span>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                            data-parent="#accordion">
+                                            <div class="card-body">
+                                                <Span style="padding-left: 10px;"><strong>1. Intimation & Claim
+                                                        Registration. </strong></Span><br><br>
+                                                <ul>
+                                                    <li>While abroad policy holder can visit any hospital and intimate
+                                                        us to initiate cashless claim request.</li>
+                                                    <li>Intimation - Insured can email or Call our 24*7 Alarm Centre
+                                                        Team to the number provided in the Policy Schedule from anywhere
+                                                        in the world.</li>
+                                                    <li>Alarm Centre would check the eligibility benefit and initiate a
+                                                        cashless claim.</li>
+                                                </ul>
+                                                <Span style="padding-left: 10px;"><strong>2. Processing: Claim Documents
+                                                        Submission</strong></Span><br><br>
+                                                <ul>
+                                                    <li>Europ Assistance team will liaise with Insured/Family and
+                                                        medical service provider such as Hospital/Clinic/Doctor etc. to
+                                                        obtain the Complete medical records.</li>
+                                                </ul>
+                                                <Span style="padding-left: 10px;"><strong>3. Decision
+                                                    </strong></Span><br><br>
+                                                <ul>
+                                                    <li>Europ Assistance team will then update Insured/Family and
+                                                        Provider of the final coverage.</li>
+                                                    <li>In case of incomplete documentation or Repudiation, Europ
+                                                        Assistance team will update the Insured/Family and Provider on
+                                                        the inability to extend cashless services.</li>
+                                                </ul>
+                                                <Span style="padding-left: 10px;"><strong>4. Completion
+                                                        :</strong></Span><br><br>
+                                                <ul>
+                                                    <li>Upon completion of the claim admissibility, Guarantee of Pay
+                                                        shall be given to the Hospital with amount covered. The
+                                                        admissibility and coverage will also be updated to
+                                                        Insured/family.</li>
+                                                </ul>
+                                                <Span style="padding-left: 10px;"><strong>Important
+                                                        Notes:</strong></Span><br><br>
+                                                <ul>
+                                                    <li><strong>Cashless case of inpatient hospitalization must be more
+                                                            than 24 hours to avail cashless services. Subject to receipt
+                                                            of Complete documents and approval of claim.</strong></li>
+                                                    <li><strong>Please note that the denial of authorization for
+                                                            cashless settlement does not imply denial of treatment and
+                                                            does not in any way prevent you from seeking necessary
+                                                            medical attention or hospitalization and claiming for
+                                                            reimbursement.</strong></li>
+                                                    <li><strong>All claims are processed as per policy benefits, terms
+                                                            and condition. Final decision of any claim made will be done
+                                                            after receiving and assessment of all the
+                                                            documents.</strong></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Second -->
+                                    <div class="card">
+                                        <div class="card-header" id="headingTwo">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                    data-target="#collapseTwo" aria-expanded="false"
+                                                    aria-controls="collapseTwo">User Journey For E-claim.<span
+                                                        class="down-arw"><i style="font-size:16px"
+                                                            class="fa">&#xf0dd;</i></span>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                            data-parent="#accordion">
+                                            <div class="card-body" style="background-color: #f3f3f3;">
+                                                <!-- <ul>
+                                                    <li>Registering new claim - click on file tab.</li>
+                                                    <li>Enter valid policy/certificate number along with incident date.
+                                                    </li>
+                                                    <li>Select the type of claim.</li>
+                                                    <li>Fill in the claim details form (enter all mandatory details).
+                                                    </li>
+                                                    <li>Upload the required documents as per the type of claim.</li>
+                                                    <li>After submitting the claim, the customer will receive an email
+                                                        with mandatory list of documents.</li>
+                                                    <li>Tracking the claim status - click on the track claim tab.</li>
+                                                    <li>Uploading documents - click on claim status and click on the
+                                                        claim number in which document needs to be uploaded.</li>
+                                                </ul> -->
+                                                <div class="line1 rounded">Registering new claim - Click on file tab.
+                                                </div>
+                                                <div class="container1">
+                                                    <div class="aline1"></div>
+                                                    <div class="arrow-down1"></div>
+                                                </div>
+                                                <div class="line2 rounded">Enter valid policy/certificate number along
+                                                    with incident date.</div>
+                                                <div class="container1">
+                                                    <div class="aline2"></div>
+                                                    <div class="arrow-down2"></div>
+                                                </div>
+                                                <div class="line3 rounded">Select the type of claim.</div>
+                                                <div class="container1">
+                                                    <div class="aline3"></div>
+                                                    <div class="arrow-down3"></div>
+                                                </div>
+                                                <div class="line4 rounded">File in the claim details form (enter all
+                                                    mandatory details).</div>
+                                                <div class="container1">
+                                                    <div class="aline4"></div>
+                                                    <div class="arrow-down4"></div>
+                                                </div>
+                                                <div class="line5 rounded">Upload the required documents as per the type
+                                                    of claim.</div>
+                                                <div class="container1">
+                                                    <div class="aline5"></div>
+                                                    <div class="arrow-down5"></div>
+                                                </div>
+                                                <div class="line6 rounded">After submitting the claim, the customer will
+                                                    receive an email with mandatory list of documents.</div>
+                                                <div class="container1">
+                                                    <div class="aline6"></div>
+                                                    <div class="arrow-down6"></div>
+                                                </div>
+                                                <div class="line7 rounded">Tracking the claim status - click on the
+                                                    track claim tab.</div>
+                                                <div class="container1">
+                                                    <div class="aline7"></div>
+                                                    <div class="arrow-down7"></div>
+                                                </div>
+                                                <div class="line8 rounded">Uploading documents - click on claim status
+                                                    and click on the claim number in which document needs to be
+                                                    uploaded.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-start-->
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                            <span> © E-claims. All Rights Reserved</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                            <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-end-->
+        </div>
+        <!-- <script>
+        // Get references to the necessary elements
+        const searchInput = document.getElementById('searchInput');
+        const faqContainer = document.getElementById('faqContainer');
+        const faqs = Array.from(faqContainer.getElementsByClassName('card'));
+  
+        // Function to perform the search and filter FAQs
+        function performSearch() {
+          // Retrieve the search query
+          const query = searchInput.value.toLowerCase().trim();
+  
+          // Filter the FAQs based on the search query
+          const filteredFaqs = faqs.filter(faq => {
+            const question = faq.querySelector('.card-header').textContent.toLowerCase();
+            return question.includes(query);
+          });
+  
+          // Show or hide the FAQs based on the search results
+          faqs.forEach(faq => {
+            if (filteredFaqs.includes(faq)) {
+              faq.style.display = 'block';
+            } else {
+              faq.style.display = 'none';
+            }
+          });
+        }
+        // Add event listener to the search input
+        searchInput.addEventListener('input', performSearch);
+  
+      </script> -->
+
+        <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+</body>
+
+</html>
