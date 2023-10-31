@@ -417,7 +417,7 @@ $(function () {
         <p><b>Dear ${userObj.firstName.charAt(0).toUpperCase() + userObj.firstName.slice(1)} ${userObj.lastName.charAt(0).toUpperCase() + userObj.lastName.slice(1)}</b></p>
         <p><span><b>CLAIM REFERENCE: ${caseno}</b></span>
         ${body}
-        <p>Your calim has been successfully created</p>
+        <p>Your claim has been successfully created</p>
         ${rel}
         <p>Yours sincerely,</p>
         <p>Claims Team</p>
