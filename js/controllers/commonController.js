@@ -208,7 +208,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
             // alert(json.length);
             if (Array.isArray(json) && json.length > 1) {
                 // Display an alert if there is more than one record
-                toastr.error('Please enter a certificate number to narrow down the search.');
+                toastr.error('Please enter a certificate number');
                 return;
               }
         
@@ -313,7 +313,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
     });
     function handlePolicyNotFound(insuranceProvider) {
         console.log("Policy not found");
-        if (insuranceProvider == "EUROP ASSISTANCE" || insuranceProvider == "RELIANCE" || insuranceProvider == 'ASEGO ABHI') {
+        if (insuranceProvider == "EUROP ASSISTANCE" || insuranceProvider == "RELIANCE" || insuranceProvider == 'ASEGO ABHI' || insuranceProvider == 'NIVA BUPA') {
           // setToStore('policyExpiry',json[0].policyEndDate);
           window.location = env.app_url + "coverage.html";
         } else {
