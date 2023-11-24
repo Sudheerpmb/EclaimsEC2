@@ -704,14 +704,127 @@ $("#submitClaim12").click(function () {
   })
 
 })
-function getCustomerClaims() {
+// function getCustomerClaims() {
 
+//   var userDetails = JSON.parse(getFromStore("user"));
+//   var eclaims_token = getFromStore("eclaimsToken");
+//   var access_token = getFromStore("token");
+//   var user = JSON.parse(getFromStore("user"))
+//   var url = env.node_api_url + "eclaims/cases/getClaimI?user_name=" + userDetails.email;
+
+//   $.ajax({
+//     async: true,
+//     crossDomain: true,
+//     url: url,
+//     type: "GET",
+//     processData: false,
+//     contentType: false,
+//     headers: {
+//       Authorization: "Bearer " + eclaims_token
+//     },
+//     success: function (data) {
+//       // var json = JSON.parse(data[0]);
+//       var json = data;
+      
+
+//       if (json.length > 0) {
+//         var customerClaims = json[0].claims;
+//         var claimsHtml = `
+//         <div class="coverage " style="color:red">
+//             <div class="clm-row">
+//               <h5>Claim Id</h5>
+//             </div>
+//             <div class="clm-row"> 
+//                 <h5>Claim Date</h5>
+//             </div>
+//             <div class="clm-row">
+//               <h5>Customer Name</h5> 
+//             </div>
+//             <div class="clm-row">
+//               <h5>Policy No</h5> 
+//             </div>
+//             <div class="clm-row">
+//               <h5>Type</h5> 
+//             </div>
+//             <div class="clm-row">
+//               <h5>Status</h5> 
+//             </div>
+//           </div>`;
+//         let contacts = new Map()
+//         let claimCount = 0;
+//         Object.values(json).forEach(value => {
+//           if (value.CaseNumber.substring(0, 2) == getFromStore('prefix').substring(0, 2).toUpperCase() && !contacts.has(value.CaseNumber)) {
+//             contacts.set(value.CaseNumber, 1)
+//             let insuProvider = 'NA'
+//             if (value.insuranceProvider)
+//               insuProvider = value.insuranceProvider.toUpperCase()
+//             claimCount++;
+//             claimsHtml += `   <div class="coverage ">
+//                                 <div class="clm-row">
+//                                    <h6><a style="color:blue;cursor:pointer" onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.CaseNumber}</a></h6>
+//                                 </div>
+//                                 <div class="clm-row"> 
+//                                     <h6>${new Date(value.CreationDate).toLocaleDateString('en-GB')}</h6>
+//                                  </div>
+//                                 <div class="clm-row">
+//                                     <h6>${value.customers.FirstName.charAt(0).toUpperCase() + value.customers.FirstName.slice(1) + ' ' + value.customers.LastName.charAt(0).toUpperCase() + value.customers.LastName.slice(1)}</h6> 
+//                                 </div>
+//                                 <div class="clm-row">
+//                                     <h6>${value.travelPolicy[0] ? value.travelPolicy[0].policyNumber : 'NA'}</h6> 
+//                                 </div>
+//                                 <div class="clm-row">
+//                                     <h6>${value.travelCases.subClaimType}</h6>
+//                                 </div>
+//                                 <div class="clm-row">
+//                                   <h6>${value.travelCases.claimSatus}</h6>
+//                                 </div>
+//                               </div>`;
+//           }
+//         });
+//         if (claimCount == 0) {
+//           claimsHtml = `<h5>No Claims Found</h5>`
+//         }
+//         document.getElementById("claimsListContainer").innerHTML = claimsHtml;
+//         // Add search functionality
+//         var searchInput = document.getElementById("searchInput");
+//         searchInput.addEventListener("input", function () {
+//           var searchValue = this.value.toLowerCase();
+//           var coverageItems = claimsListContainer.getElementsByClassName("coverage");
+//           Array.from(coverageItems).forEach(function (item) {
+//             var claimDetails = item.innerText.toLowerCase();
+
+//             if (claimDetails.includes(searchValue)) {
+//               item.style.display = "block";
+//             } else {
+//               item.style.display = "none";
+//             }
+//           });
+//         });
+//       }
+//       else {
+//         document.getElementById("claimsListContainer").innerHTML = `<h2>No claims has been found</h2>`;
+//       }
+
+//     },
+//     error: function (err) {
+//       console.log(err);
+//       toastr.error('Whoops! Something went wrong.');
+//     }
+//   });
+
+
+
+
+// }
+
+
+function getCustomerClaims() {
   var userDetails = JSON.parse(getFromStore("user"));
   var eclaims_token = getFromStore("eclaimsToken");
   var access_token = getFromStore("token");
   var user = JSON.parse(getFromStore("user"))
   var url = env.node_api_url + "eclaims/cases/getClaimI?user_name=" + userDetails.email;
-
+ 
   $.ajax({
     async: true,
     crossDomain: true,
@@ -723,101 +836,151 @@ function getCustomerClaims() {
       Authorization: "Bearer " + eclaims_token
     },
     success: function (data) {
-      // var json = JSON.parse(data[0]);
       var json = data;
       
-
       if (json.length > 0) {
-        var customerClaims = json[0].claims;
+        
         var claimsHtml = `
-        <div class="coverage " style="color:red">
-            <div class="clm-row">
-              <h5>Claim Id</h5>
-            </div>
-            <div class="clm-row"> 
-                <h5>Claim Date</h5>
-            </div>
-            <div class="clm-row">
-              <h5>Customer Name</h5> 
-            </div>
-            <div class="clm-row">
-              <h5>Policy No</h5> 
-            </div>
-            <div class="clm-row">
-              <h5>Type</h5> 
-            </div>
-            <div class="clm-row">
-              <h5>Status</h5> 
-            </div>
-          </div>`;
-        let contacts = new Map()
-        let claimCount = 0;
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Claim Id</th>
+                <th>Claim Date</th>
+                <th>Customer Name</th>
+                <th>Policy No</th>
+                <th>Type</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>`;
+ 
         Object.values(json).forEach(value => {
-          if (value.CaseNumber.substring(0, 2) == getFromStore('prefix').substring(0, 2).toUpperCase() && !contacts.has(value.CaseNumber)) {
-            contacts.set(value.CaseNumber, 1)
-            let insuProvider = 'NA'
+          if (value.CaseNumber.substring(0, 2) == getFromStore('prefix').substring(0, 2).toUpperCase()) {
+            let insuProvider = 'NA';
             if (value.insuranceProvider)
-              insuProvider = value.insuranceProvider.toUpperCase()
-            claimCount++;
-            claimsHtml += `   <div class="coverage ">
-                                <div class="clm-row">
-                                   <h6><a style="color:blue;cursor:pointer" onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.CaseNumber}</a></h6>
-                                </div>
-                                <div class="clm-row"> 
-                                    <h6>${new Date(value.CreationDate).toLocaleDateString('en-GB')}</h6>
-                                 </div>
-                                <div class="clm-row">
-                                    <h6>${value.customers.FirstName.charAt(0).toUpperCase() + value.customers.FirstName.slice(1) + ' ' + value.customers.LastName.charAt(0).toUpperCase() + value.customers.LastName.slice(1)}</h6> 
-                                </div>
-                                <div class="clm-row">
-                                    <h6>${value.travelPolicy[0] ? value.travelPolicy[0].policyNumber : 'NA'}</h6> 
-                                </div>
-                                <div class="clm-row">
-                                    <h6>${value.travelCases.subClaimType}</h6>
-                                </div>
-                                <div class="clm-row">
-                                  <h6>${value.travelCases.claimSatus}</h6>
-                                </div>
-                              </div>`;
+              insuProvider = value.insuranceProvider.toUpperCase();
+ 
+              claimsHtml += `
+              <tr>
+                <td onclick="myFunctionGetTravel('${value.CaseNumber}')"><a style="color:blue;cursor:pointer">${value.CaseNumber}</a></td>
+                <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${new Date(value.CreationDate).toLocaleDateString('en-GB')}</td>
+                <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.customers.FirstName.charAt(0).toUpperCase() + value.customers.FirstName.slice(1) + ' ' + value.customers.LastName.charAt(0).toUpperCase() + value.customers.LastName.slice(1)}</td>
+                <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.travelPolicy[0] ? value.travelPolicy[0].policyNumber : 'NA'}</td>
+                <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.travelCases.subClaimType}</td>
+                <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.travelCases.claimSatus}</td>
+              </tr>`;
           }
         });
-        if (claimCount == 0) {
-          claimsHtml = `<h5>No Claims Found</h5>`
-        }
+ 
+        claimsHtml += `
+        </tbody>
+        </table>
+        </div>`;
+ 
         document.getElementById("claimsListContainer").innerHTML = claimsHtml;
-        // Add search functionality
-        var searchInput = document.getElementById("searchInput");
+        // let itemsPerPage = 10;
+
+        // Call the functions to create the pagination buttons and show the first page
+        createPageButtons();
+        showPage(0);
         searchInput.addEventListener("input", function () {
           var searchValue = this.value.toLowerCase();
-          var coverageItems = claimsListContainer.getElementsByClassName("coverage");
-          Array.from(coverageItems).forEach(function (item) {
-            var claimDetails = item.innerText.toLowerCase();
-
-            if (claimDetails.includes(searchValue)) {
-              item.style.display = "block";
+        
+          // If the search input is empty, reset the table
+          if (searchValue === '') {
+            document.getElementById("claimsListContainer").innerHTML = claimsHtml;
+            createPageButtons();
+            showPage(0);
+            return;
+          }
+        
+          var tableRows = claimsListContainer.querySelectorAll("tbody tr");
+        
+          Array.from(tableRows).forEach(function (row) {
+            var rowText = row.innerText.toLowerCase();
+        
+            if (rowText.includes(searchValue)) {
+              row.style.display = "";
             } else {
-              item.style.display = "none";
+              row.style.display = "none";
             }
           });
+        
+          // Count the number of visible rows
+          var visibleRows = Array.from(tableRows).filter(function (row) {
+            return row.style.display !== "none";
+          }).length;
+        
+          // If no rows are visible, display a "No results found" message
+          if (visibleRows === 0) {
+            document.getElementById("claimsListContainer").innerHTML = `<h2>No results found</h2>`;
+          }
         });
       }
       else {
         document.getElementById("claimsListContainer").innerHTML = `<h2>No claims has been found</h2>`;
       }
-
     },
     error: function (err) {
       console.log(err);
       toastr.error('Whoops! Something went wrong.');
     }
   });
+  
+ }
+ 
+let itemsPerPage = 10;
 
+function showPage(pageNumber) {
+  var tableRows = claimsListContainer.querySelectorAll("tbody tr");
+  var startItem = pageNumber * itemsPerPage;
+  var endItem = startItem + itemsPerPage;
 
-
-
+  Array.from(tableRows).forEach(function (row, index) {
+    if (index >= startItem && index < endItem) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  });
 }
 
+function createPageButtons() {
+  var tableRows = claimsListContainer.querySelectorAll("tbody tr");
+  var totalItems = tableRows.length;
+  var totalPages = Math.ceil(totalItems / itemsPerPage);
 
+  var paginationContainer = document.createElement("div");
+  paginationContainer.className = "pagination-container";
+
+  for (var i = 0; i < totalPages; i++) {
+    var button = document.createElement("button");
+    button.innerText = i + 1;
+    button.addEventListener("click", function () {
+      showPage(this.innerText - 1);
+    });
+
+    // Add CSS styling to the button
+    button.style.backgroundColor = "#5272F2"; // Green background
+    button.style.color = "white"; // White text
+    button.style.border = "none"; // No border
+    button.style.padding = "10px 20px"; // Padding around text
+    button.style.textAlign = "center"; // Center text
+    button.style.textDecoration = "none"; // No underline
+    button.style.display = "inline-block"; // Display as inline block
+    button.style.fontSize = "15px"; // Font size
+    button.style.margin = "4px 2px"; // Margin around button
+    button.style.cursor = "pointer"; // Change cursor to pointer when hovering over button
+    button.style.transition = "background-color 0.3s ease";
+    button.style.borderRadius = "12px"; // Padding around text
+     // Transition background color over 0.3 seconds when hovering over button
+
+    paginationContainer.appendChild(button);
+  }
+
+  document.getElementById("claimsListContainer").appendChild(paginationContainer);
+}
 
 function getCustomerRecentClaim() {
 

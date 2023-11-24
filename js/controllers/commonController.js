@@ -214,6 +214,8 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
         
               // Check if the policy details are not found
               if (Result1 == "Details not found") {
+                const isValidPolicy = "Invalid";
+                setToStore('validation', isValidPolicy);
                 handlePolicyNotFound(insuranceProvider);
                 return;
               }
@@ -252,6 +254,8 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
             // }
 
             if (json.length > 0) {
+                const isValidPolicy = "Valid";
+                setToStore('validation', isValidPolicy);
                 var policyStartDate = new Date(json[0].policyStartDate);
                 var policyEndDate = new Date(json[0].policyEndDate);
                 var dateMomentObject = moment(incidentDate, "DD/MM/YYYY"); // 1st argument - string, 2nd argument - format

@@ -13,10 +13,10 @@
   <link href='css/css-fonts.css' rel='stylesheet'>
   <link rel="stylesheet" href="css/font-awesome.min.css">
 
-  
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="./css/style_w.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <link rel="stylesheet" href="./css/style_w.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 
   <script src="js/lib/jquery-1.11.1.min.js"></script>
   <script src="js/lib/jquery.validate.min.js"></script>
@@ -25,7 +25,7 @@
   <script src="js/lib/const.js"></script>
   <script src="js/controllers/feedbackController.js"></script>
   <script src="js/controllers/commonController.js"></script>
-
+  
 </head>
 
 <body>
@@ -33,24 +33,40 @@
   <script type="text/javascript">
     $(function () {
       var urlParams = new URLSearchParams(window.location.search);
-      let userData={
-        id:urlParams.get('_id'),
-        isActive:true,
-        email:urlParams.get('email'),
-        firstName:urlParams.get('firstName'),
-        lastName:urlParams.get('lastName'),
-        phoneNumber:urlParams.get('phoneNumber')
+      let userData = {
+        id: urlParams.get('_id'),
+        isActive: true,
+        email: urlParams.get('email'),
+        firstName: urlParams.get('firstName'),
+        lastName: urlParams.get('lastName'),
+        phoneNumber: urlParams.get('phoneNumber')
       }
       // let userData=JSON.s({id:"6141f763eb58bb48e15e96fd",isActive:true,email:"rdas.extern@europ-assistance.in",firstName:"rakesh",lastName:"rakesh test",phoneNumber:"9963813259"})
+      clearStore();
+      $.ajax({
+        async: true,
+        crossDomain: true,
+        url: env.node_api_url + "batchJobs/insuranceProviders/getByUUID?uuid=" + urlParams.get('uuid'),
+        type: "GET",
+        success: function (data) {
+          // console.log('Client', data);
+          var clientId = data[0].clientName
+          setToStore("prefix", data[0].prefix);
+          setToStore("clientIDNM", clientId);
 
-      // alert(userData)
+        },
+        error: function (err) {
+          console.log(err);
+          alert("Error Occure , Please contact adminstrator");
+        },
+      });
       $.ajax({
         type: "POST",
         url: "https://eztraveluatapi.europassistance.in/auth/ssoEclaimsLogin",
         cache: false,
         data: userData,
         success: function (res) {
-//          alert(JSON.stringify(res))
+          //alert(JSON.stringify(res))
           let response = res;
           var user = {};
           user.firstName = response.firstName;
@@ -58,13 +74,17 @@
           user.email = response.email;
           user.mobile = response.mobile;
           user.clientId = urlParams.get('clientIDE');
-          setToStore("clientHash",urlParams.get('uuid'));
+          user.dob = response.dob ? response.dob : "";
+          user.gender = response.gender ? response.gender : "";
+          setToStore("clientHash", urlParams.get('uuid'));
           setToStore("user", JSON.stringify(user));
           setToStore("eclaimsToken", response.eclaimToken);
+          setToStore("googleLogin", 0);
+          setToStore("otpVerified", true);
           // setToStore("token", response.access_token);
           setToStore("token", response.eclaimToken);
-          console.log(response)
-          window.location = "https://eclaimsuat.europassistance.in/index.html";
+          console.log(response);
+          window.location = "https://eclaimsuat.europassistance.in/index.html" ;
         },
         error: function () {
           alert("Error");
@@ -95,8 +115,8 @@
     </div>
     <h1>Redirecting</h1>
     <!-- partial -->
-      <script  src="./script.js"></script>
-    
+    <script src="./script.js"></script>
+
   </div>
   <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </body>

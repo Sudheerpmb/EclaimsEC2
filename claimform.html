@@ -303,7 +303,8 @@
                   <div class="col-md-6 col-xs-6">
                     <label> Claim Amount <span style="color: red;">*</span>
                     </label>
-                    <input type="text" name="claimAmount" id="sumAmount" placeholder="Enter Claim Amount" class="inpt" />
+                    <input type="text" name="claimAmount" id="sumAmount" placeholder="Enter Claim Amount"
+                      class="inpt" />
                   </div>
                   <div class="col-md-6 col-xs-6">
 
@@ -398,7 +399,7 @@
                   Insured Person / Policy Holder Surname<span style="color: red;">*</span>
                 </label>
                 <input type="text" name="customerSurName" id="beneficiarySurName" placeholder="Enter surname"
-                  class="inpt" style="display: none;"/>
+                  class="inpt" style="display: none;" />
 
                 <label id="EmployeeNoL">
                   Employee Number <span style="color: red;">*</span>
@@ -521,41 +522,41 @@
       },
       success: function (data) {
         if (data.length > 0) {
-        let json = data[0];
-        // alert(json)
-        // $("#permanent_address_id").val(json.Address1 + ' ' + json.Address2 ? json.Address1 + ' ' +  json.Address2 : '');
-        // $("#permanent_city").val(json.city);
-        // $("#permanent_region").val(json.state);
-        // $("#permanent_zip_code").val(json.zip);
+          let json = data[0];
+          // alert(json)
+          // $("#permanent_address_id").val(json.Address1 + ' ' + json.Address2 ? json.Address1 + ' ' +  json.Address2 : '');
+          // $("#permanent_city").val(json.city);
+          // $("#permanent_region").val(json.state);
+          // $("#permanent_zip_code").val(json.zip);
 
-        
-        // var url = "js/json/countriesOther.json";
-        //     // Load the countries from the JSON file
-        //     $.getJSON(url, function (data) {
-        //       // Populate the select element with the country options
-        //       $.each(data, function (index, value) {
-        //         $('#permanent_country').append('<option value="' + value.code + '">' + value.name + '</option>');
-        //       });
 
-        //       // Get the country code you want to set based on json.country
-        //       var jsonCountryCode = json.country; // Assuming json.country contains "IND" or other country codes
+          // var url = "js/json/countriesOther.json";
+          //     // Load the countries from the JSON file
+          //     $.getJSON(url, function (data) {
+          //       // Populate the select element with the country options
+          //       $.each(data, function (index, value) {
+          //         $('#permanent_country').append('<option value="' + value.code + '">' + value.name + '</option>');
+          //       });
 
-        //       // Set the selected option in the #permanent_country element
-        //       $('#permanent_country').val(jsonCountryCode);
-        //     });
+          //       // Get the country code you want to set based on json.country
+          //       var jsonCountryCode = json.country; // Assuming json.country contains "IND" or other country codes
+
+          //       // Set the selected option in the #permanent_country element
+          //       $('#permanent_country').val(jsonCountryCode);
+          //     });
 
         }
         else {
-      // Handle the case where no data is returned
-      console.error("No data found for the given email and phone.");
-    }
-  },
-  error: function (error) {
-    console.error("Error fetching customer data: " + error);
-  }
+          // Handle the case where no data is returned
+          console.error("No data found for the given email and phone.");
+        }
+      },
+      error: function (error) {
+        console.error("Error fetching customer data: " + error);
+      }
     });
 
-   
+
 
     //  else if (getFromStore("user")) {
     //   var userObj = JSON.parse(getFromStore("user"));
@@ -571,72 +572,72 @@
     if (getFromStore("user")) {
       var userObj = JSON.parse(getFromStore("user"));
       if (getFromStore("policyDetails")) {
-      var userObj = JSON.parse(getFromStore("policyDetails"));
-      $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName );
-      // $("#beneficiarySurName").val(userObj.lastName);
-      $("#policyNumberId").val(userObj.policyNumber);
-      $("#beneficiaryEmail").val(userObj.email);
-      $("#beneficiaryNumber").val(userObj.mobile);
-      $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
-      $("#permanent_address_id").val(userObj.address);
-      $("#permanent_city").val(userObj.city);
-      $("#permanent_region").val(userObj.state);
-      // $("#permanent_country").val(userObj.country);
-              var url = "js/json/countries.json";
-            // Load the countries from the JSON file
-            $.getJSON(url, function (data) {
-              // Populate the select element with the country options
-              $.each(data, function (index, value) {
-                $('#permanent_country').append('<option value="' + value.name + '">' + value.name + '</option>');
-              });
-
-              // Get the country code you want to set based on json.country
-              var jsonCountryCode = userObj.country; // Assuming json.country contains "IND" or other country codes
-
-              // Set the selected option in the #permanent_country element
-              $('#permanent_country').val(jsonCountryCode);
-            });
-            $("#permanent_zip_code").val(userObj.zip);
-            $("#otherGender").show();
-            // $("#gender").val(userObj.gender? userObj.gender : '');
-            console.log("userObj.gender:", userObj.gender);
-            var genderMapping = {
-                      0: "Male",
-                      1: "Female",
-                      2: "Other"
-                  };
-
-                  $("#gender").val(
-                      userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined' 
-                      ? (typeof userObj.gender === 'number' ? genderMapping[userObj.gender] : userObj.gender)
-                      : ""
-                  );
-
-    }
-    else{
-      if (getFromStore("clientIDE") != "TATA AIG"){
-        $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
-        $("#otherGender").show();
-        console.log("userObj.gender:", userObj.gender);
-
-                $("#gender").val(
-                  userObj.gender === "0" ? "Male" :
-                  userObj.gender === "1" ? "Female" :
-                  userObj.gender === "2" ? "Other" :
-                    userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined' 
-                    ? (typeof userObj.gender === 'number' && userObj.gender in genderMapping ? genderMapping[userObj.gender] : userObj.gender)
-                    : ""
-                );
-
-        $("#beneficiaryEmail").val(userObj.email);
+        var userObj = JSON.parse(getFromStore("policyDetails"));
         $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
         // $("#beneficiarySurName").val(userObj.lastName);
+        $("#policyNumberId").val(userObj.policyNumber);
         $("#beneficiaryEmail").val(userObj.email);
         $("#beneficiaryNumber").val(userObj.mobile);
+        $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
+        $("#permanent_address_id").val(userObj.address);
+        $("#permanent_city").val(userObj.city);
+        $("#permanent_region").val(userObj.state);
+        // $("#permanent_country").val(userObj.country);
+        var url = "js/json/countries.json";
+        // Load the countries from the JSON file
+        $.getJSON(url, function (data) {
+          // Populate the select element with the country options
+          $.each(data, function (index, value) {
+            $('#permanent_country').append('<option value="' + value.name + '">' + value.name + '</option>');
+          });
+
+          // Get the country code you want to set based on json.country
+          var jsonCountryCode = userObj.country; // Assuming json.country contains "IND" or other country codes
+
+          // Set the selected option in the #permanent_country element
+          $('#permanent_country').val(jsonCountryCode);
+        });
+        $("#permanent_zip_code").val(userObj.zip);
+        $("#otherGender").show();
+        // $("#gender").val(userObj.gender? userObj.gender : '');
+        console.log("userObj.gender:", userObj.gender);
+        var genderMapping = {
+          0: "Male",
+          1: "Female",
+          2: "Other"
+        };
+
+        $("#gender").val(
+          userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined'
+            ? (typeof userObj.gender === 'number' ? genderMapping[userObj.gender] : userObj.gender)
+            : ""
+        );
 
       }
+      else {
+        if (getFromStore("clientIDE") != "TATA AIG") {
+          $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
+          $("#otherGender").show();
+          console.log("userObj.gender:", userObj.gender);
+
+          $("#gender").val(
+            userObj.gender === "0" ? "Male" :
+              userObj.gender === "1" ? "Female" :
+                userObj.gender === "2" ? "Other" :
+                  userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined'
+                    ? (typeof userObj.gender === 'number' && userObj.gender in genderMapping ? genderMapping[userObj.gender] : userObj.gender)
+                    : ""
+          );
+
+          $("#beneficiaryEmail").val(userObj.email);
+          $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
+          // $("#beneficiarySurName").val(userObj.lastName);
+          $("#beneficiaryEmail").val(userObj.email);
+          $("#beneficiaryNumber").val(userObj.mobile);
+
+        }
+      }
     }
-  }
 
     // if (getFromStore("user")) {
     //   var userRefObj = JSON.parse(getFromStore("user"));
@@ -646,7 +647,7 @@
     //     $("#otherGender").show();
     //     $("#gender").val(userRefObj.gender);
     // }
-    
+
     $("#policyNumberId").val(getFromStore("PolicyNumber_"));
     if (claimTypeId == 'FinancialAssistance') {
       // alert('hk')
@@ -685,10 +686,6 @@
       setToStore('claimTypeIdM', 'AirportServicecs')
     }
 
-
-
-
-
     var url = location.href;
     if (url.search('sts') >= 0) {
 
@@ -700,45 +697,43 @@
     }
     if (getFromStore("clientIDE") == "RELIANCE") {
       let policyNumberRel = getFromStore('PolicyNumber_')
-        // Make an AJAX request to fetch RELIANCE-specific data
-        $.ajax({
-            async: true,
-            crossDomain: true,
-            url: env.node_api_url + `eclaims/getRGICCustomerData?certifiacteNumber=${policyNumberRel}`,
-            type: "GET",
-            contentType: false,
-            processData: false,
-            headers: {
-                Authorization: "Bearer " + eclaim_token
-            },
-            success: function (relianceData) {
-              var policyDetails = relianceData.PolicyDetails;
-                // Patch the data according to your API response
-                if (policyDetails && policyDetails.Table && policyDetails.Table.length > 0) {
-                  let policy = policyDetails.Table[0]; // Assuming you only need the first policy
-                  $("#dob").val(policy.DOB ? policy.DOB.split(' ')[0] : "");
-                  // Set the values of your HTML fields based on the API data
-                  $("#PolicyNo").val(policy.PolicyNo);
-                  $("#beneficiaryName").val(policy.InsuredFName + " " + policy.InsuredMName + ' ' + policy.InsuredLName);
-                  $("#dob").val(formattedDOB);
-                  // $("#sumAmount").val(policy.SumInsured);
-                  $("#beneficiaryNumber").val(policy.ContactNo);
-                  $("#permanent_address_id").val(policy.InsuredAddress);
-                  $("#permanent_city").val(policy.City);
-                  $("#beneficiaryEmail").val(policy.EmailId);
-                  $("#permanent_region").val(policy.State);
-                  $("#relGender").show();
-                  $("#otherGender").hide();
-                  $("#genderRel ").val(policy.Gender);
-                  $("#permanent_zip_code").val(policy.PinCode);
-
-
-                }
-            },
-            error: function (err) {
-                console.error(err);
-            }
-        });
+      // Make an AJAX request to fetch RELIANCE-specific data
+      $.ajax({
+        async: true,
+        crossDomain: true,
+        url: env.node_api_url + `eclaims/getRGICCustomerData?certifiacteNumber=${policyNumberRel}`,
+        type: "GET",
+        contentType: false,
+        processData: false,
+        headers: {
+          Authorization: "Bearer " + eclaim_token
+        },
+        success: function (relianceData) {
+          var policyDetails = relianceData.PolicyDetails;
+          // Patch the data according to your API response
+          if (policyDetails && policyDetails.Table && policyDetails.Table.length > 0) {
+            let policy = policyDetails.Table[0]; // Assuming you only need the first policy
+            $("#dob").val(policy.DOB ? policy.DOB.split(' ')[0] : "");
+            // Set the values of your HTML fields based on the API data
+            $("#PolicyNo").val(policy.PolicyNo);
+            $("#beneficiaryName").val(policy.InsuredFName + " " + policy.InsuredMName + ' ' + policy.InsuredLName);
+            // $("#dob").val(formattedDOB);
+            // $("#sumAmount").val(policy.SumInsured);
+            $("#beneficiaryNumber").val(policy.ContactNo);
+            $("#permanent_address_id").val(policy.InsuredAddress);
+            $("#permanent_city").val(policy.City);
+            $("#beneficiaryEmail").val(policy.EmailId);
+            $("#permanent_region").val(policy.State);
+            $("#otherGender").hide();
+            $("#relGender").show();
+            $("#genderRel ").val(policy.Gender);
+            $("#permanent_zip_code").val(policy.PinCode);
+          }
+        },
+        error: function (err) {
+          console.error(err);
+        }
+      });
     }
   });
 
@@ -772,16 +767,33 @@
 
 </script>
 
+<script>
+  var googleMapsApiLoaded = false; // Track whether the Google Maps API has loaded
+  var isApiExpired = false; // Track whether the API key is expired
+  // Simulate API key expiration (replace with your actual logic to check API key status)
+  function checkApiKeyStatus() {
+    // Make a request to the Google Maps Geocoding API to detect errors
+    // If the response indicates an invalid key or other errors, set isApiExpired to true
+    // Here's a simple example using the Google Geocoding API:
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: '99 sardapally Sector - 2' }, function (results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        isApiExpired = true;
+      } else if (status === 'ExpiredKeyMapError') {
+        isApiExpired = true; // The API key is expired
+      }
+      initializeMap();
+    });
+  }
 
-  <script>
-    var googleMapsApiLoaded = false; // Track whether the Google Maps API has loaded
-  
-    function initializeMap() {
-      if (googleMapsApiLoaded) {
-        var places = new google.maps.places.Autocomplete(document.getElementById('incident_Address_id'));
-        var permanentPlaces = new google.maps.places.Autocomplete(document.getElementById('permanent_address_id'));
-  
-        google.maps.event.addListener(permanentPlaces, 'place_changed', function () {
+  function initializeMap() {
+    var places = new google.maps.places.Autocomplete(document.getElementById('incident_Address_id'));
+    var permanentPlaces = new google.maps.places.Autocomplete(document.getElementById('permanent_address_id'));
+    if (googleMapsApiLoaded && !isApiExpired) {
+      google.maps.event.addListener(permanentPlaces, 'place_changed', function () {
+        // Handle place changed event for permanent address
+        if (googleMapsApiLoaded && !isApiExpired) {
+          // Google Maps API is loaded and API key is not expired, process address using the API
           var getaddress = permanentPlaces.getPlace();
           var whole_address = getaddress.address_components;
           console.log(whole_address);
@@ -790,65 +802,74 @@
           $("#permanent_city").val('');
           $("#permanent_country").val('');
           $("#permanent_zip_code").val('');
-  
+
           $.each(whole_address, function (key1, value1) {
             if ((value1.types[0]) == 'locality') {
               var prev_long_name_city = value1.long_name;
               $("#permanent_city").val(prev_long_name_city);
             }
-  
+
             if ((value1.types[0]) == 'administrative_area_level_1') {
               var prev_long_name_state = value1.long_name;
               $("#permanent_region").val(prev_long_name_state);
             }
-  
+
             if ((value1.types[0]) == 'country') {
               var prev_long_name_country = value1.short_name;
               $("#permanent_country").val(prev_long_name_country);
             }
-  
+
             if ((value1.types[0]) == 'postal_code') {
               var prev_long_name_pincode = value1.long_name;
               $("#permanent_zip_code").val(prev_long_name_pincode);
             }
           });
+        }
+      });
+
+      google.maps.event.addListener(places, 'place_changed', function () {
+        // Google Maps API is loaded and API key is not expired, process address using the API
+        console.log(places.getPlace());
+        var getaddress = places.getPlace();
+        var whole_address = getaddress.address_components;
+        $("input[name='incidentCity']").val('');
+        $("input[name='incidentCountry']").val('');
+        $("input[name='zipCode']").val('');
+
+        $.each(whole_address, function (key1, value1) {
+          if ((value1.types[0]) == 'locality') {
+            var prev_long_name_city = value1.long_name;
+            $("input[name='incidentCity']").val(prev_long_name_city);
+          }
+
+          if ((value1.types[0]) == 'country') {
+            var prev_long_name_country = value1.short_name;
+            $("#sel2").val(prev_long_name_country);
+          }
+
+          if ((value1.types[0]) == 'postal_code') {
+            var prev_long_name_pincode = value1.long_name;
+            $("input[name='zipCode']").val(prev_long_name_pincode);
+          }
         });
-  
-        google.maps.event.addListener(places, 'place_changed', function () {
-          console.log(places.getPlace());
-          var getaddress = places.getPlace();
-          var whole_address = getaddress.address_components;
-          $("input[name='incidentCity']").val('');
-          $("input[name='incidentCountry']").val('');
-          $("input[name='zipCode']").val('');
-  
-          $.each(whole_address, function (key1, value1) {
-            if ((value1.types[0]) == 'locality') {
-              var prev_long_name_city = value1.long_name;
-              $("input[name='incidentCity']").val(prev_long_name_city);
-            }
-  
-            if ((value1.types[0]) == 'country') {
-              var prev_long_name_country = value1.short_name;
-              $("#sel2").val(prev_long_name_country);
-            }
-  
-            if ((value1.types[0]) == 'postal_code') {
-              var prev_long_name_pincode = value1.long_name;
-              $("input[name='zipCode']").val(prev_long_name_pincode);
-            }
-          });
-        });
-      } else {
-        // Handle the case where the Google Maps API failed to load
-        console.log('Google Maps API failed to load');
-      }
+      });
     }
-  
-    function onGoogleMapsApiLoaded() {
-      googleMapsApiLoaded = true;
-      initializeMap(); // Check if API has loaded and execute the code accordingly
+    else {
+      // Google Maps API is not loaded or API key is expired, allow manual entry
+      // You can enable the input fields to allow manual entry
+      document.getElementById('permanent_address_id').disabled = false;
+      document.getElementById('incident_Address_id').disabled = false;
     }
-  </script>
-  <script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCHE63tfw3AxMsCuRYUF6oqXd8Feu-cXts" onload="onGoogleMapsApiLoaded();"></script>
+  }
+
+  function onGoogleMapsApiLoaded() {
+    googleMapsApiLoaded = true;
+    checkApiKeyStatus();
+  }
+
+
+
+</script>
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCHE63tfw3AxMsCuRYUF6oqXd8Feu-cXts"
+  onload="onGoogleMapsApiLoaded();"></script>

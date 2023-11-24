@@ -223,7 +223,7 @@ $(function () {
                                         "claimEvent": "",
                                         "claimMode": "",
                                         "claimNote": "",
-                                        "claimReported": "",
+                                        "claimReported": "Eclaims",
                                         "claimType": claimTypeId,
                                         "contactEmail": form.elements.contactEmail.value,
                                         "contactNumber": form.elements.contactNumber.value,
@@ -255,7 +255,8 @@ $(function () {
                                         "zip": form.elements.permanentZipCode.value,
                                         "Remarks": form.elements.Remarks.value,
                                         "createdFrom":localStorage.getItem('type'),
-                                        "customerId":getFromStore('policyDetails.customerId')
+                                        "customerId":policyDetails ? policyDetails.customerId :'',
+                                        "validation":getFromStore("validation")
                 });
             
             let body = ''
