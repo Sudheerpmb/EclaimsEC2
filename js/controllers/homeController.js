@@ -927,61 +927,109 @@ function getCustomerClaims() {
       toastr.error('Whoops! Something went wrong.');
     }
   });
-  
+   // Call createPageButtons to initialize the pagination
+ createPageButtons();
  }
  
-let itemsPerPage = 10;
+ let itemsPerPage = 11;
+ let currentPage = 0;
+ 
+ function showPage(pageNumber) {
+   currentPage = pageNumber;
+   var tableRows = claimsListContainer.querySelectorAll("tbody tr");
+   var startItem = pageNumber * itemsPerPage;
+   var endItem = startItem + itemsPerPage;
+ 
+   Array.from(tableRows).forEach(function (row, index) {
+     if (index >= startItem && index < endItem) {
+       row.style.display = "";
+     } else {
+       row.style.display = "none";
+     }
+   });
+ 
+   updateButtonStyles();
+ }
+ 
+ function createPageButtons() {
+   var tableRows = claimsListContainer.querySelectorAll("tbody tr");
+   var totalItems = tableRows.length;
+   var totalPages = Math.ceil(totalItems / itemsPerPage);
+ 
+   var paginationContainer = document.createElement("div");
+   paginationContainer.className = "pagination-container";
+ 
+   // Previous Button
+   var prevButton = document.createElement("button");
+   prevButton.innerText = "Previous";
+   prevButton.addEventListener("click", function () {
+     if (currentPage > 0) {
+       showPage(currentPage - 1);
+     }
+   });
+   setButtonStyles(prevButton); // Set styles for the button
+   paginationContainer.appendChild(prevButton);
+ 
+   // Numbered Buttons
+   for (var i = 0; i < totalPages; i++) {
+     var button = document.createElement("button");
+     button.innerText = i + 1;
+     button.addEventListener("click", function () {
+       showPage(parseInt(this.innerText) - 1);
+     });
+     setButtonStyles(button); // Set styles for the button
+     paginationContainer.appendChild(button);
+   }
+ 
+   // Next Button
+   var nextButton = document.createElement("button");
+   nextButton.innerText = "Next";
+   nextButton.addEventListener("click", function () {
+     if (currentPage < totalPages - 1) {
+       showPage(currentPage + 1);
+     }
+   });
+   setButtonStyles(nextButton); // Set styles for the button
+   paginationContainer.appendChild(nextButton);
+ 
+   document.getElementById("claimsListContainer").appendChild(paginationContainer);
+ 
+   // Set initial styles
+   updateButtonStyles();
+ }
+ 
+ function setButtonStyles(button) {
+   button.style.backgroundColor = "#5272F2"; // Blue background
+   button.style.color = "white"; // White text
+   button.style.border = "none"; // No border
+   button.style.padding = "10px 20px"; // Padding around text
+   button.style.textAlign = "center"; // Center text
+   button.style.textDecoration = "none"; // No underline
+   button.style.display = "inline-block"; // Display as inline block
+   button.style.fontSize = "15px"; // Font size
+   button.style.margin = "4px 2px"; // Margin around button
+   button.style.cursor = "pointer"; // Change cursor to pointer when hovering over button
+   button.style.transition = "background-color 0.3s ease"; // Transition background color
+   button.style.borderRadius = "12px"; // Rounded corners
+ }
+ 
+ function updateButtonStyles() {
+   var buttons = document.querySelectorAll(".pagination-container button");
+   buttons.forEach(function (button, index) {
+     if (index === currentPage + 1) {
+       button.style.backgroundColor = "#4CAF50"; // Green background for the current page
+     } else {
+       button.style.backgroundColor = "#5272F2"; // Blue background for other pages
+     }
+   });
+ }
+ 
 
-function showPage(pageNumber) {
-  var tableRows = claimsListContainer.querySelectorAll("tbody tr");
-  var startItem = pageNumber * itemsPerPage;
-  var endItem = startItem + itemsPerPage;
-
-  Array.from(tableRows).forEach(function (row, index) {
-    if (index >= startItem && index < endItem) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
-    }
-  });
-}
-
-function createPageButtons() {
-  var tableRows = claimsListContainer.querySelectorAll("tbody tr");
-  var totalItems = tableRows.length;
-  var totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  var paginationContainer = document.createElement("div");
-  paginationContainer.className = "pagination-container";
-
-  for (var i = 0; i < totalPages; i++) {
-    var button = document.createElement("button");
-    button.innerText = i + 1;
-    button.addEventListener("click", function () {
-      showPage(this.innerText - 1);
-    });
-
-    // Add CSS styling to the button
-    button.style.backgroundColor = "#5272F2"; // Green background
-    button.style.color = "white"; // White text
-    button.style.border = "none"; // No border
-    button.style.padding = "10px 20px"; // Padding around text
-    button.style.textAlign = "center"; // Center text
-    button.style.textDecoration = "none"; // No underline
-    button.style.display = "inline-block"; // Display as inline block
-    button.style.fontSize = "15px"; // Font size
-    button.style.margin = "4px 2px"; // Margin around button
-    button.style.cursor = "pointer"; // Change cursor to pointer when hovering over button
-    button.style.transition = "background-color 0.3s ease";
-    button.style.borderRadius = "12px"; // Padding around text
-     // Transition background color over 0.3 seconds when hovering over button
-
-    paginationContainer.appendChild(button);
-  }
-
-  document.getElementById("claimsListContainer").appendChild(paginationContainer);
-}
-
+ 
+ 
+ 
+ 
+ 
 function getCustomerRecentClaim() {
 
 
