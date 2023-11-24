@@ -62,7 +62,7 @@
       });
       $.ajax({
         type: "POST",
-        url: "https://eztraveluatapi.europassistance.in/auth/ssoEclaimsLogin",
+        url: `${env.node_api_url}auth/ssoEclaimsLogin`,
         cache: false,
         data: userData,
         success: function (res) {
