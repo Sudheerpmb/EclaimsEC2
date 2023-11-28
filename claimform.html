@@ -713,21 +713,21 @@
           // Patch the data according to your API response
           if (policyDetails && policyDetails.Table && policyDetails.Table.length > 0) {
             let policy = policyDetails.Table[0]; // Assuming you only need the first policy
-            $("#dob").val(policy.DOB ? policy.DOB.split(' ')[0] : "");
+            $("#dob").val(policy && policy.DOB ? policy.DOB.split(' ')[0] : "");
             // Set the values of your HTML fields based on the API data
-            $("#PolicyNo").val(policy.PolicyNo);
-            $("#beneficiaryName").val(policy.InsuredFName + " " + policy.InsuredMName + ' ' + policy.InsuredLName);
+            $("#PolicyNo").val(policy && policy.PolicyNo ? policy.PolicyNo : '');
+            $("#beneficiaryName").val(policy.InsuredFName + " " + (policy && policy.InsuredMName ? policy.InsuredMName + ' ' : '') + policy.InsuredLName);
             // $("#dob").val(formattedDOB);
             // $("#sumAmount").val(policy.SumInsured);
-            $("#beneficiaryNumber").val(policy.ContactNo);
-            $("#permanent_address_id").val(policy.InsuredAddress);
-            $("#permanent_city").val(policy.City);
-            $("#beneficiaryEmail").val(policy.EmailId);
-            $("#permanent_region").val(policy.State);
+            $("#beneficiaryNumber").val(policy && policy.ContactNo ? policy.ContactNo : '');
+            $("#permanent_address_id").val(policy && policy.InsuredAddress ? policy.InsuredAddress : '');
+            $("#permanent_city").val(policy && policy.City ? policy.City : '');
+            $("#beneficiaryEmail").val(policy && policy.EmailId ? policy.EmailId : '');
+            $("#permanent_region").val(policy && policy.State ? policy.State : '');
             $("#otherGender").hide();
             $("#relGender").show();
-            $("#genderRel ").val(policy.Gender);
-            $("#permanent_zip_code").val(policy.PinCode);
+            $("#genderRel ").val(policy && policy.Gender ? policy.Gender : '');
+            $("#permanent_zip_code").val(policy && policy.PinCode ? policy.PinCode : '');
           }
         },
         error: function (err) {
