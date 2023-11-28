@@ -41,7 +41,7 @@ function initMap() {
     $.ajax({
         async: true,
         crossDomain: true,
-        url: `${env.node_api_url}api/nearestlocations?lattitude=${cordi.lng}&longitude=${cordi.lat}`,
+        url: `https://eztraveluatapi.europassistance.in/api/nearestlocations?lattitude=${cordi.lng}&longitude=${cordi.lat}`,
         type: "GET",
         contentType: false,
         processData: false,
@@ -319,9 +319,9 @@ function initMap() {
                     type = ''
                 let urlgeo = ''
                 if (pin === "")
-                    urlgeo = `${env.node_api_url}eclaims/locationssearch?city=${city}&type=${type}&limit=${limit}`
+                    urlgeo = `https://eztraveluatapi.europassistance.in/eclaims/locationssearch?city=${city}&type=${type}&limit=${limit}`
                 else
-                    urlgeo = `${env.node_api_url}eclaims/locationssearch?zip=${pin}&type=${type}&limit=${limit}`
+                    urlgeo = `https://eztraveluatapi.europassistance.in/eclaims/locationssearch?zip=${pin}&type=${type}&limit=${limit}`
                 $.ajax({
                     async: true,
                     crossDomain: true,

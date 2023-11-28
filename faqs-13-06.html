@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
+  <title>Travel e-claims</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/tabs.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href='css/css-fonts.css' rel='stylesheet'>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  
+  <style type="text/css">
+
+    .main {
+      padding-bottom: 65px;
+    }
+    .navigate a.left-btn {
+      cursor: pointer;
+      color: #0458a0;
+    }
+  </style>
+
+  <script src="js/lib/jquery-1.11.1.min.js"></script>
+  <script src="js/lib/jquery.validate.min.js"></script>
+  <script src="js/lib/additional-methods.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/lib/util.js"></script>
+  <script src="js/lib/const.js"></script>
+  <script src="js/controllers/homeController.js"></script>
+  <script src="js/controllers/commonController.js"></script>
+
+</head>
+
+<body>
+
+  <!-- <script type="text/javascript">
+
+    $(function () { isAuthenticated(); });
+
+  </script> -->
+
+
+  <div class="main">
+    <!--Header-start-->
+    <div class="header-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="pull-left"> <a href="index.html" title="">
+              <img src="images/logo.jpg" alt="" /></a>
+              <a href="index.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a>
+            </div>
+            <div class="pull-right" style="margin-top: 50px;">
+              <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                  style="float: right; color: #024695; padding: 10px;"></i> </a>
+              <a href="index.html"><i class="fa fa-home fa-2x"
+                  style="float: right; color: #024695; padding: 10px;"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Header-End-->
+
+    <script type="text/javascript">
+
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+
+
+    <div class="body-wraper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+          </div>
+          <div class="claim-entry">
+            <div class="claim-title">
+              <!--<h1><a href="index.html">&#8592; back</a></h1> -->
+              <h1>FAQs</h1>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+
+                <!--<div class="navigate">
+
+                <a onclick="goBack()" class="left-btn" style="cursor:pointer;color:#0458a0;">&#8810;Back</a>
+  
+              </div> -->
+              </div>
+              <div id="accordion">
+
+                <!-- first -->
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        How do I check my Policy Coverage Details? <span class="down-arw"><i style="font-size:16px"
+                            class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                      Please refer your policy document for understanding various coverage details.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Second -->
+                <div class="card">
+                  <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="false" aria-controls="collapseTwo">
+                        How do I create a New Claim? <span class="down-arw"><i style="font-size:16px"
+                            class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                      If you have an “Active” Travel Assistance policy, you can create a new claim in the “File”
+                      section.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- third -->
+                <!-- <div class="card">
+                        <div class="card-header" id="headingThree">
+                          <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            How do I check Status of my Claim? <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                            </button>
+                          </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                          <div class="card-body">
+                          You can check the status in the “Track Status” section of this application. 
+                          </div>
+                        </div>
+                      </div> -->
+
+                <!-- Fourth -->
+                <div class="card">
+                  <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
+                        aria-expanded="false" aria-controls="collapseFour">
+                        How to do I Upload Documents for my Claim? <span class="down-arw"><i style="font-size:16px"
+                            class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                    <div class="card-body">
+                      Documents can be uploaded in the Upload Documents” or the “Track Status” section.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Fifth -->
+                <div class="card">
+                  <div class="card-header" id="headingFive">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive"
+                        aria-expanded="false" aria-controls="collapseFive">
+                        What Documents are required for my Claim? <span class="down-arw"><i style="font-size:16px"
+                            class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                    <div class="card-body">
+                      Types of documents varies depending on the type of the claim. This application will guide you
+                      about the required documents during the claim creation process.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Sixth -->
+                <div class="card">
+                  <div class="card-header" id="headingSix">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix"
+                        aria-expanded="false" aria-controls="collapseSix">
+                        My Policy has Expired. Can I still create a Claim?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                    <div class="card-body">
+                      If the subject incident had occurred in past during the policy period, a claim can still be
+                      created in some cases for an Expired Policy.Please refer your policy document for more details.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- seventh -->
+                <div class="card">
+                  <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" style="white-space: normal;"
+                        data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        I have created a Claim. Does this mean that my claim has been accepted?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+                    <div class="card-body">
+                      This application is just a tool to facilitate quick filing and tracking of claims. Creating a
+                      claim in the application does not guarantee its acceptance or its validity.
+                      Approval of claim is a complex process and depends on multiple factors. You can track the status
+                      of your claim in the “Track Status” section. Once your claim has been accepted its status would
+                      change accordingly.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Eight -->
+                <div class="card">
+                  <div class="card-header" id="headingEight">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight"
+                        aria-expanded="false" aria-controls="collapseEight">
+                        Why status my Claim has not changed since last few days?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
+                    <div class="card-body">
+                      Approval of claim is a complex process and depends on multiple factors. At times it may take a
+                      longer time to update the claim status depending on the nature and type of the claim.Please wait
+                      for some time and then check the status of your claim in the “Track Status” section.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Nineth -->
+                <div class="card">
+                  <div class="card-header" id="headingNine">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" style="white-space: normal;" data-toggle="collapse"
+                        data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                        I have received an email asking for some additional details about my Claim.
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
+                    <div class="card-body">
+                      Certain type of claims may require additional details that might not have been captured while
+                      creating the claim using this application.Please reply to the email and provide the required
+                      additional details.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tenth -->
+                <div class="card">
+                  <div class="card-header" id="headingTenth">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" style="white-space: normal;" data-toggle="collapse"
+                        data-target="#collapseTenth" aria-expanded="false" aria-controls="collapseTenth">
+                        Whom do I contact while abroad in case of any emergency?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseTenth" class="collapse" aria-labelledby="headingTenth" data-parent="#accordion">
+                    <div class="card-body">
+                      You can contact our Emergency Assistance Provider Europ Assistance India Pvt. Ltd. On the numbers
+                      specified on the Policy schedule.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Eleventh -->
+                <div class="card">
+                  <div class="card-header" id="headingEleventh">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" style="white-space: normal;" data-toggle="collapse"
+                        data-target="#collapseEleventh" aria-expanded="false" aria-controls="collapseEleventh">
+                        When can cashless benefit be availed ?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseEleventh" class="collapse" aria-labelledby="headingEleventh"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                      Cashless benefit can be availed only in case of hospitalization for more than 24 hours
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Twelfth -->
+                <div class="card">
+                  <div class="card-header" id="headingTwelfth">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" style="white-space: normal;" data-toggle="collapse"
+                        data-target="#collapseTwelfth" aria-expanded="false" aria-controls="collapseTwelfth">
+                        Where can I avail cashless benefit in case of medical emergency ?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseTwelfth" class="collapse" aria-labelledby="headingTwelfth" data-parent="#accordion">
+                    <div class="card-body">
+                      Insured can visit any medical facility which is closest to his/her current location,in case of a
+                      medical emergency.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- thirteenth -->
+                <div class="card">
+                  <div class="card-header" id="headingThirteenth">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" style="white-space: normal;" data-toggle="collapse"
+                        data-target="#collapseThirteenth" aria-expanded="false" aria-controls="collapseThirteenth">
+                        Is there any Network or list of hospitals?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseThirteenth" class="collapse" aria-labelledby="headingthirTeenth"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                      There is no specific list of hospitals or network list.You can vist the closest medical facility &
+                      immediately contact your assistance partner to intimate a claim.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- fourteenth-->
+                <div class="card">
+                  <div class="card-header" id="headingFourteenth">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" style="white-space: normal;" data-toggle="collapse"
+                        data-target="#collapseFouteenth" aria-expanded="false" aria-controls="collapseFourteenth">
+                        In case of Any Medical Emergency is there any need of Pre-Approval before hospitalization? If
+                        pre-approval is require then what is the procedure?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseFouteenth" class="collapse" aria-labelledby="headingFouteenth"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                      No such pre-approval is require before hospital admission in case of any medical emergency. Please
+                      intimate your claim as soon as possible upon hospitalization, intimation can be done even by
+                      anyone via an email or making a call to our 24x7 emergency assistance partner on provided email
+                      address or toll free numbers.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- fifteenth-->
+                <div class="card">
+                  <div class="card-header" id="headingFifteenth">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" style="white-space: normal;" data-toggle="collapse"
+                        data-target="#collapseFifteenth" aria-expanded="false" aria-controls="collapseFifteenth">
+                        How will I know if my claim is admissible ?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseFifteenth" class="collapse" aria-labelledby="headingFifteenth"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                      Cashless claim admissibility will determined post receipt of complete medical records & bills.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- sixteenth-->
+                <div class="card">
+                  <div class="card-header" id="headingSixteenth">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" style="white-space: normal;" data-toggle="collapse"
+                        data-target="#collapseSixteenth" aria-expanded="false" aria-controls="collapseSixteenth">
+                        What do mean by Complete medical records ?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseSixteenth" class="collapse" aria-labelledby="headingSixteenth"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                      Emergency department room notes, all test and diagnostic reports,daily progress notes,discharge
+                      summary etc.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- seventeenth-->
+                <div class="card">
+                  <div class="card-header" id="headingSeventeenth">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" style="white-space: normal;" data-toggle="collapse"
+                        data-target="#collapseSeventeenth" aria-expanded="false" aria-controls="collapseSeventeenth">
+                        Can i avail cashless facility for Dental Treatment?
+                        <span class="down-arw"><i style="font-size:16px" class="fa">&#xf0dd;</i></span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseSeventeenth" class="collapse" aria-labelledby="headingSeventeenth"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                      No, for Dental Treatment you have to self pay the expenses and claim under reimbursement
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Footer-start-->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span> © E-claims. All Rights Reserved</span></div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+            <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Footer-end-->
+  </div>
+
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
+</body>
+
+</html>
