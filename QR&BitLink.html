@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+    <!-- <meta http-equiv="refresh" content="5;url=https://example.com"> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="js/lib/jquery-1.11.1.min.js"></script>
+    <script src="js/lib/jquery.validate.min.js"></script>
+    <script src="js/lib/additional-methods.min.js"></script>
+    <script src="js/lib/util.js"></script>
+    <script src="js/lib/const.js"></script>
+    <script src="js/controllers/feedbackController.js"></script>
+    <script src="js/controllers/commonController.js"></script>
+    <title>Redirecting...</title>
+    <style>
+        body {
+            background-color: #3f3f3f;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .redirect-message {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        a {
+            color: #17a2b8;
+        }
+
+        .bouncing-letter {
+            display: inline-block;
+            opacity: 0;
+            margin-right: 5px;
+        }
+
+        .bouncing-ball-container {
+            display: flex;
+            align-items: center;
+            margin-left: 90px;
+            margin-top: 30px;
+        }
+
+        .bouncing-ball {
+            width: 30px;
+            height: 30px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            margin-right: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        $(function () {
+            localStorage.clear();
+            let clientId;
+            var urlParams = new URLSearchParams(window.location.search);
+            setToStore("clientHash", urlParams.get('clientId'));
+            // alert(getFromStore('clientHash'));
+            // let userData = {
+            //     id: urlParams.get('clientId'),
+            //     isActive: true,
+            //     email: urlParams.get('email'),
+            //     // firstName: urlParams.get('firstName'),
+            //     // lastName: urlParams.get('lastName'),
+            //     // phoneNumber: urlParams.get('phoneNumber')
+            // }
+            $.ajax({
+                async: true,
+                crossDomain: true,
+                url: env.node_api_url + "batchJobs/insuranceProviders/getByUUID?uuid=" + urlParams.get('clientId'),
+                type: "GET",
+                success: function (data) {
+                    // console.log('Client', data);
+                    let clientId = data[0].clientName
+                    setToStore("prefix", data[0].prefix);
+                    setToStore("clientIDNM", clientId);
+                    setToStore("clientIDE", clientId);
+
+                },
+                error: function (err) {
+                    console.log(err);
+                    alert("Error Occure , Please contact adminstrator");
+                },
+            });
+            $.ajax({
+                async: true,
+                crossDomain: true,
+                url: env.node_api_url + "batchJobs/getTokenEclaims",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "username": 'vmishra.extern@europ-assistance.in',
+                    "password": 'admin@123',
+                }),
+                success: function (response) {
+                    console.log(response);
+                    var user = {};
+                    user.firstName = response.firstName;
+                    user.lastName = response.lastName;
+                    user.email = response.email;
+                    user.mobile = response.mobile;
+                    user.dob = response.dob ? response.dob : "";
+                    user.gender = response.gender ? response.gender : "";
+                    user.clientId = getFromStore('clientIDNM');
+                    var userjson = JSON.stringify(user);
+                    setToStore("googleLogin", 0);
+                    setToStore("otpVerified", true);
+                    setToStore("user", userjson);
+                    setToStore("token", response.eclaimToken);
+                    setToStore("eclaimsToken", response.eclaimToken);
+                    setTimeout(function () {
+                        window.location = env.app_url + "index.html";
+                    }, 1000);
+                },
+                error: function (err) {
+                    console.log(err);
+                    toastr.error("Incorrect Username or Password");
+                },
+            });
+
+        })
+    </script>
+    <div class="text-center">
+        <h1 class="mt-4">
+            <span class="bouncing-letter">R</span>
+            <span class="bouncing-letter">e</span>
+            <span class="bouncing-letter">d</span>
+            <span class="bouncing-letter">i</span>
+            <span class="bouncing-letter">r</span>
+            <span class="bouncing-letter">e</span>
+            <span class="bouncing-letter">c</span>
+            <span class="bouncing-letter">t</span>
+            <span class="bouncing-letter">i</span>
+            <span class="bouncing-letter">n</span>
+            <span class="bouncing-letter">g</span>
+            <span class="bouncing-letter">.</span>
+            <span class="bouncing-letter">.</span>
+            <span class="bouncing-letter">.</span>
+        </h1>
+
+        <div class="bouncing-ball-container">
+            <div class="bouncing-ball"></div>
+            <div class="bouncing-ball"></div>
+            <div class="bouncing-ball"></div>
+            <div class="bouncing-ball"></div>
+        </div>
+
+        <!-- <p class="redirect-message">If you are not redirected, <a href="https://example.com">click here</a>.</p> -->
+    </div>
+
+    <script>
+        anime.timeline({ loop: true })
+            .add({
+                targets: '.bouncing-letter',
+                translateY: [
+                    { value: '-20px', easing: 'easeInOutQuad' },
+                    { value: '0px', easing: 'easeInOutQuad' },
+                ],
+                opacity: 1,
+                delay: function (el, i) {
+                    return i * 90;
+                }
+            })
+            .add({
+                targets: '.bouncing-ball',
+                translateY: [
+                    { value: '-25px', easing: 'easeInOutQuad' },
+                    { value: '0px', easing: 'easeInOutQuad' },
+                ],
+                opacity: 1,
+                delay: function (el, i) {
+                    return i * 200;
+                },
+            }, 0);
+    </script>
+</body>
+
+</html>
