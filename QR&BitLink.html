@@ -71,15 +71,6 @@
             let clientId;
             var urlParams = new URLSearchParams(window.location.search);
             setToStore("clientHash", urlParams.get('clientId'));
-            // alert(getFromStore('clientHash'));
-            // let userData = {
-            //     id: urlParams.get('clientId'),
-            //     isActive: true,
-            //     email: urlParams.get('email'),
-            //     // firstName: urlParams.get('firstName'),
-            //     // lastName: urlParams.get('lastName'),
-            //     // phoneNumber: urlParams.get('phoneNumber')
-            // }
             $.ajax({
                 async: true,
                 crossDomain: true,
