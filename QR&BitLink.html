@@ -71,6 +71,9 @@
             let clientId;
             var urlParams = new URLSearchParams(window.location.search);
             setToStore("clientHash", urlParams.get('clientId'));
+            var type = urlParams.get('type');
+            console.log(type);
+            setToStore("type", type);
             $.ajax({
                 async: true,
                 crossDomain: true,
