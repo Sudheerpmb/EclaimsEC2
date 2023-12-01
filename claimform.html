@@ -292,9 +292,9 @@
                   </label>
                   <select name="gender" id="genderRel" class="inpt">
                     <option value="" class="inpt">Select Gender</option>
-                    <option value="MALE" class="inpt">Male</option>
-                    <option value="FEMALE" class="inpt">Female</option>
-                    <option value="OTHER" class="inpt">Others</option>
+                    <option value="Male" class="inpt">Male</option>
+                    <option value="Female" class="inpt">Female</option>
+                    <option value="Female" class="inpt">Others</option>
                   </select>
                 </div>
 
@@ -568,77 +568,78 @@
     //     $("#beneficiaryNumber").val(userObj.mobile);
     //   }
     // }
-
-    if (getFromStore("user")) {
-      var userObj = JSON.parse(getFromStore("user"));
-      if (getFromStore("policyDetails")) {
-        var userObj = JSON.parse(getFromStore("policyDetails"));
-        $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
-        // $("#beneficiarySurName").val(userObj.lastName);
-        $("#policyNumberId").val(userObj.policyNumber);
-        $("#beneficiaryEmail").val(userObj.email);
-        $("#beneficiaryNumber").val(userObj.mobile);
-        $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
-        $("#permanent_address_id").val(userObj.address);
-        $("#permanent_city").val(userObj.city);
-        $("#permanent_region").val(userObj.state);
-        // $("#permanent_country").val(userObj.country);
-        var url = "js/json/countries.json";
-        // Load the countries from the JSON file
-        $.getJSON(url, function (data) {
-          // Populate the select element with the country options
-          $.each(data, function (index, value) {
-            $('#permanent_country').append('<option value="' + value.name + '">' + value.name + '</option>');
-          });
-
-          // Get the country code you want to set based on json.country
-          var jsonCountryCode = userObj.country; // Assuming json.country contains "IND" or other country codes
-
-          // Set the selected option in the #permanent_country element
-          $('#permanent_country').val(jsonCountryCode);
-        });
-        $("#permanent_zip_code").val(userObj.zip);
-        $("#otherGender").show();
-        // $("#gender").val(userObj.gender? userObj.gender : '');
-        console.log("userObj.gender:", userObj.gender);
-        var genderMapping = {
-          0: "Male",
-          1: "Female",
-          2: "Other"
-        };
-
-        $("#gender").val(
-          userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined'
-            ? (typeof userObj.gender === 'number' ? genderMapping[userObj.gender] : userObj.gender)
-            : ""
-        );
-
-      }
-      else {
-        if (getFromStore("clientIDE") != "TATA AIG") {
-          $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
-          $("#otherGender").show();
-          console.log("userObj.gender:", userObj.gender);
-
-          $("#gender").val(
-            userObj.gender === "0" ? "Male" :
-              userObj.gender === "1" ? "Female" :
-                userObj.gender === "2" ? "Other" :
-                  userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined'
-                    ? (typeof userObj.gender === 'number' && userObj.gender in genderMapping ? genderMapping[userObj.gender] : userObj.gender)
-                    : ""
-          );
-
-          $("#beneficiaryEmail").val(userObj.email);
+    if (getFromStore("clientIDE") !== "RELIANCE") {
+      if (getFromStore("user")) {
+        var userObj = JSON.parse(getFromStore("user"));
+        if (getFromStore("policyDetails")) {
+          var userObj = JSON.parse(getFromStore("policyDetails"));
+          let dateOfLOss = getFromStore('incidentDate');
           $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
-          // $("#beneficiarySurName").val(userObj.lastName);
+          $("#incidentDate").val(dateOfLOss);
+          $("#policyNumberId").val(userObj.policyNumber);
           $("#beneficiaryEmail").val(userObj.email);
           $("#beneficiaryNumber").val(userObj.mobile);
+          $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
+          $("#permanent_address_id").val(userObj.address);
+          $("#permanent_city").val(userObj.city);
+          $("#permanent_region").val(userObj.state);
+          // $("#permanent_country").val(userObj.country);
+          var url = "js/json/countries.json";
+          // Load the countries from the JSON file
+          $.getJSON(url, function (data) {
+            // Populate the select element with the country options
+            $.each(data, function (index, value) {
+              $('#permanent_country').append('<option value="' + value.name + '">' + value.name + '</option>');
+            });
 
+            // Get the country code you want to set based on json.country
+            var jsonCountryCode = userObj.country; // Assuming json.country contains "IND" or other country codes
+
+            // Set the selected option in the #permanent_country element
+            $('#permanent_country').val(jsonCountryCode);
+          });
+          $("#permanent_zip_code").val(userObj.zip);
+          $("#otherGender").show();
+          // $("#gender").val(userObj.gender? userObj.gender : '');
+          console.log("userObj.gender:", userObj.gender);
+          var genderMapping = {
+            0: "Male",
+            1: "Female",
+            2: "Other"
+          };
+
+          $("#gender").val(
+            userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined'
+              ? (typeof userObj.gender === 'number' ? genderMapping[userObj.gender] : userObj.gender)
+              : ""
+          );
+
+        }
+        else {
+          if (getFromStore("clientIDE") != "TATA AIG") {
+            $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
+            $("#otherGender").show();
+            console.log("userObj.gender:", userObj.gender);
+
+            $("#gender").val(
+              userObj.gender === "0" ? "Male" :
+                userObj.gender === "1" ? "Female" :
+                  userObj.gender === "2" ? "Other" :
+                    userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined'
+                      ? (typeof userObj.gender === 'number' && userObj.gender in genderMapping ? genderMapping[userObj.gender] : userObj.gender)
+                      : ""
+            );
+
+            $("#beneficiaryEmail").val(userObj.email);
+            $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
+            // $("#beneficiarySurName").val(userObj.lastName);
+            $("#beneficiaryEmail").val(userObj.email);
+            $("#beneficiaryNumber").val(userObj.mobile);
+
+          }
         }
       }
     }
-
     // if (getFromStore("user")) {
     //   var userRefObj = JSON.parse(getFromStore("user"));
     //   if (getFromStore("clientIDE") != "TATA AIG")
@@ -697,6 +698,7 @@
     }
     if (getFromStore("clientIDE") == "RELIANCE") {
       let policyNumberRel = getFromStore('PolicyNumber_')
+      let dateOfLOss = getFromStore('incidentDate');
       // Make an AJAX request to fetch RELIANCE-specific data
       $.ajax({
         async: true,
@@ -718,7 +720,7 @@
             $("#PolicyNo").val(policy && policy.PolicyNo ? policy.PolicyNo : '');
             $("#beneficiaryName").val(policy.InsuredFName + " " + (policy && policy.InsuredMName ? policy.InsuredMName + ' ' : '') + policy.InsuredLName);
             // $("#dob").val(formattedDOB);
-            // $("#sumAmount").val(policy.SumInsured);
+            $("#incidentDate").val(dateOfLOss);
             $("#beneficiaryNumber").val(policy && policy.ContactNo ? policy.ContactNo : '');
             $("#permanent_address_id").val(policy && policy.InsuredAddress ? policy.InsuredAddress : '');
             $("#permanent_city").val(policy && policy.City ? policy.City : '');
@@ -726,7 +728,32 @@
             $("#permanent_region").val(policy && policy.State ? policy.State : '');
             $("#otherGender").hide();
             $("#relGender").show();
-            $("#genderRel ").val(policy && policy.Gender ? policy.Gender : '');
+            $("#genderRel").val(
+              policy && policy.Gender
+                ? policy.Gender === "MALE"
+                  ? "Male"
+                  : policy.Gender === "FEMALE"
+                    ? "Female"
+                    : policy.Gender === "OTHER"
+                      ? "Other"
+                      : policy.Gender
+                : policy.Gender === "0"
+                  ? "Male"
+                  : policy.Gender === "1"
+                    ? "Female"
+                    : policy.Gender === "2"
+                      ? "Other"
+                      : policy.Gender !== undefined &&
+                        policy.Gender !== null &&
+                        policy.Gender !== "undefined"
+                        ? typeof policy.Gender === "number" &&
+                          policy.Gender in genderMapping
+                          ? genderMapping[policy.Gender]
+                          : policy.Gender
+                        : ""
+            );
+
+
             $("#permanent_zip_code").val(policy && policy.PinCode ? policy.PinCode : '');
           }
         },
