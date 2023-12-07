@@ -425,6 +425,26 @@ $(function () {
                     sendmail1(response_data.email, response_data.caseNumber)
                     if (response_data.success) {
                         toastr.success('Claim created successfully');
+                        var clientName = getFromStore('clientIDNM'); // Replace with actual client name
+                        var customerName = form.elements.customerName.value; // Replace with actual customer name
+                        var claimNo = response_data.caseNumber; // Replace with actual claim number
+                        var policyNumber = getFromStore('PolicyNumber_'); // Replace with actual policy number
+                        var subClaim = getFromStore('clickedSubName'); // Replace with actual sub claim
+
+                        var subject = `Eclaims Notification // ${clientName} // ${customerName} // ${claimNo} // ${policyNumber}`;
+                        var body = `
+                                    <p>Dear Team,</p>
+                                    <p>This is a new claim notification for "${clientName}" Client.</p>
+                                    <ul>
+                                        <li><strong>Customer Name:</strong> ${customerName}</li>
+                                        <li><strong>Claim No:</strong> ${claimNo}</li>
+                                        <li><strong>Policy Number:</strong> ${policyNumber}</li>
+                                        <li><strong>Sub Claim:</strong> ${subClaim}</li>
+                                    </ul>
+                                    <p>Regards,<br>e-Claims</p>
+                                `;
+                        sendmail("smendes@europ-assistance.in",subject,body);
+                        sendmail("ppawar@europ-assistance.in",subject,body);
                         $("#ajaxStart").prop("disabled", false);
                         $("#ajaxStart").html("Continue");
 

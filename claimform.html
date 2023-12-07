@@ -274,31 +274,16 @@
                 <label>Date of Birth <span style="color: red;">*</span>
                 </label>
                 <input type="text" name="dob" id="dob" placeholder="Enter date of birth" class="inpt" />
-                <div id="otherGender" style="display: none;">
-                  <label>
-                    Gender<span style="color: red;">*</span>
-                  </label>
-                  <select name="gender" id="gender" class="inpt">
-                    <option value="" class="inpt">Select Gender</option>
-                    <option value="Male" class="inpt">Male</option>
-                    <option value="Female" class="inpt">Female</option>
-                    <option value="Other" class="inpt">Others</option>
-                  </select>
-                </div>
 
-                <div id="relGender" style="display: none;">
-                  <label>
-                    Gender<span style="color: red;">*</span>
-                  </label>
-                  <select name="gender" id="genderRel" class="inpt">
-                    <option value="" class="inpt">Select Gender</option>
-                    <option value="Male" class="inpt">Male</option>
-                    <option value="Female" class="inpt">Female</option>
-                    <option value="Female" class="inpt">Others</option>
-                  </select>
-                </div>
-
-
+                <label>
+                  Gender<span style="color: red;">*</span>
+                </label>
+                <select name="gender" id="gender" class="inpt">
+                  <option value="" class="inpt">Select Gender</option>
+                  <option value="Male" class="inpt">Male</option>
+                  <option value="Female" class="inpt">Female</option>
+                  <option value="Other" class="inpt">Others</option>
+                </select>
                 <div class="row">
                   <div class="col-md-6 col-xs-6">
                     <label> Claim Amount <span style="color: red;">*</span>
@@ -599,37 +584,12 @@
             $('#permanent_country').val(jsonCountryCode);
           });
           $("#permanent_zip_code").val(userObj.zip);
-          $("#otherGender").show();
-          // $("#gender").val(userObj.gender? userObj.gender : '');
-          console.log("userObj.gender:", userObj.gender);
-          var genderMapping = {
-            0: "Male",
-            1: "Female",
-            2: "Other"
-          };
-
-          $("#gender").val(
-            userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined'
-              ? (typeof userObj.gender === 'number' ? genderMapping[userObj.gender] : userObj.gender)
-              : ""
-          );
-
+          $("#gender").val(mapGenderValue(userObj.gender));
         }
         else {
           if (getFromStore("clientIDE") != "TATA AIG") {
             $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
-            $("#otherGender").show();
-            console.log("userObj.gender:", userObj.gender);
-
-            $("#gender").val(
-              userObj.gender === "0" ? "Male" :
-                userObj.gender === "1" ? "Female" :
-                  userObj.gender === "2" ? "Other" :
-                    userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined'
-                      ? (typeof userObj.gender === 'number' && userObj.gender in genderMapping ? genderMapping[userObj.gender] : userObj.gender)
-                      : ""
-            );
-
+            $("#gender").val(mapGenderValue(userObj.gender));
             $("#beneficiaryEmail").val(userObj.email);
             $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
             // $("#beneficiarySurName").val(userObj.lastName);
@@ -726,34 +686,7 @@
             $("#permanent_city").val(policy && policy.City ? policy.City : '');
             $("#beneficiaryEmail").val(policy && policy.EmailId ? policy.EmailId : '');
             $("#permanent_region").val(policy && policy.State ? policy.State : '');
-            $("#otherGender").hide();
-            $("#relGender").show();
-            $("#genderRel").val(
-              policy && policy.Gender
-                ? policy.Gender === "MALE"
-                  ? "Male"
-                  : policy.Gender === "FEMALE"
-                    ? "Female"
-                    : policy.Gender === "OTHER"
-                      ? "Other"
-                      : policy.Gender
-                : policy.Gender === "0"
-                  ? "Male"
-                  : policy.Gender === "1"
-                    ? "Female"
-                    : policy.Gender === "2"
-                      ? "Other"
-                      : policy.Gender !== undefined &&
-                        policy.Gender !== null &&
-                        policy.Gender !== "undefined"
-                        ? typeof policy.Gender === "number" &&
-                          policy.Gender in genderMapping
-                          ? genderMapping[policy.Gender]
-                          : policy.Gender
-                        : ""
-            );
-
-
+            $("#gender").val(mapGenderValue(policy && policy.Gender));
             $("#permanent_zip_code").val(policy && policy.PinCode ? policy.PinCode : '');
           }
         },
@@ -761,6 +694,32 @@
           console.error(err);
         }
       });
+    }
+    function mapGenderValue(genderValue) {
+      if (genderValue === undefined || genderValue === null || genderValue === 'undefined') {
+        return "";
+      }
+
+      if (typeof genderValue === 'number' && genderValue in mapping) {
+        return mapping[genderValue];
+      }
+
+      switch (genderValue) {
+        case "MALE":
+          return "Male";
+        case "FEMALE":
+          return "Female";
+        case "OTHER":
+          return "Other";
+        case "0":
+          return "Male";
+        case "1":
+          return "Female";
+        case "2":
+          return "Other";
+        default:
+          return genderValue;
+      }
     }
   });
 
