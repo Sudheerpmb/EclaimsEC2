@@ -40,14 +40,14 @@ $(function () {
 
             });
         });
-        var url = "js/json/countriesOther.json";
-        $.getJSON(url, function (data) {
-            $.each(data, function (name, value) {
-                $('#sel2').append('<option value="' + value.code + '">' + value.name + '</option>');
-                $('#permanent_country').append('<option value="' + value.code + '">' + value.name + '</option>');
+        // var url = "js/json/countriesOther.json";
+        // $.getJSON(url, function (data) {
+        //     $.each(data, function (name, value) {
+        //         $('#sel2').append('<option value="' + value.code + '">' + value.name + '</option>');
+        //         $('#permanent_country').append('<option value="' + value.code + '">' + value.name + '</option>');
 
-            });
-        });
+        //     });
+        // });
     }
     /*
     function getAllClaimTypes(claimTypeId){
@@ -77,7 +77,7 @@ $(function () {
                 return character;
             }
         })
-        .join('');
+            .join('');
         return s[0].toUpperCase() + s.slice(1);
     }
     $("#createClaim").validate({
@@ -195,70 +195,135 @@ $(function () {
             var fullName = form.elements.customerName.value;
             var nameParts = fullName.split(' ');
 
-              var firstName = nameParts[0];
-              var lastName = nameParts[1];
-    
-           
+            var firstName = nameParts[0];
+            var lastName = nameParts[1];
+            var createdByEclaims;
+            if (getFromStore('type') === "scan" || getFromStore('type') === "tinyURL") {
+                createdByEclaims = form.elements.contactEmail.value;
+            } else {
+                createdByEclaims = userDetails.email;
+            }
+
             var claimData = JSON.stringify(
                 {
 
-                                        // "claimType":claimTypeId,
-                                        "airport": form.elements.airPort.value,
-                                        "launge":form.elements.launge.value,
-                                        "TagNo":form.elements.Tagno.value,
-                                        "airportServices":form.elements.airportservices.value,
-                                        "customerfirstname": firstName,
-                                        "customerlastname": lastName + form.elements.customerSurName.value,
-                                        "phone": form.elements.contactNumber.value,
-                                        "email": form.elements.contactEmail.value,
-                                        "policyNumber": policyNumber,
-                                        "CreatedByEclaims": userDetails.email,
-                                        "CreatedBy": "Eclaims",
-                                        "dateOfBirth": form.elements.dob.value,
-                                        "gender": form.elements.gender.value,
-                                        "caseType": "3",
-                                        "title": "",
-                                        "ClaimedPersonType":form.elements.ClaimedPersonType.value,
-                                        "claimDescription": "",
-                                        "claimEvent": "",
-                                        "claimMode": "",
-                                        "claimNote": "",
-                                        "claimReported": "Eclaims",
-                                        "claimType": claimTypeId,
-                                        "contactEmail": form.elements.contactEmail.value,
-                                        "contactNumber": form.elements.contactNumber.value,
-                                        "currency": form.elements.TypeOfCurrency.value,
-                                        "customerRef": customerRef,
-                                        "hopsitalZipCode": form.elements.zipCode.value,
-                                        "hospital": "",
-                                        "hospitalAddress": "",
-                                        "hospitalCity": "",
-                                        "hospitalCountry": "",
-                                        "hospitalState": "",
-                                        "hospitaltype": "",
-                                        "incidentAddress": form.elements.incidentAddress.value,
-                                        "incidentCity": form.elements.incidentCity.value,
-                                        "incidentCountry": form.elements.incidentCountry.value,
-                                        "incidentDate": incCreateDate,
-                                        "incidentState": "",
-                                        "initialReservAmountUSD": form.elements.claimAmount.value,
-                                        "clientId": getFromStore('prefix'),
-                                        "clientName":getFromStore('clientIDNM'),
-                                        "subClaimType": getFromStore('clickedSubName'),
-                                        "travelDate": "",
-                                        "travelPolicyRef": travelPolicyRef,
-                                        "address1": form.elements.permanentAddress.value,
-                                        "address2": form.elements.permanenetStreetOne.value + ',' + form.elements.permanenrStreetTwo.value,
-                                        "state": form.elements.permanentRegion.value,
-                                        "city": form.elements.permanentCity.value,
-                                        "country": form.elements.permanentCountry.value,
-                                        "zip": form.elements.permanentZipCode.value,
-                                        "Remarks": form.elements.Remarks.value,
-                                        "createdFrom":localStorage.getItem('type'),
-                                        "customerId":policyDetails ? policyDetails.customerId :'',
-                                        "validation":getFromStore("validation")
+                    // "claimType":claimTypeId,
+                    "airport": form.elements.airPort.value,
+                    "launge": form.elements.launge.value,
+                    "TagNo": form.elements.Tagno.value,
+                    "airportServices": form.elements.airportservices.value,
+                    "customerfirstname": firstName,
+                    "customerlastname": lastName + form.elements.customerSurName.value,
+                    "phone": form.elements.contactNumber.value,
+                    "email": form.elements.contactEmail.value,
+                    "policyNumber": policyNumber,
+                    "CreatedByEclaims": createdByEclaims,
+                    "CreatedBy": "Eclaims",
+                    "dateOfBirth": form.elements.dob.value,
+                    "gender": form.elements.gender.value,
+                    "caseType": "3",
+                    "title": "",
+                    "ClaimedPersonType": form.elements.ClaimedPersonType.value,
+                    "claimDescription": "",
+                    "claimEvent": "",
+                    "claimMode": "",
+                    "claimNote": "",
+                    "claimReported": "Eclaims",
+                    "claimType": claimTypeId,
+                    "contactEmail": form.elements.contactEmail.value,
+                    "contactNumber": form.elements.contactNumber.value,
+                    "currency": form.elements.TypeOfCurrency.value,
+                    "customerRef": customerRef,
+                    "hopsitalZipCode": form.elements.zipCode.value,
+                    "hospital": "",
+                    "hospitalAddress": "",
+                    "hospitalCity": "",
+                    "hospitalCountry": "",
+                    "hospitalState": "",
+                    "hospitaltype": "",
+                    "incidentAddress": form.elements.incidentAddress.value,
+                    "incidentCity": form.elements.incidentCity.value,
+                    "incidentCountry": form.elements.incidentCountry.value,
+                    "incidentDate": incCreateDate,
+                    "incidentState": "",
+                    "initialReservAmountUSD": form.elements.claimAmount.value,
+                    "clientId": getFromStore('prefix'),
+                    "clientName": getFromStore('clientIDNM'),
+                    "subClaimType": getFromStore('clickedSubName'),
+                    "travelDate": "",
+                    "travelPolicyRef": travelPolicyRef,
+                    "address1": form.elements.permanentAddress.value,
+                    "address2": form.elements.permanenetStreetOne.value + ',' + form.elements.permanenrStreetTwo.value,
+                    "state": form.elements.permanentRegion.value,
+                    "city": form.elements.permanentCity.value,
+                    "country": form.elements.permanentCountry.value,
+                    "zip": form.elements.permanentZipCode.value,
+                    "Remarks": form.elements.Remarks.value,
+                    "createdFrom": localStorage.getItem('type'),
+                    "customerId": policyDetails ? policyDetails.customerId : '',
+                    "validation": getFromStore("validation")
                 });
-            
+            if (getFromStore('type') === "scan" || getFromStore('type') === "tinyURL") {
+                var bodyForSignUp = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: form.elements.contactEmail.value,
+                    phoneNumber: form.elements.contactNumber.value,
+                    gender: form.elements.gender.value,
+                    dob: form.elements.dob.value,
+                    password: "pass123",
+
+                };
+                // Ajax request for the form without gender and date of birth
+                $.ajax({
+                    async: true,
+                    crossDomain: true,
+                    url: env.node_api_url + "auth/customers/register",
+                    type: "POST",
+                    data: bodyForSignUp,
+                    success: function (data) {
+                        // alert("Customer Registered Successfully");
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        toastr.error("Whoops! This didn't work. Please contact us.");
+                    },
+                });
+                $.ajax({
+                    async: true,
+                    crossDomain: true,
+                    url: env.node_api_url + "batchJobs/getTokenEclaims",
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "username": form.elements.contactEmail.value,
+                        "password": "pass123",
+                    }),
+                    success: function (response) {
+                        console.log(response);
+                        var user = {};
+                        user.firstName = response.firstName;
+                        user.lastName = response.lastName;
+                        user.email = response.email;
+                        user.mobile = response.mobile;
+                        user.dob = response.dob ? response.dob : "";
+                        user.gender = response.gender ? response.gender : "";
+                        user.clientId = getFromStore('clientIDNM');
+                        var userjson = JSON.stringify(user);
+                        setToStore("user", userjson);
+                        setToStore("token", response.eclaimToken);
+                        setToStore("eclaimsToken", response.eclaimToken);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    },
+                });
+
+            }
+
             let body = ''
             for (let elem in JSON.parse(claimData)) {
                 const str = elem
@@ -266,7 +331,7 @@ $(function () {
 
             }
             setToStore("policyFormPrs", body);
-            console.log(claimData,'hello');
+            console.log(claimData, 'hello');
             let policyCopy = $('#policyCopy')[0].files[0]
             // document.write(policyCopy);
             var policyForm = new FormData();
@@ -360,6 +425,26 @@ $(function () {
                     sendmail1(response_data.email, response_data.caseNumber)
                     if (response_data.success) {
                         toastr.success('Claim created successfully');
+                        var clientName = getFromStore('clientIDNM'); // Replace with actual client name
+                        var customerName = form.elements.customerName.value; // Replace with actual customer name
+                        var claimNo = response_data.caseNumber; // Replace with actual claim number
+                        var policyNumber = getFromStore('PolicyNumber_'); // Replace with actual policy number
+                        var subClaim = getFromStore('clickedSubName'); // Replace with actual sub claim
+
+                        var subject = `Eclaims Notification // ${clientName} // ${customerName} // ${claimNo} // ${policyNumber}`;
+                        var body = `
+                                    <p>Dear Team,</p>
+                                    <p>This is a new claim notification for "${clientName}" Client.</p>
+                                    <ul>
+                                        <li><strong>Customer Name:</strong> ${customerName}</li>
+                                        <li><strong>Claim No:</strong> ${claimNo}</li>
+                                        <li><strong>Policy Number:</strong> ${policyNumber}</li>
+                                        <li><strong>Sub Claim:</strong> ${subClaim}</li>
+                                    </ul>
+                                    <p>Regards,<br>e-Claims</p>
+                                `;
+                        sendmail("smendes@europ-assistance.in",subject,body);
+                        sendmail("ppawar@europ-assistance.in",subject,body);
                         $("#ajaxStart").prop("disabled", false);
                         $("#ajaxStart").html("Continue");
 

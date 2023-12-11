@@ -44,6 +44,11 @@
       padding: 9px;
       border-radius: 30px;
     }
+    @media (max-width: 320px) {
+    #tataEmg{
+      width: 120px;
+    }
+  }
   </style>
 
 
@@ -57,12 +62,13 @@
               <a href="#" title="">
                 <img src="images/Europ.jpg" alt="" /></a>
             </div>
-            <div style="margin-top: 50px;">
-              <img id="tataEmg" style="max-height:11vh;margin-top: -40px!important;" src="images/MCHI.jpg" alt="" />
+            <div>
+              <div class="col-12">
+                <img id="tataEmg" style="max-height:11vh;" src="images/MCHI.jpg" alt="" />
+              </div>
               <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
-                  style="float: left; color: #024695; padding: 10px;"></i> </a>
-              <a href="index.html"><i class="fa fa-home fa-2x"
-                  style="float: left; color: #024695; padding: 10px;"></i></a>
+                  style="float: right; color: #024695; padding: 10px;"></i> </a>
+              <a href="index.html"><i class="fa fa-home fa-2x" style="float: right; color: #024695; padding: 10px;"></i></a>
             </div>
           </div>
         </div>

@@ -263,7 +263,7 @@ $(function () {
           lastName: form.elements.lastname ? form.elements.lastname.value : " ",
           email: form.elements.email.value,
           phoneNumber: form.elements.mobile.value,
-          gender: form.elements.gender ?form.elements.gender.value:" ",
+          gender: form.elements.gender ? form.elements.gender.value:" ",
           dob: form.elements.dob?form.elements.dob.value:" ",
           password: form.elements.password.value,
 

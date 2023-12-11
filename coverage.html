@@ -28,8 +28,9 @@
   <script type="text/javascript">
     let cls = getFromStore("clientIDE");
     $(function () {
-      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg'; isAuthenticated();
-      getClaimTypes();
+      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+       isAuthenticated();
+       getClaimTypes();
     });
   </script>
 <style>
@@ -81,15 +82,17 @@
               <!-- <a href="eligibility.html"><button type="btn" class="btn"
                   style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
             </div>
-            <div class="icons" style="margin-top: 50px;">
-              <a href="eligibility.html"><i class="fa fa-arrow-circle-left fa-2x" style="color: #024695; padding: 10px;float: left;"></i> </a>
-              <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
-                  style="float: left; color: #024695; padding: 10px;"></i> </a>
-              <a href="index.html"><i class="fa fa-home fa-2x"
-                  style="float: left; color: #024695; padding: 10px;"></i></a>
-            </div>
-            <div>
-              <img id="tataEmg" style="max-height:11vh;margin-top: 10px!important;" src="" alt="" />
+            <div class="row">
+              <div class="col-12">
+                <img id="tataEmg" style="max-height:11vh;float:right;" src="" alt="" />
+              </div>
+              <div class="col-12 text-right">
+                <a href="eligibility.html"><i class="fa fa-arrow-circle-left fa-2x" style="color: #024695; padding: 10px;"></i> </a>
+                <a href="index.html"><i class="fa fa-home fa-2x"
+                  style=" color: #024695; padding: 10px;"></i></a>
+                <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                    style=" color: #024695; padding: 10px;"></i> </a>
+              </div>
             </div>
           </div>
         </div>
@@ -116,7 +119,7 @@
                   </span></h2>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                   <div class="navigate">
-                    <a href="eligibility.html" class="left-btn"> &#8810;Back</a>
+                    <!-- <a href="eligibility.html" class="left-btn"> &#8810;Back</a> -->
                     <!--	<a href="claimform.html" class="right-btn">&#8702;</a> -->
                   </div>
                 </div>

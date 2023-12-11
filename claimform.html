@@ -95,7 +95,8 @@
       $('#baggageLossDiv').hide();
       $('#luggageLossDiv').hide();
       $('#AirportServicecsDiv').hide();
-      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg'; isAuthenticated();
+      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+       isAuthenticated();
       var urlParams = new URLSearchParams(window.location.search);
       if (cls == 'TATA AIG') {
         document.getElementById("incidentDateLabel").innerHTML = "Date Of Loss / Claims Date / Treatment Date";
@@ -173,15 +174,21 @@
                 <img src="images/Europ.jpg" alt="" /></a>
               <!-- <a href="coverage.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
             </div>
-            <div style="margin-top: 50px;">
-              <a href="coverage.html"><i class="fa fa-arrow-circle-left fa-2x"
-                  style="color: #024695; padding: 10px;float: left;"></i> </a>
-              <img id="tataEmg" style="max-height:11vh;margin-top: -29px!important;" src="" alt="" />
+            <div class="row">
+              <div class="col-12 text-right">
+                <img id="tataEmg" style="max-height:11vh;" src="" alt="" />
+              </div>
+              <div class="col-12 text-right">
+                <a href="coverage.html"><i class="fa fa-arrow-circle-left fa-2x"
+                  style="color: #024695; padding: 10px;"></i> </a>
+                  <a href="index.html"><i class="fa fa-home fa-2x"
+                    style=" color: #024695; padding: 10px;"></i></a>
               <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
-                  style="float: left; color: #024695; padding: 10px;"></i> </a>
-              <a href="index.html"><i class="fa fa-home fa-2x"
-                  style="float: left; color: #024695; padding: 10px;"></i></a>
+                  style=" color: #024695; padding: 10px;"></i> </a>
+              
+              </div>
             </div>
+            
           </div>
         </div>
       </div>
@@ -274,31 +281,16 @@
                 <label>Date of Birth <span style="color: red;">*</span>
                 </label>
                 <input type="text" name="dob" id="dob" placeholder="Enter date of birth" class="inpt" />
-                <div id="otherGender" style="display: none;">
-                  <label>
-                    Gender<span style="color: red;">*</span>
-                  </label>
-                  <select name="gender" id="gender" class="inpt">
-                    <option value="" class="inpt">Select Gender</option>
-                    <option value="Male" class="inpt">Male</option>
-                    <option value="Female" class="inpt">Female</option>
-                    <option value="Other" class="inpt">Others</option>
-                  </select>
-                </div>
 
-                <div id="relGender" style="display: none;">
-                  <label>
-                    Gender<span style="color: red;">*</span>
-                  </label>
-                  <select name="gender" id="genderRel" class="inpt">
-                    <option value="" class="inpt">Select Gender</option>
-                    <option value="MALE" class="inpt">Male</option>
-                    <option value="FEMALE" class="inpt">Female</option>
-                    <option value="OTHER" class="inpt">Others</option>
-                  </select>
-                </div>
-
-
+                <label>
+                  Gender<span style="color: red;">*</span>
+                </label>
+                <select name="gender" id="gender" class="inpt">
+                  <option value="" class="inpt">Select Gender</option>
+                  <option value="Male" class="inpt">Male</option>
+                  <option value="Female" class="inpt">Female</option>
+                  <option value="Other" class="inpt">Others</option>
+                </select>
                 <div class="row">
                   <div class="col-md-6 col-xs-6">
                     <label> Claim Amount <span style="color: red;">*</span>
@@ -568,77 +560,53 @@
     //     $("#beneficiaryNumber").val(userObj.mobile);
     //   }
     // }
-
-    if (getFromStore("user")) {
-      var userObj = JSON.parse(getFromStore("user"));
-      if (getFromStore("policyDetails")) {
-        var userObj = JSON.parse(getFromStore("policyDetails"));
-        $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
-        // $("#beneficiarySurName").val(userObj.lastName);
-        $("#policyNumberId").val(userObj.policyNumber);
-        $("#beneficiaryEmail").val(userObj.email);
-        $("#beneficiaryNumber").val(userObj.mobile);
-        $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
-        $("#permanent_address_id").val(userObj.address);
-        $("#permanent_city").val(userObj.city);
-        $("#permanent_region").val(userObj.state);
-        // $("#permanent_country").val(userObj.country);
-        var url = "js/json/countries.json";
-        // Load the countries from the JSON file
-        $.getJSON(url, function (data) {
-          // Populate the select element with the country options
-          $.each(data, function (index, value) {
-            $('#permanent_country').append('<option value="' + value.name + '">' + value.name + '</option>');
-          });
-
-          // Get the country code you want to set based on json.country
-          var jsonCountryCode = userObj.country; // Assuming json.country contains "IND" or other country codes
-
-          // Set the selected option in the #permanent_country element
-          $('#permanent_country').val(jsonCountryCode);
-        });
-        $("#permanent_zip_code").val(userObj.zip);
-        $("#otherGender").show();
-        // $("#gender").val(userObj.gender? userObj.gender : '');
-        console.log("userObj.gender:", userObj.gender);
-        var genderMapping = {
-          0: "Male",
-          1: "Female",
-          2: "Other"
-        };
-
-        $("#gender").val(
-          userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined'
-            ? (typeof userObj.gender === 'number' ? genderMapping[userObj.gender] : userObj.gender)
-            : ""
-        );
-
-      }
-      else {
-        if (getFromStore("clientIDE") != "TATA AIG") {
-          $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
-          $("#otherGender").show();
-          console.log("userObj.gender:", userObj.gender);
-
-          $("#gender").val(
-            userObj.gender === "0" ? "Male" :
-              userObj.gender === "1" ? "Female" :
-                userObj.gender === "2" ? "Other" :
-                  userObj.gender !== undefined && userObj.gender !== null && userObj.gender !== 'undefined'
-                    ? (typeof userObj.gender === 'number' && userObj.gender in genderMapping ? genderMapping[userObj.gender] : userObj.gender)
-                    : ""
-          );
-
-          $("#beneficiaryEmail").val(userObj.email);
+    if (getFromStore("clientIDE") !== "RELIANCE") {
+      if (getFromStore("user")) {
+        var userObj = JSON.parse(getFromStore("user"));
+        if (getFromStore("policyDetails")) {
+          var userObj = JSON.parse(getFromStore("policyDetails"));
+          let dateOfLOss = getFromStore('incidentDate');
           $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
-          // $("#beneficiarySurName").val(userObj.lastName);
+          $("#incidentDate").val(dateOfLOss);
+          $("#policyNumberId").val(userObj.policyNumber);
           $("#beneficiaryEmail").val(userObj.email);
           $("#beneficiaryNumber").val(userObj.mobile);
+          $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
+          $("#permanent_address_id").val(userObj.address);
+          $("#permanent_city").val(userObj.city);
+          $("#permanent_region").val(userObj.state);
+          // $("#permanent_country").val(userObj.country);
+          var url = "js/json/countries.json";
+          // Load the countries from the JSON file
+          $.getJSON(url, function (data) {
+            // Populate the select element with the country options
+            $.each(data, function (index, value) {
+              $('#permanent_country').append('<option value="' + value.name + '">' + value.name + '</option>');
+            });
 
+            // Get the country code you want to set based on json.country
+            var jsonCountryCode = userObj.country; // Assuming json.country contains "IND" or other country codes
+
+            // Set the selected option in the #permanent_country element
+            $('#permanent_country').val(jsonCountryCode);
+          });
+          $("#permanent_zip_code").val(userObj.zip);
+          $("#gender").val(mapGenderValue(userObj.gender));
+        }
+        else {
+          if (getFromStore("clientIDE") != "TATA AIG") {
+            $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
+            $("#gender").val(mapGenderValue(userObj.gender));
+            $("#beneficiaryEmail").val(userObj.email);
+            $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
+            // $("#beneficiarySurName").val(userObj.lastName);
+            $("#beneficiaryEmail").val(userObj.email);
+            $("#beneficiaryNumber").val(userObj.mobile);
+
+          }
         }
       }
     }
-
     // if (getFromStore("user")) {
     //   var userRefObj = JSON.parse(getFromStore("user"));
     //   if (getFromStore("clientIDE") != "TATA AIG")
@@ -697,6 +665,7 @@
     }
     if (getFromStore("clientIDE") == "RELIANCE") {
       let policyNumberRel = getFromStore('PolicyNumber_')
+      let dateOfLOss = getFromStore('incidentDate');
       // Make an AJAX request to fetch RELIANCE-specific data
       $.ajax({
         async: true,
@@ -718,15 +687,13 @@
             $("#PolicyNo").val(policy && policy.PolicyNo ? policy.PolicyNo : '');
             $("#beneficiaryName").val(policy.InsuredFName + " " + (policy && policy.InsuredMName ? policy.InsuredMName + ' ' : '') + policy.InsuredLName);
             // $("#dob").val(formattedDOB);
-            // $("#sumAmount").val(policy.SumInsured);
+            $("#incidentDate").val(dateOfLOss);
             $("#beneficiaryNumber").val(policy && policy.ContactNo ? policy.ContactNo : '');
             $("#permanent_address_id").val(policy && policy.InsuredAddress ? policy.InsuredAddress : '');
             $("#permanent_city").val(policy && policy.City ? policy.City : '');
             $("#beneficiaryEmail").val(policy && policy.EmailId ? policy.EmailId : '');
             $("#permanent_region").val(policy && policy.State ? policy.State : '');
-            $("#otherGender").hide();
-            $("#relGender").show();
-            $("#genderRel ").val(policy && policy.Gender ? policy.Gender : '');
+            $("#gender").val(mapGenderValue(policy && policy.Gender));
             $("#permanent_zip_code").val(policy && policy.PinCode ? policy.PinCode : '');
           }
         },
@@ -734,6 +701,32 @@
           console.error(err);
         }
       });
+    }
+    function mapGenderValue(genderValue) {
+      if (genderValue === undefined || genderValue === null || genderValue === 'undefined') {
+        return "";
+      }
+
+      if (typeof genderValue === 'number' && genderValue in mapping) {
+        return mapping[genderValue];
+      }
+
+      switch (genderValue) {
+        case "MALE":
+          return "Male";
+        case "FEMALE":
+          return "Female";
+        case "OTHER":
+          return "Other";
+        case "0":
+          return "Male";
+        case "1":
+          return "Female";
+        case "2":
+          return "Other";
+        default:
+          return genderValue;
+      }
     }
   });
 
