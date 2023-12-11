@@ -95,7 +95,8 @@
       $('#baggageLossDiv').hide();
       $('#luggageLossDiv').hide();
       $('#AirportServicecsDiv').hide();
-      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg'; isAuthenticated();
+      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+       isAuthenticated();
       var urlParams = new URLSearchParams(window.location.search);
       if (cls == 'TATA AIG') {
         document.getElementById("incidentDateLabel").innerHTML = "Date Of Loss / Claims Date / Treatment Date";
@@ -173,15 +174,21 @@
                 <img src="images/Europ.jpg" alt="" /></a>
               <!-- <a href="coverage.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
             </div>
-            <div style="margin-top: 50px;">
-              <a href="coverage.html"><i class="fa fa-arrow-circle-left fa-2x"
-                  style="color: #024695; padding: 10px;float: left;"></i> </a>
-              <img id="tataEmg" style="max-height:11vh;margin-top: -29px!important;" src="" alt="" />
+            <div class="row">
+              <div class="col-12 text-right">
+                <img id="tataEmg" style="max-height:11vh;" src="" alt="" />
+              </div>
+              <div class="col-12 text-right">
+                <a href="coverage.html"><i class="fa fa-arrow-circle-left fa-2x"
+                  style="color: #024695; padding: 10px;"></i> </a>
+                  <a href="index.html"><i class="fa fa-home fa-2x"
+                    style=" color: #024695; padding: 10px;"></i></a>
               <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
-                  style="float: left; color: #024695; padding: 10px;"></i> </a>
-              <a href="index.html"><i class="fa fa-home fa-2x"
-                  style="float: left; color: #024695; padding: 10px;"></i></a>
+                  style=" color: #024695; padding: 10px;"></i> </a>
+              
+              </div>
             </div>
+            
           </div>
         </div>
       </div>

@@ -40,14 +40,14 @@ $(function () {
 
             });
         });
-        var url = "js/json/countriesOther.json";
-        $.getJSON(url, function (data) {
-            $.each(data, function (name, value) {
-                $('#sel2').append('<option value="' + value.code + '">' + value.name + '</option>');
-                $('#permanent_country').append('<option value="' + value.code + '">' + value.name + '</option>');
+        // var url = "js/json/countriesOther.json";
+        // $.getJSON(url, function (data) {
+        //     $.each(data, function (name, value) {
+        //         $('#sel2').append('<option value="' + value.code + '">' + value.name + '</option>');
+        //         $('#permanent_country').append('<option value="' + value.code + '">' + value.name + '</option>');
 
-            });
-        });
+        //     });
+        // });
     }
     /*
     function getAllClaimTypes(claimTypeId){

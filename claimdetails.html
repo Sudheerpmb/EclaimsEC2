@@ -33,6 +33,24 @@
       font-size: 16px;
       cursor: pointer;
     }
+    @media only screen and (max-width:328px) {
+      .img {
+        width: 72px;
+      }
+    }
+
+    .icons {
+      margin-right: -600px;
+    }
+
+    @media (max-width: 500px) {
+      .icons {
+        margin-right: -150px;
+
+      }
+
+   
+    }
   </style>
 </head>
 
@@ -72,21 +90,25 @@
     <div class="header-sec">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
+          <div class="col-12" style="display:flex; justify-content: space-between;">
             <div class="pull-left">
-              <a href="#" title="">
-                <img src="images/Europ.jpg" alt="" /></a>
-              <!-- <a href="claimslist.html"><button type="btn" class="btn"
-                  style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
+                <a href="#" title="">
+                  <img src="images/Europ.jpg" alt="" class="img" /></a>
+  
+              </div>
+            <div class="row ">
+              <div class="col-12 text-right">
+                <img id="tataEmg" style="max-height:11vh;" src="" alt="" />
+              </div>
+              <div class="col-12 text-right">
+                <a href="claimslist.html"><i class="fa fa-arrow-circle-left fa-2x" style="color: #024695; padding: 10px;"></i> </a>
+                <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                    style=" color: #024695; padding: 10px;"></i> </a>
+                <a href="index.html"><i class="fa fa-home fa-2x"
+                    style=" color: #024695; padding: 10px;"></i></a>
+              </div>
             </div>
-            <div style="margin-top: 50px;">
-              <img id="tataEmg" style="max-height:11vh;margin-top: -29px!important;" src="" alt="" />
-              <a href="claimslist.html"><i class="fa fa-arrow-circle-left fa-2x" style="color: #024695; padding: 10px;float: left;"></i> </a>
-              <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
-                  style="float: left; color: #024695; padding: 10px;"></i> </a>
-              <a href="index.html"><i class="fa fa-home fa-2x"
-                  style="float: left; color: #024695; padding: 10px;"></i></a>
-            </div>
+         
           </div>
         </div>
       </div>

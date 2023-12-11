@@ -180,19 +180,24 @@ $(function () {
                     if (value.Optional) {
                         color = '#DD31FF'
                     }
-                    result += ` <div style="display: flex;justify-content: space-between;color:${color}">
-                    <div onclick="scrollWin()">
-                    <i class="fa fa-plus-square" id="${value.Name + '__'}" onclick="addDiv('${value.Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
-                     <span  data-id= ${value.Name} class="myLink" data-toggle="tooltip" title="${value.Name}" style="cursor: pointer;"> ${value.Name}</span>
-                    </div>
+                    result += `
+                    <div class="row">
+                        <div class = "col-sm-8 col-12" style="display: flex;justify-content: space-between;color:${color}">
+                            <div onclick="scrollWin()">
+                                <i class="fa fa-plus-square" id="${value.Name + '__'}" onclick="addDiv('${value.Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
+                                <span  data-id= ${value.Name} class="myLink" data-toggle="tooltip" title="${value.Name}" style="cursor: pointer;"> ${value.Name}</span>
+                            </div>
+                        </div>
                     
-                    <div class="col-xs-6" style="float: right !important;">
-                    <div class="button-wrapper" style="width: 100px !important;text-align: center;padding:5px;">
-                         <span class="label">Upload</span>
-                         <input type="file" id ="${value.Name}" onchange="showname('${value.Name}','${value.Name + '_'}',1)" name="${value.Name}"  accept="image/jpeg,image/png,application/pdf"
-                     data-msg-accept="File type should be PDF, jpeg or png." class="upload upload-box" placeholder="Attach">
-                     <label id ="${value.Name + '_'}" style="display:none">  </label>
-                     </div></div></div>
+                        <div class="col-sm-4 col-12" style="float: right !important;">
+                            <div class="button-wrapper" style="width: 100px !important;text-align: center;padding:5px;">
+                                <span class="label">Upload</span>
+                                <input type="file" id ="${value.Name}" onchange="showname('${value.Name}','${value.Name + '_'}',1)" name="${value.Name}"  accept="image/jpeg,image/png,application/pdf"
+                                data-msg-accept="File type should be PDF, jpeg or png." class="upload upload-box" placeholder="Attach">
+                                <label id ="${value.Name + '_'}" style="display:none">  </label>
+                            </div>
+                        </div>
+                     </div>
                    `;
                     uploadDocsList.push(value.Name);
                 });

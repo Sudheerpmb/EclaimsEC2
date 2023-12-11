@@ -352,33 +352,41 @@ function getClaimDetails(claimId) {
               }
               if (flag) {
                 // <-- <i class="fa fa-times-circle-o" id="${allUploadData[i].Name+'__P'}" onclick="subDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>-->
-                result += ` <div id="${allUploadData[i].Name + '___'}" style="display: flex;justify-content: space-between;color:blue">
-                <div onclick="scrollWin()">
-              
-                <i class="fa fa-plus-square" id="${allUploadData[i].Name + '__'}" onclick="addDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
-                <a href="javascript:;"  data-id= ${allUploadData[i].Name} class="myLink"  data-toggle="tooltip" title="${allUploadData[i].Name}" > ${allUploadData[i].Name}</a> 
+                result += `
+                <div class="row">
+                    <div class = "col-sm-8 col-12" id="${allUploadData[i].Name + '___'}" style="display: flex;justify-content: space-between;color:blue">
+                      <div onclick="scrollWin()">
+                        <i class="fa fa-plus-square" id="${allUploadData[i].Name + '__'}" onclick="addDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
+                        <a href="javascript:;"  data-id= ${allUploadData[i].Name} class="myLink"  data-toggle="tooltip" title="${allUploadData[i].Name}" > ${allUploadData[i].Name}</a> 
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                      <div class="button-wrapper" style="width: 100px !important;text-align: center;padding:5px; float: right !important;">
+                            <span class="label">Upload</span>
+                            <input type="file" id="${allUploadData[i].Name}" name="${allUploadData[i].Name}"  onchange="showname('${allUploadData[i].Name}','${allUploadData[i].Name + '_'}')" accept="image/jpeg,image/png,application/pdf"
+                        data-msg-accept="File type should be PDF, jpeg or png." class="upload upload-box" placeholder="Attach">
+                        <label id ="${allUploadData[i].Name + '_'}" style="display:none">  </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-xs-6" style="float: right !important;">
-                <div class="button-wrapper" style="width: 100px !important;text-align: center;padding:5px;">
-                     <span class="label">Upload</span>
-                     <input type="file" id="${allUploadData[i].Name}" name="${allUploadData[i].Name}"  onchange="showname('${allUploadData[i].Name}','${allUploadData[i].Name + '_'}')" accept="image/jpeg,image/png,application/pdf"
-                 data-msg-accept="File type should be PDF, jpeg or png." class="upload upload-box" placeholder="Attach">
-                 <label id ="${allUploadData[i].Name + '_'}" style="display:none">  </label>
-                 </div></div></div>
                `;
                 toBeUploaded.push(allUploadData[i].Name);
               }
               else {
-                alreadyUp += ` <div style="display: flex;justify-content: space-between;color:#DD31FF">
-                <div onclick="scrollWin()">
-                <i class="fa fa-plus-square" id="${allUploadData[i].Name + '__'}" onclick="addDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
-                <span  data-id= ${allUploadData[i].Name} class="myLink" > ${allUploadData[i].Name}</span>
-                </div>
-                <div class="col-xs-6" style="float: right !important;text-align:center;width:11vw;padding-left: 10px;">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                <br>
-                <span>${docName}</span>
-                </div>
+                alreadyUp += `
+                <div class="row">
+                  <div class = "col-sm-8 col-12" style="display: flex;justify-content: space-between;color:#DD31FF">
+                    <div onclick="scrollWin()">
+                      <i class="fa fa-plus-square" id="${allUploadData[i].Name + '__'}" onclick="addDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
+                      <span  data-id= ${allUploadData[i].Name} class="myLink" > ${allUploadData[i].Name}</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-12" style="float: right !important;text-align:center;width:11vw;padding-left: 10px;">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                     <br>
+                    <span>${docName}</span>
+                  </div>
                 </div><br/>`
               }
             }
