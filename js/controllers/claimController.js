@@ -203,7 +203,11 @@ $(function () {
             } else {
                 createdByEclaims = userDetails.email;
             }
-
+            let customer = {}
+            customer.email = form.elements.contactEmail.value;
+            customer.name = form.elements.customerName.value;
+            let customerJson = JSON.stringify(customer);
+            setToStore('customerEmailForInvalid',customerJson);
             var claimData = JSON.stringify(
                 {
 
@@ -303,17 +307,7 @@ $(function () {
                         "password": "pass123",
                     }),
                     success: function (response) {
-                        console.log(response);
-                        var user = {};
-                        user.firstName = response.firstName;
-                        user.lastName = response.lastName;
-                        user.email = response.email;
-                        user.mobile = response.mobile;
-                        user.dob = response.dob ? response.dob : "";
-                        user.gender = response.gender ? response.gender : "";
-                        user.clientId = getFromStore('clientIDNM');
-                        var userjson = JSON.stringify(user);
-                        setToStore("user", userjson);
+                        console.log(response)
                         setToStore("token", response.eclaimToken);
                         setToStore("eclaimsToken", response.eclaimToken);
                     },
@@ -422,7 +416,7 @@ $(function () {
                             }
                         })
                     }
-                    sendmail1(response_data.email, response_data.caseNumber)
+                    sendmail1(customer.email, response_data.caseNumber)
                     if (response_data.success) {
                         toastr.success('Claim created successfully');
                         var clientName = getFromStore('clientIDNM'); // Replace with actual client name
@@ -499,15 +493,31 @@ $(function () {
             body += "<p>Thank you for your following enclosures sent to us. </p>"
             body += "<ul>Policy Copy</ul>"
         }
-        let template = `<div>
-        <p><b>Dear ${userObj.firstName.charAt(0).toUpperCase() + userObj.firstName.slice(1)} ${userObj.lastName.charAt(0).toUpperCase() + userObj.lastName.slice(1)}</b></p>
-        <p><span><b>CLAIM REFERENCE: ${caseno}</b></span>
-        ${body}
-        <p>Your claim has been successfully created</p>
-        ${rel}
-        <p>Yours sincerely,</p>
-        <p>Claims Team</p>
-        </div>`;
+        let template=''
+        if(clientIde==='RELIANCE'){
+             user_F = JSON.parse(getFromStore("customerEmailForInvalid"));
+            template = `<div>
+            <p><b>Dear ${user_F.name}</b></p>
+            <p><span><b>CLAIM REFERENCE: ${caseno}</b></span>
+            ${body}
+            <p>Your claim has been successfully created</p>
+            ${rel}
+            <p>Yours sincerely,</p>
+            <p>Claims Team</p>
+            </div>`;
+        }
+        if(clientIde!=='RELIANCE' && clientIde !== 'TATA AIG'){
+            template = `<div>
+            <p><b>Dear ${userObj.firstName.charAt(0).toUpperCase() + userObj.firstName.slice(1)} ${userObj.lastName.charAt(0).toUpperCase() + userObj.lastName.slice(1)}</b></p>
+            <p><span><b>CLAIM REFERENCE: ${caseno}</b></span>
+            ${body}
+            <p>Your claim has been successfully created</p>
+            ${rel}
+            <p>Yours sincerely,</p>
+            <p>Claims Team</p>
+            </div>`;
+        }
+
         if (clientIde == 'TATA AIG') {
             template = `<div>
             <p><b>Dear ${userObj.firstName.charAt(0).toUpperCase() + userObj.firstName.slice(1)} ${userObj.lastName.charAt(0).toUpperCase() + userObj.lastName.slice(1)},</b></p>

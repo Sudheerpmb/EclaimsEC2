@@ -107,11 +107,11 @@
                 success: function (response) {
                     console.log(response);
                     var user = {};
-                    user.firstName = response.firstName;
-                    user.lastName = response.lastName;
-                    user.mobile = response.mobile;
-                    user.dob = response.dob ? response.dob : "";
-                    user.gender = response.gender ? response.gender : "";
+                    // user.firstName = response.firstName;
+                    // user.lastName = response.lastName;
+                    // user.mobile = response.mobile;
+                    // user.dob = response.dob ? response.dob : "";
+                    // user.gender = response.gender ? response.gender : "";
                     user.clientId = getFromStore('clientIDNM');
                     var userjson = JSON.stringify(user);
                     setToStore("googleLogin", 0);

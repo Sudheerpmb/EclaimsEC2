@@ -612,9 +612,18 @@ function submitClaims_() {
   if (allDocumentsUploaded) {
     sendSeparateEmail();
   } else {
-    // Not all documents are uploaded, continue with the existing email content
     var user_F = JSON.parse(getFromStore("user"));
-    sendmail(user_F.email, `${claimId} updated`, email);
+    var userInfo = JSON.parse(getFromStore('customerEmailForInvalid'));
+    var clientIDNM = getFromStore('clientIDNM');
+  
+    if (clientIDNM === 'RELIANCE' && userInfo) {
+      sendmail(userInfo.email, `${claimId} updated`, email);
+    } else if (clientIDNM === 'RELIANCE') {
+      let emailObj = JSON.parse(getFromStore("emailObj"));
+      sendmail(emailObj.email, `${claimId} updated`, email);
+    } else {
+      sendmail(user_F.email, `${claimId} updated`, email);
+    }
   }
   alert('The documents have been successfully uploaded');
   window.location = env.app_url + "index.html";
@@ -622,13 +631,25 @@ function submitClaims_() {
   function sendSeparateEmail() {
     // Define your separate email content and subject
     var user_F = JSON.parse(getFromStore("user"));
-    var separateEmailContent = `Dear ${user_F.firstName + ' '+ user_F.lastName }<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
-    var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
+    var userInfo = JSON.parse(getFromStore("customerEmailForInvalid"));
+    if (getFromStore('clientIDNM') === 'RELIANCE' && userInfo) {
+      var separateEmailContent = `Dear ${userInfo.name}<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
+      var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
+      sendmail(userInfo.email, separateEmailSubject, separateEmailContent);
+    } else {
+      if (getFromStore('clientIDNM') === 'RELIANCE') {
+        let emailObj = JSON.parse(getFromStore("emailObj"));
+        var separateEmailContent = `Dear ${emailObj.firstName + ' ' + emailObj.lastName}<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
+        var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
+        sendmail(emailObj.email, separateEmailSubject, separateEmailContent);
+      }
+      else{
+        var separateEmailContent = `Dear ${user_F.firstName + ' '+ user_F.lastName }<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
+        var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
+        sendmail(user_F.email, separateEmailSubject, separateEmailContent);
+      }
+    }
 
-    // Get the user's email from where you have it
-    var user_F = JSON.parse(getFromStore("user"));
-    // Send the separate email
-    sendmail(user_F.email, separateEmailSubject, separateEmailContent);
   }
 }
 
@@ -864,6 +885,7 @@ function getCustomerClaims() {
             <tbody>`;
  
         Object.values(json).forEach(value => {
+          console.log(value.customers.Email+value.customers.FirstName+value.customers.LastName);
           if (value.CaseNumber.substring(0, 2) == getFromStore('prefix').substring(0, 2).toUpperCase()) {
             let insuProvider = 'NA';
             if (value.insuranceProvider)
@@ -871,7 +893,7 @@ function getCustomerClaims() {
  
               claimsHtml += `
               <tr>
-                <td onclick="myFunctionGetTravel('${value.CaseNumber}')"><a style="color:blue;cursor:pointer">${value.CaseNumber}</a></td>
+                <td onclick="myFunctionGetTravel('${value.CaseNumber}'); sentEmailInfo('${value.customers.Email}', '${value.customers.FirstName}', '${value.customers.LastName}')")"><a style="color:blue;cursor:pointer">${value.CaseNumber}</a></td>
                 <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${new Date(value.CreationDate).toLocaleDateString('en-GB')}</td>
                 <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.customers.FirstName.charAt(0).toUpperCase() + value.customers.FirstName.slice(1) + ' ' + value.customers.LastName.charAt(0).toUpperCase() + value.customers.LastName.slice(1)}</td>
                 <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.travelPolicy[0] ? value.travelPolicy[0].policyNumber : 'NA'}</td>
@@ -1090,7 +1112,17 @@ function getCustomerRecentClaim() {
 
 
 }
+function sentEmailInfo(cusEmail,firstName,lastName){
+let emailInfo ={};
+emailInfo.email = cusEmail;
+emailInfo.firstName = firstName;
+emailInfo.lastName = lastName
+console.log(emailInfo)
+var userjson = JSON.stringify(emailInfo);
+setToStore('emailObj',userjson);
+}
 function myFunctionGetTravel(claimId) {
+
   var eclaims_token = getFromStore("eclaimsToken");
   $.ajax({
     async: true,
