@@ -83,7 +83,6 @@ function checkIfOtpverified() {
 }
 function sendmail(email, subject, body) {
     alert("Email has been send to your Registered mail");
-    // alert("hello");
     var eclaims_token = getFromStore("eclaimsToken");
     $.ajax({
         async: true,

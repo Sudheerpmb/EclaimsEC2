@@ -459,7 +459,6 @@ function submitClaims_() {
 }
 
 $("#submitClaim12").click(function () {
-  // alert("hi")
   var fd = new FormData();
   var arr = [];
   var html = `<h6><strong> We have saved your claims details.and your reference number is ${claimId}. however, you still need to provide the below mandatory documents </strong> </h6>`

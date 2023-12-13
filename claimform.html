@@ -162,7 +162,13 @@
 
     });
   </script>
-
+  <style>
+        @media only screen and (max-width:328px) {
+      #img2 {
+        width: 80px;
+      }
+    }
+  </style>
   <div class="main">
     <!--Header-start-->
     <div class="header-sec">
@@ -171,7 +177,7 @@
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
             <div class="pull-left">
               <a href="#" title="">
-                <img src="images/Europ.jpg" alt="" /></a>
+                <img src="images/Europ.jpg" alt="" id="img2" /></a>
               <!-- <a href="coverage.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
             </div>
             <div class="row">
@@ -215,13 +221,13 @@
               </div>
             </div>
             <div class="claim-entry">
-              <h2><span><i style="font-size:16px" class="fa">&#xf2ba;</i> Claim form</span> </h2>
-              <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+              <h2><span> Claim form</span> </h2>
+              <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="navigate" style="display: none;">
                   <a href="coverage.html" class="left-btn">&#8810;Back</a>
                   <a href="documentsuploadpage.html" class="right-btn">&#8702;Back</a>
                 </div>
-              </div>
+              </div> -->
               <br>
               <div class="mandatory">
                 <sup>*</sup> These fields are required.
@@ -410,7 +416,7 @@
                   Mobile Number <span style="color: red;">*</span>
                 </label>
                 <input type="text" name="contactNumber" id="beneficiaryNumber" placeholder="Enter beneficiary number"
-                  class="inpt" />
+                  class="inpt mobile" />
                 <label>
                   Beneficiary Email <span style="color: red;">*</span>
                 </label>
@@ -493,6 +499,15 @@
 
 </html>
 <script>
+  $(".mobile").on('input', function () {
+    // Remove non-numeric characters
+    $(this).val($(this).val().replace(/\D/g, ''));
+
+    // Limit the input to 12 digits
+    if ($(this).val().length > 12) {
+        $(this).val($(this).val().slice(0, 12));
+    }
+});
   $(document).ready(function () {
     $('#EmployeeNumber').hide();
     $('#EmployeeNoL').hide();

@@ -91,29 +91,39 @@ function getButtons(clientId) {
       html = '';
       data.forEach(function (item) {
         if (item.name == 'Upload Documents') {
-          html += ` <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-          <div class="section"> <a href="JavaScript:void(0);" onclick="getCustomerRecentClaim()"><img
+          html += ` 
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="section"> 
+              <a href="JavaScript:void(0);" onclick="getCustomerRecentClaim()"><img
                 src="images/file.jpg" alt="" />
-              <h5 style="color:#023783;">Upload documents</h5>
-              <h6>to your claims</h6>
-            </a> </div>
-        </div>`
+               <h5 style="color:#023783;">Upload documents</h5>
+                <h6>to your claims</h6>
+              </a> 
+            </div>
+          </div>`
         }
         else if (item.name == 'Change Password') {
-          html += `<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-          <div class="section" style="padding-bottom:13px !important;"> <a href="#" data-target="#changePwdModal"
-              data-toggle="modal"><img src="images/file.jpg" alt="" />
-              <h5 style="color:#0000FF;">&nbsp;<br>Change Password</h5>
-            </a> </div>
-        </div>`
+          html += `
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="section" style="padding-bottom:13px !important;">
+              <a href="#" data-target="#changePwdModal"
+                data-toggle="modal"><img src="images/file.jpg" alt="" />
+                <h5 style="color:#0000FF;">&nbsp;<br>Change Password</h5>
+              </a>
+            </div>
+          </div>`
         }
         else {
-          html += ` <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-       <div class="section"> <a href="${item.link}"><img src=${item.image} alt="" />
-           <h5 style="color:${item.color}">${item.name}</h5>
-           <h6>${item.tagline}</h6>
-         </a> </div>
-     </div>`}
+          html += `
+              <div class="col-md-4 col-sm-6 col-12">
+                <div class="section">
+                  <a href="${item.link}">
+                    <img src="${item.image}" alt="" />
+                    <h5 style="color: ${item.color}">${item.name}</h5>
+                    <h6>${item.tagline}</h6>
+                  </a>
+                </div>
+              </div>`}
       });
       document.getElementById("Ditems").innerHTML = html;
     }
@@ -614,11 +624,9 @@ function submitClaims_() {
   } else {
     var user_F = JSON.parse(getFromStore("user"));
     var userInfo = JSON.parse(getFromStore('customerEmailForInvalid'));
-    var clientIDNM = getFromStore('clientIDNM');
-  
-    if (clientIDNM === 'RELIANCE' && userInfo) {
+    if (getFromStore('clientIDNM') === 'RELIANCE' && userInfo) {
       sendmail(userInfo.email, `${claimId} updated`, email);
-    } else if (clientIDNM === 'RELIANCE') {
+    } else if (getFromStore('clientIDNM') === 'RELIANCE') {
       let emailObj = JSON.parse(getFromStore("emailObj"));
       sendmail(emailObj.email, `${claimId} updated`, email);
     } else {
@@ -678,7 +686,6 @@ $("#submitClaim12").click(function () {
     fd.append(scm, $(this)[0].files[0]);
 
   });
-
 
   // let email=html+"<h6>You also need to share the originals of Invoices & payment receipts <br/>Please note that this is just an acknowledgement of the details submitted by you and not an acceptance of your claim. Our team would try to verify your policy details manually and get in touch with you to assist with the next steps.</h6>"
   let display = html + `<br/><h6>We will be sending you the claim form to your registered email id.Claim forms to be filled, signed & submitted along with the requested claim documents`
@@ -884,28 +891,28 @@ function getCustomerClaims() {
             </thead>
             <tbody>`;
  
-        Object.values(json).forEach(value => {
-          console.log(value.customers.Email+value.customers.FirstName+value.customers.LastName);
-          if (value.CaseNumber.substring(0, 2) == getFromStore('prefix').substring(0, 2).toUpperCase()) {
-            let insuProvider = 'NA';
-            if (value.insuranceProvider)
-              insuProvider = value.insuranceProvider.toUpperCase();
- 
+              Object.values(json).forEach(value => {
+                // console.log(value.customers.Email+' '+value.customers.FirstName+" "+value.customers.LastName);
+                if (value.CaseNumber.substring(0, 2) == getFromStore('prefix').substring(0, 2).toUpperCase()) {
+                  let insuProvider = 'NA';
+                  if (value.insuranceProvider)
+                    insuProvider = value.insuranceProvider.toUpperCase();
+      
+                    claimsHtml += `
+                    <tr>
+                      <td onclick="myFunctionGetTravel('${value.CaseNumber}'); sentEmailInfo('${value.customers.Email}', '${value.customers.FirstName}', '${value.customers.LastName}')")"><a style="color:blue;cursor:pointer">${value.CaseNumber}</a></td>
+                      <td>${new Date(value.CreationDate).toLocaleDateString('en-GB')}</td>
+                      <td>${value.customers.FirstName.charAt(0).toUpperCase() + value.customers.FirstName.slice(1) + ' ' + value.customers.LastName.charAt(0).toUpperCase() + value.customers.LastName.slice(1)}</td>
+                      <td>${value.travelPolicy[0] ? value.travelPolicy[0].policyNumber : 'NA'}</td>
+                      <td>${value.travelCases.subClaimType}</td>
+                      <td>${value.travelCases.claimSatus}</td>
+                    </tr>`;
+                }
+              });
+  
               claimsHtml += `
-              <tr>
-                <td onclick="myFunctionGetTravel('${value.CaseNumber}'); sentEmailInfo('${value.customers.Email}', '${value.customers.FirstName}', '${value.customers.LastName}')")"><a style="color:blue;cursor:pointer">${value.CaseNumber}</a></td>
-                <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${new Date(value.CreationDate).toLocaleDateString('en-GB')}</td>
-                <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.customers.FirstName.charAt(0).toUpperCase() + value.customers.FirstName.slice(1) + ' ' + value.customers.LastName.charAt(0).toUpperCase() + value.customers.LastName.slice(1)}</td>
-                <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.travelPolicy[0] ? value.travelPolicy[0].policyNumber : 'NA'}</td>
-                <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.travelCases.subClaimType}</td>
-                <td onclick="myFunctionGetTravel('${value.CaseNumber}')">${value.travelCases.claimSatus}</td>
-              </tr>`;
-          }
-        });
- 
-        claimsHtml += `
-        </tbody>
-        </table>
+            </tbody>
+          </table>
         </div>`;
  
         document.getElementById("claimsListContainer").innerHTML = claimsHtml;
@@ -1121,6 +1128,7 @@ console.log(emailInfo)
 var userjson = JSON.stringify(emailInfo);
 setToStore('emailObj',userjson);
 }
+
 function myFunctionGetTravel(claimId) {
 
   var eclaims_token = getFromStore("eclaimsToken");

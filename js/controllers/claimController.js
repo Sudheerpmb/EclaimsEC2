@@ -97,7 +97,7 @@ $(function () {
                 required: true,
                 digits: true,
                 minlength: 10,
-                maxlength: 14
+                maxlength: 12
             },
             contactEmail: {
                 required: true,
@@ -195,8 +195,9 @@ $(function () {
             var fullName = form.elements.customerName.value;
             var nameParts = fullName.split(' ');
 
-            var firstName = nameParts[0];
-            var lastName = nameParts[1];
+            let firstName = nameParts[0];
+            let middleName = nameParts[1]; // corrected here
+            let lastName = nameParts[2];
             var createdByEclaims;
             if (getFromStore('type') === "scan" || getFromStore('type') === "tinyURL") {
                 createdByEclaims = form.elements.contactEmail.value;
@@ -217,7 +218,7 @@ $(function () {
                     "TagNo": form.elements.Tagno.value,
                     "airportServices": form.elements.airportservices.value,
                     "customerfirstname": firstName,
-                    "customerlastname": lastName + form.elements.customerSurName.value,
+                    "customerlastname": lastName + form.elements.customerSurName.value ? form.elements.customerSurName.value:'',
                     "phone": form.elements.contactNumber.value,
                     "email": form.elements.contactEmail.value,
                     "policyNumber": policyNumber,
