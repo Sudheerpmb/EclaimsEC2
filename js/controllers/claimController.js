@@ -196,8 +196,7 @@ $(function () {
             var nameParts = fullName.split(' ');
 
             let firstName = nameParts[0];
-            let middleName = nameParts[1]; // corrected here
-            let lastName = nameParts[2];
+            let lastName = nameParts[1]; 
             var createdByEclaims;
             if (getFromStore('type') === "scan" || getFromStore('type') === "tinyURL") {
                 createdByEclaims = form.elements.contactEmail.value;
@@ -218,7 +217,7 @@ $(function () {
                     "TagNo": form.elements.Tagno.value,
                     "airportServices": form.elements.airportservices.value,
                     "customerfirstname": firstName,
-                    "customerlastname": lastName + form.elements.customerSurName.value ? form.elements.customerSurName.value:'',
+                    "customerlastname": lastName,
                     "phone": form.elements.contactNumber.value,
                     "email": form.elements.contactEmail.value,
                     "policyNumber": policyNumber,
@@ -252,7 +251,8 @@ $(function () {
                     "incidentDate": incCreateDate,
                     "incidentState": "",
                     "initialReservAmountUSD": form.elements.claimAmount.value,
-                    "clientId": getFromStore('prefix'),
+                    "clientId": getFromStore('clientID'),
+                    "prefix": getFromStore('prefix'),
                     "clientName": getFromStore('clientIDNM'),
                     "subClaimType": getFromStore('clickedSubName'),
                     "travelDate": "",
@@ -279,7 +279,7 @@ $(function () {
                     password: "pass123",
 
                 };
-                // Ajax request for the form without gender and date of birth
+
                 $.ajax({
                     async: true,
                     crossDomain: true,
@@ -287,33 +287,56 @@ $(function () {
                     type: "POST",
                     data: bodyForSignUp,
                     success: function (data) {
-                        // alert("Customer Registered Successfully");
-                        location.reload();
+                        if (data.message) {
+                            $.ajax({
+                                async: true,
+                                crossDomain: true,
+                                url: env.node_api_url + "batchJobs/getTokenEclaims",
+                                type: "POST",
+                                processData: false,
+                                contentType: false,
+                                contentType: "application/json",
+                                data: JSON.stringify({
+                                    "username": form.elements.contactEmail.value,
+                                    "password": "pass123",
+                                }),
+                                success: function (response) {
+                                    console.log(response)
+                                    setToStore("token", response.eclaimToken);
+                                    setToStore("eclaimsToken", response.eclaimToken);
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                },
+                            });
+                        }
+                        else if(data._id) {
+                            $.ajax({
+                                async: true,
+                                crossDomain: true,
+                                url: env.node_api_url + "batchJobs/getTokenEclaims",
+                                type: "POST",
+                                processData: false,
+                                contentType: false,
+                                contentType: "application/json",
+                                data: JSON.stringify({
+                                    "username": form.elements.contactEmail.value,
+                                    "password": "pass123",
+                                }),
+                                success: function (response) {
+                                    console.log(response)
+                                    setToStore("token", response.eclaimToken);
+                                    setToStore("eclaimsToken", response.eclaimToken);
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                },
+                            });
+                        }
                     },
                     error: function (err) {
                         console.log(err);
                         toastr.error("Whoops! This didn't work. Please contact us.");
-                    },
-                });
-                $.ajax({
-                    async: true,
-                    crossDomain: true,
-                    url: env.node_api_url + "batchJobs/getTokenEclaims",
-                    type: "POST",
-                    processData: false,
-                    contentType: false,
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        "username": form.elements.contactEmail.value,
-                        "password": "pass123",
-                    }),
-                    success: function (response) {
-                        console.log(response)
-                        setToStore("token", response.eclaimToken);
-                        setToStore("eclaimsToken", response.eclaimToken);
-                    },
-                    error: function (err) {
-                        console.log(err);
                     },
                 });
 
