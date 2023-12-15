@@ -81,7 +81,7 @@ function checkIfOtpverified() {
     }
 
 }
-function sendmail(email, subject, body) {
+function sendmail(email, subject, body,cc) {
     alert("Email has been send to your Registered mail");
     var eclaims_token = getFromStore("eclaimsToken");
     $.ajax({
@@ -91,7 +91,7 @@ function sendmail(email, subject, body) {
         type: "POST",
         data: JSON.stringify({
             "email": email,
-            "name": " ",
+            "cc": cc,
             "subject": `${subject} `,
             "body": `${body}`
         }),

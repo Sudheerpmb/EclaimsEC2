@@ -137,7 +137,7 @@ function getButtons(clientId) {
     var clientIde = getFromStore("clientIDE").toUpperCase();
 
     // Function to fetch and display claim types based on the selected radio button name
-    function displayClaimTypesBasedOnRadioName(radioName) {
+    function displaySubClaimTypesBasedOnRadioName(radioName) {
       $('#loader').show();
       $.ajax({
         async: true,
@@ -168,8 +168,13 @@ function getButtons(clientId) {
           // Append claim types to the claimContainer
           var claimTypesHTML = '';
           claimTypesResponse.forEach(function (value) {
-            claimTypesHTML += `<div class="coverage0_"><a href="claimform.html?id=${value.name}" data-subname="${value.subName}"><h5>${value.subName}</h5>
-                            <p>${value.narratio}</p></a></div>`;
+            claimTypesHTML += `
+            <div class="coverage0_">
+              <a href="claimform.html?id=${value.name}" data-subname="${value.subName}">
+                <h5>${value.subName}</h5>
+                <p>${value.narratio}</p>
+              </a>
+            </div>`;
                             
           });
           
@@ -224,7 +229,7 @@ function getButtons(clientId) {
         // Attach click event handler to radio buttons
         $('input[name="claimTypeRadio"]').on('click', function () {
           var radioName = $(this).val(); // Get the selected radio button's value
-          displayClaimTypesBasedOnRadioName(radioName); // Call the function with the selected value
+          displaySubClaimTypesBasedOnRadioName(radioName); // Call the function with the selected value
         });
       },
       error: function (error) {
@@ -625,12 +630,12 @@ function submitClaims_() {
     var user_F = JSON.parse(getFromStore("user"));
     var userInfo = JSON.parse(getFromStore('customerEmailForInvalid'));
     if (getFromStore('clientIDNM') === 'RELIANCE' && userInfo) {
-      sendmail(userInfo.email, `${claimId} updated`, email);
+      sendmail(userInfo.email, `${claimId} updated`, email,ccEmail);
     } else if (getFromStore('clientIDNM') === 'RELIANCE') {
       let emailObj = JSON.parse(getFromStore("emailObj"));
-      sendmail(emailObj.email, `${claimId} updated`, email);
+      sendmail(emailObj.email, `${claimId} updated`, email,ccEmail);
     } else {
-      sendmail(user_F.email, `${claimId} updated`, email);
+      sendmail(user_F.email, `${claimId} updated`, email,ccEmail);
     }
   }
   alert('The documents have been successfully uploaded');
@@ -643,18 +648,18 @@ function submitClaims_() {
     if (getFromStore('clientIDNM') === 'RELIANCE' && userInfo) {
       var separateEmailContent = `Dear ${userInfo.name}<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
       var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
-      sendmail(userInfo.email, separateEmailSubject, separateEmailContent);
+      sendmail(userInfo.email, separateEmailSubject, separateEmailContent,ccEmail);
     } else {
       if (getFromStore('clientIDNM') === 'RELIANCE') {
         let emailObj = JSON.parse(getFromStore("emailObj"));
         var separateEmailContent = `Dear ${emailObj.firstName + ' ' + emailObj.lastName}<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
         var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
-        sendmail(emailObj.email, separateEmailSubject, separateEmailContent);
+        sendmail(emailObj.email, separateEmailSubject, separateEmailContent,ccEmail);
       }
       else{
         var separateEmailContent = `Dear ${user_F.firstName + ' '+ user_F.lastName }<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
         var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
-        sendmail(user_F.email, separateEmailSubject, separateEmailContent);
+        sendmail(user_F.email, separateEmailSubject, separateEmailContent,ccEmail);
       }
     }
 

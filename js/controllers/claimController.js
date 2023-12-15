@@ -223,7 +223,7 @@ $(function () {
                     "policyNumber": policyNumber,
                     "CreatedByEclaims": createdByEclaims,
                     "CreatedBy": "Eclaims",
-                    "dateOfBirth": form.elements.dob.value,
+                    "dateOfBirth": moment(form.elements.dob.value).format("YYYY-MM-DD"),
                     "gender": form.elements.gender.value,
                     "caseType": "3",
                     "title": "",
@@ -287,56 +287,31 @@ $(function () {
                     type: "POST",
                     data: bodyForSignUp,
                     success: function (data) {
-                        if (data.message) {
-                            $.ajax({
-                                async: true,
-                                crossDomain: true,
-                                url: env.node_api_url + "batchJobs/getTokenEclaims",
-                                type: "POST",
-                                processData: false,
-                                contentType: false,
-                                contentType: "application/json",
-                                data: JSON.stringify({
-                                    "username": form.elements.contactEmail.value,
-                                    "password": "pass123",
-                                }),
-                                success: function (response) {
-                                    console.log(response)
-                                    setToStore("token", response.eclaimToken);
-                                    setToStore("eclaimsToken", response.eclaimToken);
-                                },
-                                error: function (err) {
-                                    console.log(err);
-                                },
-                            });
-                        }
-                        else if(data._id) {
-                            $.ajax({
-                                async: true,
-                                crossDomain: true,
-                                url: env.node_api_url + "batchJobs/getTokenEclaims",
-                                type: "POST",
-                                processData: false,
-                                contentType: false,
-                                contentType: "application/json",
-                                data: JSON.stringify({
-                                    "username": form.elements.contactEmail.value,
-                                    "password": "pass123",
-                                }),
-                                success: function (response) {
-                                    console.log(response)
-                                    setToStore("token", response.eclaimToken);
-                                    setToStore("eclaimsToken", response.eclaimToken);
-                                },
-                                error: function (err) {
-                                    console.log(err);
-                                },
-                            });
-                        }
+                        console.log(data)
                     },
                     error: function (err) {
                         console.log(err);
                         toastr.error("Whoops! This didn't work. Please contact us.");
+                    },
+                });
+                $.ajax({
+                    async: true,
+                    crossDomain: true,
+                    url: env.node_api_url + "batchJobs/getTokenEclaims",
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "username": form.elements.contactEmail.value,
+                        "password": "pass123",
+                    }),
+                    success: function (response) {
+                        setToStore("token", response.eclaimToken);
+                        setToStore("eclaimsToken", response.eclaimToken);
+                    },
+                    error: function (err) {
+                        console.log(err);
                     },
                 });
 
@@ -349,7 +324,6 @@ $(function () {
 
             }
             setToStore("policyFormPrs", body);
-            console.log(claimData, 'hello');
             let policyCopy = $('#policyCopy')[0].files[0]
             // document.write(policyCopy);
             var policyForm = new FormData();
@@ -436,13 +410,14 @@ $(function () {
                                 Authorization: "Bearer " + eclaim_token
                             },
                             success: function (data1) {
-                                let dat = data1;
+                                console.log(data1)
                             }
                         })
                     }
                     sendmail1(customer.email, response_data.caseNumber)
                     if (response_data.success) {
                         toastr.success('Claim created successfully');
+                        var eclaims_token = getFromStore("eclaimsToken");
                         var clientName = getFromStore('clientIDNM'); // Replace with actual client name
                         var customerName = form.elements.customerName.value; // Replace with actual customer name
                         var claimNo = response_data.caseNumber; // Replace with actual claim number
@@ -460,12 +435,54 @@ $(function () {
                                         <li><strong>Sub Claim:</strong> ${subClaim}</li>
                                     </ul>
                                     <p>Regards,<br>e-Claims</p>
-                                `;
-                        sendmail("smendes@europ-assistance.in",subject,body);
-                        sendmail("ppawar@europ-assistance.in",subject,body);
+                                `;     
+                        $.ajax({
+                            async: true,
+                            crossDomain: true,
+                            url: env.node_api_url + "eclaims/masters/getMastersEclaims",
+                            type: "POST",
+                            data: JSON.stringify({
+                                "projectName": "EzTravel",
+                                "generalMasterName": "Eclaim - Claim Intimation",
+                                "clientName": getFromStore("clientIDE").toUpperCase()
+
+                            }),
+                            contentType: "application/json",
+                            processData: false,
+                            headers: {
+                                Authorization: "Bearer " + eclaims_token
+                            },
+                            success: function (response) {
+                                console.log(response);
+                            // Initialize arrays to store email addresses
+                                var ccEmail = [];
+                                var toEmail = [];
+
+                                // Loop through the response and filter based on conditions
+                                for (var i = 0; i < response.length; i++) {
+                                    var currentItem = response[i];
+
+                                    // Check if narratio value is 'cc'
+                                    if (currentItem.narratio === 'cc') {
+                                        ccEmail.push(currentItem.name);
+                                    }
+
+                                    // Check if narratio is empty
+                                    if (!currentItem.narratio) {
+                                        toEmail.push(currentItem.name);
+                                    }
+                                }
+                                for (var i = 0; i < toEmail.length; i++) {
+                                    sendmail(toEmail[i], subject, body,ccEmail);        
+                                }
+                                    
+                            },
+                            error: function (error) {
+                                console.error("Error fetching claim types based on radio name:", error);
+                            },
+                        });                   
                         $("#ajaxStart").prop("disabled", false);
                         $("#ajaxStart").html("Continue");
-
                         window.location = env.app_url + "documentsuploadpage.html?claimId=" + response_data.caseNumber + "&Id=" + response_data.travelCaseId + "&email=" + response_data.email;
                     } else if (response_data.status == "Failed") {
                         toastr.error('Claim creation failed, Please try again!');
@@ -488,10 +505,6 @@ $(function () {
         }
 
     })
-
-
-
-
     document.setcookie = "key=no";
     function sendmail1(email, caseno) {
         let eclaimToken = getFromStore("eclaimsToken");

@@ -279,7 +279,6 @@ $(function () {
           success: function(data) {
             console.log(data)
             alert("Customer Registered Successfully");
-            return
             location.reload();
           },
           error: function(err) {
