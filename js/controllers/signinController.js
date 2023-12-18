@@ -28,6 +28,7 @@ function getClientName(uuid) {
       window.clientId = response[0].clientName;
       setToStore("prefix",response[0].prefix);
       setToStore("clientIDNM", clientId);
+      setToStore("clientID", response[0].clientId);
       document.getElementById("tataEmg").src = 'images/' + clientId + '.jpg';
       if (!clientId) {
         toastr.error("Invalid url");
@@ -276,6 +277,7 @@ $(function () {
           type: "POST",
           data: body,
           success: function(data) {
+            console.log(data)
             alert("Customer Registered Successfully");
             location.reload();
           },

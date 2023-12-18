@@ -53,6 +53,7 @@
           var clientId = data[0].clientName
           setToStore("prefix", data[0].prefix);
           setToStore("clientIDNM", clientId);
+          setToStore("clientID", data[0].clientId);
 
         },
         error: function (err) {
@@ -69,6 +70,7 @@
           //alert(JSON.stringify(res))
           let response = res;
           var user = {};
+          if(urlParams.get('clientIDE')!=='RELIANCE'){
           user.firstName = response.firstName;
           user.lastName = response.lastName;
           user.email = response.email;
@@ -76,6 +78,10 @@
           user.clientId = urlParams.get('clientIDE');
           user.dob = response.dob ? response.dob : "";
           user.gender = response.gender ? response.gender : "";
+          }
+          if(urlParams.get('clientIDE')==='RELIANCE'){
+            user.clientId = urlParams.get('clientIDE');
+          }
           setToStore("clientHash", urlParams.get('uuid'));
           setToStore("user", JSON.stringify(user));
           setToStore("eclaimsToken", response.eclaimToken);
