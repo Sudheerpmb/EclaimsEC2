@@ -865,7 +865,10 @@ function getCustomerClaims() {
   var access_token = getFromStore("token");
   var user = JSON.parse(getFromStore("user"))
   var url = env.node_api_url + "eclaims/cases/getClaimI?user_name=" + userDetails.email;
- 
+  if (getFromStore('type') === "scan" || getFromStore('type') === "tinyURL") {
+    var userInfo = JSON.parse(getFromStore("customerEmailForInvalid"));
+     url = env.node_api_url + "eclaims/cases/getClaimI?user_name=" + userInfo.email
+  }
   $.ajax({
     async: true,
     crossDomain: true,
