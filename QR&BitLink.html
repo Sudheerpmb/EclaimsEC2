@@ -120,9 +120,7 @@
                     setToStore("user", userjson);
                     setToStore("token", response.eclaimToken);
                     setToStore("eclaimsToken", response.eclaimToken);
-                    setTimeout(function () {
-                        window.location = env.app_url + "index.html";
-                    }, 1000);
+                    window.location = env.app_url + "index.html";
                 },
                 error: function (err) {
                     console.log(err);
