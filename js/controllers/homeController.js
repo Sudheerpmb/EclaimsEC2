@@ -630,12 +630,12 @@ function submitClaims_() {
     var user_F = JSON.parse(getFromStore("user"));
     var userInfo = JSON.parse(getFromStore('customerEmailForInvalid'));
     if (getFromStore('clientIDNM') === 'RELIANCE' && userInfo) {
-      sendmail(userInfo.email, `${claimId} updated`, email,ccEmail);
+      sendmail(userInfo.email, `${claimId} updated`, email);
     } else if (getFromStore('clientIDNM') === 'RELIANCE') {
       let emailObj = JSON.parse(getFromStore("emailObj"));
-      sendmail(emailObj.email, `${claimId} updated`, email,ccEmail);
+      sendmail(emailObj.email, `${claimId} updated`, email);
     } else {
-      sendmail(user_F.email, `${claimId} updated`, email,ccEmail);
+      sendmail(user_F.email, `${claimId} updated`, email);
     }
   }
   alert('The documents have been successfully uploaded');
