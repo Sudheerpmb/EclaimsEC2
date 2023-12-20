@@ -45,6 +45,7 @@
 
   <script type="text/javascript">
     $(function () {
+      clearCookies();
       clearStore();
       var urlParams = new URLSearchParams(window.location.search);
       var myString = urlParams.get('clientId');
@@ -259,13 +260,13 @@
 
 
     $(document).ready(function () {
-  $('.fName, .lName').on('input', function () {
-    var value = $(this).val();
-    var alphabeticValue = value.replace(/[^A-Za-z ]/g, ''); // Remove non-alphabetic characters and allow space
+      $('.fName, .lName').on('input', function () {
+        var value = $(this).val();
+        var alphabeticValue = value.replace(/[^A-Za-z ]/g, ''); // Remove non-alphabetic characters and allow space
 
-    $(this).val(alphabeticValue); // Update the input value with the alphabetic value
-  });
-});
+        $(this).val(alphabeticValue); // Update the input value with the alphabetic value
+      });
+    });
 
 
   </script>

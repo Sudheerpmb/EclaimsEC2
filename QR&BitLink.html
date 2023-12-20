@@ -67,7 +67,11 @@
 <body>
     <script>
         $(function () {
-            localStorage.clear();
+            var reloadFlag = localStorage.getItem('reloadFlag');
+            if (!reloadFlag) {
+                location.reload(true);
+                localStorage.setItem('reloadFlag', true);
+            }
             let clientId;
             var urlParams = new URLSearchParams(window.location.search);
             setToStore("clientHash", urlParams.get('clientId'));
@@ -80,7 +84,6 @@
                 url: env.node_api_url + "batchJobs/insuranceProviders/getByUUID?uuid=" + urlParams.get('clientId'),
                 type: "GET",
                 success: function (data) {
-                    // console.log('Client', data);
                     let clientId = data[0].clientName
                     setToStore("prefix", data[0].prefix);
                     setToStore("clientIDNM", clientId);
@@ -108,11 +111,6 @@
                 success: function (response) {
                     console.log(response);
                     var user = {};
-                    // user.firstName = response.firstName;
-                    // user.lastName = response.lastName;
-                    // user.mobile = response.mobile;
-                    // user.dob = response.dob ? response.dob : "";
-                    // user.gender = response.gender ? response.gender : "";
                     user.clientId = getFromStore('clientIDNM');
                     var userjson = JSON.stringify(user);
                     setToStore("googleLogin", 0);

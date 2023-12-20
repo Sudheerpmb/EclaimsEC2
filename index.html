@@ -21,6 +21,8 @@
   <script src="js/lib/util.js"></script>
   <script src="js/lib/const.js"></script>
   <script src="js/controllers/homeController.js"></script>
+  <script src="js/controllers/commonController.js"></script>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
 
 
 </head>
@@ -236,10 +238,75 @@
       </div>
     </div>
   </div>
+  <!-- <div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <div class="modal-header">
+                <h4 class="modal-title">Customer Alert</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <p>You have already registered a claim. Do you want to create a new claim?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="onYesClick()">Yes</button>
+                <button type="button" class="btn btn-danger" onclick="onNoClick()">No</button>
+            </div>
+        </div>
+    </div>
+  </div> -->
 
   <!-- <a href="#" onclick="signOut();">Sign out</a> -->
+  <!-- <script>
+    if(getFromStore('clientIDNM')==='RELIANCE'){
+      var UserVerification = JSON.parse(getFromStore("user"));
+         $.ajax({
+              async: true,
+              crossDomain: true,
+              url: env.node_api_url + "eclaims/cases/getClaimI?user_name=" +  UserVerification.email,
+              type: "GET",
+              processData: false,
+              contentType: false,
+              headers: {
+                Authorization: "Bearer " + getFromStore("eclaimsToken")
+              },
+              success: function (data) {
+                var json = data;
+                var showModalFlag = getFromStore('showModalFlag');
+                if(json.length > 0){
+                if (!showModalFlag) {
+                    showModal();
+                  setToStore('showModalFlag',true);
 
+                }
+                }else{
+                  $('#myModal').modal('hide');
+                }
+            },
+              error: function (err) {
+                console.log(err);
+                toastr.error('Whoops! Something went wrong.');
+              }
+            });
+          }
+      function showModal() {
+        // $('#myModal').modal('show');
+        $('#myModal').modal({
+          backdrop: 'static',
+          keyboard: false  // Disable closing with keyboard ESC key
+        });
+      }
+    function onYesClick() {
+      window.location = env.app_url + "otp.html";
+    }
+    function onNoClick() {
+        // $('#myModal').modal('hide');
+        window.location = env.app_url + "claimslist.html";
+    }
+  </script> -->
   <script>
     $(function () {
       $("#geoCodingDiv").hide();
