@@ -291,7 +291,7 @@
                 toastr.error('Whoops! Something went wrong.');
               }
             });
-          }
+    }
       function showModal() {
         // $('#myModal').modal('show');
         $('#myModal').modal({
@@ -299,14 +299,17 @@
           keyboard: false  // Disable closing with keyboard ESC key
         });
       }
-    function onYesClick() {
-      window.location = env.app_url + "otp.html";
-    }
-    function onNoClick() {
-        // $('#myModal').modal('hide');
+      function onYesClick() {
+       window.location = env.app_url + "otp.html";
+      }
+
+      function onNoClick() {
+        $('#myModal').modal('hide');
         window.location = env.app_url + "claimslist.html";
-    }
+      }
+
   </script> -->
+
   <script>
     $(function () {
       $("#geoCodingDiv").hide();

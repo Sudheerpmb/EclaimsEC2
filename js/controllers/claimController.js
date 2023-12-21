@@ -377,7 +377,7 @@ $(function () {
             $("#ajaxStart").prop("disabled", true);
             $("#ajaxStart").html("Processing...");
             for (var pair of newForm.entries()) {
-                console.log(pair[0] + ', ' + pair[1]);
+                // console.log(pair[0] + ', ' + pair[1]);
             }
             // alert(claimData,'Hare Krishna');
             $.ajax({
@@ -454,28 +454,17 @@ $(function () {
                             },
                             success: function (response) {
                                 console.log(response);
-                            // Initialize arrays to store email addresses
+                                // Initialize arrays to store email addresses
                                 var ccEmail = [];
                                 var toEmail = [];
 
-                                // Loop through the response and filter based on conditions
-                                for (var i = 0; i < response.length; i++) {
-                                    var currentItem = response[i];
+                                // Extract email addresses using Array methods
+                                ccEmail = response.filter(item => item.narratio === 'cc').map(item => item.name);
+                                toEmail = response.filter(item => !item.narratio).map(item => item.name);
 
-                                    // Check if narratio value is 'cc'
-                                    if (currentItem.narratio === 'cc') {
-                                        ccEmail.push(currentItem.name);
-                                    }
+                                // Loop through toEmail array and send emails
+                                toEmail.forEach(email => sendmail(email, subject, body, ccEmail));
 
-                                    // Check if narratio is empty
-                                    if (!currentItem.narratio) {
-                                        toEmail.push(currentItem.name);
-                                    }
-                                }
-                                for (var i = 0; i < toEmail.length; i++) {
-                                    sendmail(toEmail[i], subject, body,ccEmail);        
-                                }
-                                    
                             },
                             error: function (error) {
                                 console.error("Error fetching claim types based on radio name:", error);
@@ -512,15 +501,39 @@ $(function () {
         let clienthash = getFromStore("clientHash");
         let url = env.node_api_url + 'api/communicate/sendEmails_new';
         let rel = '';
-        let cc = [];
+        var ccAll = [];
         if (clientIde == 'RELIANCE') {
             url = env.node_api_url + 'eclaims/sendEmail_forEclaims'
             rel = `<p>Please find attached the blank Claim forms to be filled, signed & submitted by you</p>`
+            $.ajax({
+                async: false,
+                crossDomain: true,
+                url: env.node_api_url + "eclaims/masters/getMastersEclaims",
+                type: "POST",
+                data: JSON.stringify({
+                    "projectName": "EzTravel",
+                    "generalMasterName": "Eclaim Notification Mail",
+                    "clientName": getFromStore("clientIDE").toUpperCase()
+
+                }),
+                contentType: "application/json",
+                processData: false,
+                headers: {
+                    Authorization: "Bearer " + eclaimToken
+                },
+                success: function (response) {
+                    console.log(response);
+                    ccAll = response.filter(item => item.narratio === 'cc').map(item => item.name);
+                },
+                error: function (error) {
+                    console.error("Error fetching", error);
+                },
+            });
         }
         if (clientIde == 'TATA AIG') {
             url = env.node_api_url + 'eclaims/sendEmail_forEclaimsTATAAIG'
-            cc.push('sbompada@europ-assistance.in')
-            cc.push('amukherjee@europ-assistance.in')
+            ccAll.push('sbompada@europ-assistance.in')
+            ccAll.push('amukherjee@europ-assistance.in')
         }
         let today = new Date();
         var userObj = JSON.parse(getFromStore("user"));
@@ -577,9 +590,9 @@ $(function () {
             type: "POST",
             data: JSON.stringify({
                 "email": email,
-                "name": " ",
+                "name": "",
                 "subject": `E-Claim Alerts: ${caseno} Registered`,
-                "cc": cc,
+                "cc": ccAll,
                 "body": `${template}`
             }),
             contentType: "application/json",
