@@ -667,11 +667,11 @@ function submitClaims_() {
     sendSeparateEmail();
   } else {
     var user_F = JSON.parse(getFromStore("user"));
-    var userInfo = JSON.parse(getFromStore('customerEmailForInvalid'));
+    var userInfo = JSON.parse(getFromStore('emailObj'));
     if (getFromStore('clientIDNM') === 'RELIANCE' && userInfo) {
       sendmail(userInfo.email, `${claimId} updated`, email);
-    } else if (getFromStore('clientIDNM') === 'RELIANCE') {
-      let emailObj = JSON.parse(getFromStore("emailObj"));
+    } else if (getFromStore('type') === 'scan' ||getFromStore('type') === 'tinyURL') {
+      let emailObj = JSON.parse(getFromStore("qrObj"));
       sendmail(emailObj.email, `${claimId} updated`, email);
     } else {
       sendmail(user_F.email, `${claimId} updated`, email);
@@ -683,22 +683,22 @@ function submitClaims_() {
   function sendSeparateEmail() {
     // Define your separate email content and subject
     var user_F = JSON.parse(getFromStore("user"));
-    var userInfo = JSON.parse(getFromStore("customerEmailForInvalid"));
+    var userInfo = JSON.parse(getFromStore("emailObj"));
     if (getFromStore('clientIDNM') === 'RELIANCE' && userInfo) {
-      var separateEmailContent = `Dear ${userInfo.name}<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
+      var separateEmailContent = `Dear ${userInfo.firstName+' '+ userInfo.lastName}<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
       var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
-      sendmail(userInfo.email, separateEmailSubject, separateEmailContent,ccEmail);
+      sendmail(userInfo.email, separateEmailSubject, separateEmailContent);
     } else {
-      if (getFromStore('clientIDNM') === 'RELIANCE') {
-        let emailObj = JSON.parse(getFromStore("emailObj"));
-        var separateEmailContent = `Dear ${emailObj.firstName + ' ' + emailObj.lastName}<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
+      if (getFromStore('type') === 'scan' ||getFromStore('type') === 'tinyURL') {
+        let emailObj = JSON.parse(getFromStore("qrObj"));
+        var separateEmailContent = `Dear ${emailObj.name}<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
         var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
-        sendmail(emailObj.email, separateEmailSubject, separateEmailContent,ccEmail);
+        sendmail(emailObj.email, separateEmailSubject, separateEmailContent);
       }
       else{
         var separateEmailContent = `Dear ${user_F.firstName + ' '+ user_F.lastName }<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
         var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
-        sendmail(user_F.email, separateEmailSubject, separateEmailContent,ccEmail);
+        sendmail(user_F.email, separateEmailSubject, separateEmailContent);
       }
     }
 
@@ -947,7 +947,7 @@ function getCustomerClaims() {
       
                     claimsHtml += `
                     <tr>
-                      <td onclick="myFunctionGetTravel('${value.CaseNumber}'); sentEmailInfo('${value.customers.Email}', '${value.customers.FirstName}', '${value.customers.LastName}')")"><a style="color:blue;cursor:pointer">${value.CaseNumber}</a></td>
+                      <td onclick="myFunctionGetTravel('${value.CaseNumber}'); sentEmailInfo('${value.customers.Email}', '${value.customers.FirstName}', '${value.customers.LastName}')"><a style="color:blue;cursor:pointer">${value.CaseNumber}</a></td>
                       <td>${new Date(value.CreationDate).toLocaleDateString('en-GB')}</td>
                       <td>${value.customers.FirstName.charAt(0).toUpperCase() + value.customers.FirstName.slice(1) + ' ' + value.customers.LastName.charAt(0).toUpperCase() + value.customers.LastName.slice(1)}</td>
                       <td>${value.travelPolicy[0] ? value.travelPolicy[0].policyNumber : 'NA'}</td>
@@ -1149,7 +1149,7 @@ function getTableForQrAndBitlink(searchValue) {
         Object.values(json).forEach(value => {
             claimDetails += `
                     <tr>
-                      <td>${value.CaseNumber}</td>
+                      <td onclick="myFunctionGetTravel('${value.CaseNumber}');sendEmailForQrAndBitlink('${value.email}', '${value.CustomerName}')">${value.CaseNumber}</td>
                       <td>${new Date(value.CreationDate).toLocaleDateString('en-GB')}</td>
                       <td>${value.CustomerName}</td>
                       <td>${value.PolicyNumber}</td>
@@ -1235,6 +1235,15 @@ emailInfo.lastName = lastName
 console.log(emailInfo)
 var userjson = JSON.stringify(emailInfo);
 setToStore('emailObj',userjson);
+}
+
+function sendEmailForQrAndBitlink(cusEmail,name){
+let emailInfo ={};
+emailInfo.email = cusEmail;
+emailInfo.name = name;
+console.log(emailInfo)
+var userjson = JSON.stringify(emailInfo);
+setToStore('qrObj',userjson);
 }
 
 function myFunctionGetTravel(claimId) {
