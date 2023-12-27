@@ -159,7 +159,7 @@ function getButtons(clientId) {
         success: function (claimTypesResponse) {
           setTimeout(function () {
             $('#loader').hide();
-        }, 800);
+          }, 800);
           // Sort claim types within claimTypesResponse
           claimTypesResponse.sort(function (a, b) {
             return parseInt(a.order) - parseInt(b.order);
@@ -175,24 +175,63 @@ function getButtons(clientId) {
                 <p>${value.narratio}</p>
               </a>
             </div>`;
-                            
+
           });
-          
+
           document.getElementById("claimContainer").innerHTML = claimTypesHTML;
           $('.coverage0_').on('click', 'a', function (event) {
             event.preventDefault();
-            
+
             // Get the subName from the data attribute
             var subName = $(this).data('subname');
-        
+
             // Store the subName in localStorage
             localStorage.setItem('clickedSubName', subName);
-        
-            // Redirect to the claimform.html page
             var href = $(this).attr('href');
-            window.location.href = href;
+            if (getFromStore('type') === 'scan' || getFromStore('type') === 'tinyURL') {
+              $.ajax({
+                async: true,
+                crossDomain: true,
+                url: env.node_api_url + 'eclaims/searchCaseNumberPolicyNumber?searchString=' + getFromStore('certNumber'),
+                type: "GET",
+                processData: false,
+                contentType: false,
+                headers: {
+                  Authorization: "Bearer " + getFromStore("eclaimsToken")
+                },
+                success: function (data) {
+                  var json = data;
+                  if (json.length > 0) {
+                    var givenPolicyNumber = getFromStore('certNumber');
+                    var givenClaimType = radioName // Replace with your actual claim type
+                    var givenSubClaimType = getFromStore('clickedSubName'); // Replace with your actual sub-claim type
+
+                    // Check if the given policy number, claim type, and sub-claim type exist in the response
+                    var claimAlreadyExists = json.some(function (claim) {
+                      return claim.certifiacteNumber === givenPolicyNumber &&
+                        claim.claimType === givenClaimType &&
+                        claim.subclaimType === givenSubClaimType;
+                    });
+
+                    if (claimAlreadyExists) {
+                      $('#claimModal').modal('show');
+                    } 
+                    else {
+                      // Redirect to the claimform.html page
+                      window.location.href = href;
+                    }
+                  }
+                },
+                error: function (err) {
+                  console.log(err);
+                  toastr.error('Whoops! Something went wrong.');
+                }
+              })
+            } 
+            else {
+              window.location.href = href;
+            }
           });
-          // You can also add any additional handling for the claim types response here.
         },
         error: function (error) {
           console.error("Error fetching claim types based on radio name:", error);
@@ -972,7 +1011,8 @@ function getCustomerClaims() {
       toastr.error('Whoops! Something went wrong.');
     }
   });
-   // Call createPageButtons to initialize the pagination
+
+// Call createPageButtons to initialize the pagination
  createPageButtons();
  }
  
@@ -1073,13 +1113,73 @@ function updateButtonStyles() {
   });
 }
 
+// function for QR and Bitlink in Claim Status
+function getTableForQrAndBitlink(searchValue) {
+  $('#loader').show();
+  $.ajax({
+    async: true,
+    crossDomain: true,
+    url: env.node_api_url + `eclaims/searchCaseNumberPolicyNumber?searchString=${searchValue}`,
+    type: "GET",
+    processData: false,
+    contentType: false,
+    headers: {
+      Authorization: "Bearer " + getFromStore("eclaimsToken")
+    },
+    success: function (data) {
+      $('#loader').hide();
+      var json = data;
+      if (json.length > 0) {
+        // Display the claim information
+        var claimDetails = `
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Claim Number</th>
+                    <th>Claim Date</th>
+                    <th>Customer Name</th>
+                    <th>Policy No</th>
+                    <th>Sub Claim Type</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>`;
+
+        Object.values(json).forEach(value => {
+            claimDetails += `
+                    <tr>
+                      <td>${value.CaseNumber}</td>
+                      <td>${new Date(value.CreationDate).toLocaleDateString('en-GB')}</td>
+                      <td>${value.CustomerName}</td>
+                      <td>${value.PolicyNumber}</td>
+                      <td>${value.subclaimType}</td>
+                      <td>${value.currentClaimStatus}</td>
+                    </tr>
+                      `;
+        });
+
+
+            claimDetails += `
+          </tbody>
+        </table>
+      </div>`;
+        document.getElementById("claimsListContainer").innerHTML = claimDetails;
+      }
+      else {
+        document.getElementById("claimsListContainer").innerHTML = `<h2>No Results has been found</h2>`;
+      }
+    },
+    error: function (err) {
+      console.log(err);
+      toastr.error('Whoops! Something went wrong.');
+    }
+  })
+
+
+}
  
 
- 
- 
- 
- 
- 
 function getCustomerRecentClaim() {
 
 

@@ -255,6 +255,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
             if (json.length > 0) {
                 const isValidPolicy = "Valid";
                 setToStore('validation', isValidPolicy);
+                setToStore('certNumber',json[0].customers.certificateNumber);
                 var policyStartDate = new Date(json[0].policyStartDate);
                 var policyEndDate = new Date(json[0].policyEndDate);
                 var dateMomentObject = moment(incidentDate, "DD/MM/YYYY"); // 1st argument - string, 2nd argument - format
