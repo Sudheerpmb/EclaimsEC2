@@ -188,7 +188,7 @@ function getButtons(clientId) {
             // Store the subName in localStorage
             localStorage.setItem('clickedSubName', subName);
             var href = $(this).attr('href');
-            if (getFromStore('type') === 'scan' || getFromStore('type') === 'tinyURL') {
+            if (getFromStore('type') === 'scan' || getFromStore('type') === 'tinyURL' && getFromStore('validation')==='Valid') {
               $.ajax({
                 async: true,
                 crossDomain: true,

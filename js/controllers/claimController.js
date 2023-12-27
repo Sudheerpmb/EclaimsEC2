@@ -390,7 +390,7 @@ $(function () {
                 contentType: "application/json",
                 processData: false,
                 headers: {
-                    Authorization: "Bearer " + eclaim_token
+                    Authorization: "Bearer " + getFromStore("eclaimsToken")
                 },
                 success: function (data) {
                     let response_data = data;
