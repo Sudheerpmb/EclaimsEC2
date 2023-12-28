@@ -281,7 +281,7 @@ $(function () {
                 };
 
                 $.ajax({
-                    async: true,
+                    async: false,
                     crossDomain: true,
                     url: env.node_api_url + "auth/customers/register",
                     type: "POST",
@@ -295,7 +295,7 @@ $(function () {
                     },
                 });
                 $.ajax({
-                    async: true,
+                    async: false,
                     crossDomain: true,
                     url: env.node_api_url + "batchJobs/getTokenEclaims",
                     type: "POST",
@@ -390,7 +390,7 @@ $(function () {
                 contentType: "application/json",
                 processData: false,
                 headers: {
-                    Authorization: "Bearer " + eclaim_token
+                    Authorization: "Bearer " + getFromStore("eclaimsToken")
                 },
                 success: function (data) {
                     let response_data = data;
