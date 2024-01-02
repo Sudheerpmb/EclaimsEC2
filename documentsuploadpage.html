@@ -90,7 +90,7 @@
     $.ajax({
       async: true,
       crossDomain: true,
-      url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + 'Original Claim Form' + '&travelCaseId=' + tkId,
+      url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + 'Original Claim Form' + '&travelCaseId=' + tkId + '&uploadedFrom=' + 'Eclaims',
       type: "POST",
       data: newForm,
       dataType: 'text',
