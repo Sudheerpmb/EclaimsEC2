@@ -160,17 +160,22 @@ $(function () {
 
             if (form.elements.incidentDate.value && claimTypeId != 7) {
                 var incDate = form.elements.incidentDate.value.split("-");
-                var incCreateDate = incDate[1] + "-" + incDate[0] + "-" + incDate[2];
-                var varDate = new Date(incCreateDate); //dd-mm-YYYY
+                var incCreateDate = incDate[2] + incDate[1] + incDate[0]; // YYYYMMDD format
+                var varDate = new Date(incDate[0], incDate[1] - 1, incDate[2]); // Create a Date object using year, month, and day
                 var today = new Date();
                 today.setHours(0, 0, 0, 0);
+            
                 if (varDate > today) {
                     toastr.error('Incident date cannot be a future date');
                     return false;
                 }
             } else {
                 var incDate = form.elements.incidentDate.value.split("-");
-                var incCreateDate = incDate[1] + "-" + incDate[0] + "-" + incDate[2];
+                var incCreateDate = incDate[2] + incDate[1] + incDate[0]; // YYYYMMDD format
+            }
+            if (form.elements.dob.value) {
+                var dobDate = form.elements.dob.value.split("-");
+                var dobCreateDate = dobDate[2] + dobDate[1] + dobDate[0]; // YYYYMMDD format
             }
             setToStore("policyCopyPrs", 0);
             var access_token = getFromStore("token");
@@ -208,6 +213,8 @@ $(function () {
             customer.name = form.elements.customerName.value;
             let customerJson = JSON.stringify(customer);
             setToStore('customerEmailForInvalid',customerJson);
+            let changeFormatOfGender = form.elements.gender.value
+            let changedFormat = changeFormatOfGender.charAt(0).toUpperCase() + changeFormatOfGender.slice(1).toLowerCase();
             var claimData = JSON.stringify(
                 {
 
@@ -223,8 +230,8 @@ $(function () {
                     "policyNumber": policyNumber,
                     "CreatedByEclaims": createdByEclaims,
                     "CreatedBy": getFromStore('type')==="scan" || getFromStore('type') === "tinyURL" ? firstName +' '+ lastName : "Eclaims",
-                    "dateOfBirth": moment(form.elements.dob.value).format("YYYY-MM-DD"),
-                    "gender": form.elements.gender.value,
+                    "dateOfBirth":dobCreateDate,
+                    "gender": changedFormat,
                     "caseType": "3",
                     "title": "",
                     "ClaimedPersonType": form.elements.ClaimedPersonType.value,
