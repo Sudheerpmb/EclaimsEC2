@@ -160,11 +160,10 @@ $(function () {
 
             if (form.elements.incidentDate.value && claimTypeId != 7) {
                 var incDate = form.elements.incidentDate.value.split("-");
-                var incCreateDate = incDate[2] + incDate[1] + incDate[0]; // YYYYMMDD format
-                var varDate = new Date(incDate[0], incDate[1] - 1, incDate[2]); // Create a Date object using year, month, and day
+                var incCreateDate = incDate[2] + incDate[1] + incDate[0]; 
+                var varDate = new Date(incDate[0], incDate[1] - 1, incDate[2]);
                 var today = new Date();
                 today.setHours(0, 0, 0, 0);
-            
                 if (varDate > today) {
                     toastr.error('Incident date cannot be a future date');
                     return false;
