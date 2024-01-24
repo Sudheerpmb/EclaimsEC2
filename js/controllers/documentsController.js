@@ -324,7 +324,7 @@ $(function () {
                 $.ajax({
                     async: true,
                     crossDomain: true,
-                    url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + scm + '&travelCaseId=' + tkId,
+                    url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + scm + '&travelCaseId=' + tkId + '&uploadedFrom=' + 'Eclaims',
                     type: "POST",
                     data: fd,
                     // dataType: "JSON",

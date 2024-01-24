@@ -157,11 +157,10 @@ $(function () {
             //     }
             // }
 
-
             if (form.elements.incidentDate.value && claimTypeId != 7) {
                 var incDate = form.elements.incidentDate.value.split("-");
-                var incCreateDate = incDate[2] + incDate[1] + incDate[0]; 
-                var varDate = new Date(incDate[0], incDate[1] - 1, incDate[2]);
+                var incCreateDate = incDate[2] + "-" + incDate[0] + "-" + incDate[1];
+                var varDate = new Date(incCreateDate); //dd-mm-YYYY
                 var today = new Date();
                 today.setHours(0, 0, 0, 0);
                 if (varDate > today) {
@@ -170,11 +169,13 @@ $(function () {
                 }
             } else {
                 var incDate = form.elements.incidentDate.value.split("-");
-                var incCreateDate = incDate[2] + incDate[1] + incDate[0]; // YYYYMMDD format
+                var incCreateDate = incDate[2] + "-" + incDate[0] + "-" + incDate[1];
             }
             if (form.elements.dob.value) {
+                console.log("form.elements.dob.value",form.elements.dob.value)
                 var dobDate = form.elements.dob.value.split("-");
-                var dobCreateDate = dobDate[2] + dobDate[1] + dobDate[0]; // YYYYMMDD format
+                var dobCreateDate = dobDate[2] + "-" + dobDate[1]  + "-" + dobDate[0]; 
+                console.log("dobCreateDate",dobCreateDate)
             }
             setToStore("policyCopyPrs", 0);
             var access_token = getFromStore("token");
