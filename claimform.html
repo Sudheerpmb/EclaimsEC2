@@ -103,17 +103,17 @@
       }
 
       $('#incidentDate').datepicker({ dateFormat: 'dd-mm-yy' });
-      // $('#dob').datepicker({
-      //   dateFormat: 'dd-mm-yy',
-      //   changeMonth: true,
-      //   changeYear: true,
-      //   yearRange: '-115:+10', beforeShow: function () {
-      //     setTimeout(function () {
-      //       $('.ui-datepicker').css('z-index', 99999999999999);
+      $('#dob').datepicker({
+        dateFormat: 'dd-mm-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-115:+10', beforeShow: function () {
+          setTimeout(function () {
+            $('.ui-datepicker').css('z-index', 99999999999999);
 
-      //     }, 0);
-      //   },
-      // });
+          }, 0);
+        },
+      });
 
       window.claimTypeId = urlParams.get('id');
 
@@ -286,7 +286,7 @@
 
                 <label>Date of Birth <span style="color: red;">*</span>
                 </label>
-                <input type="date" name="dob" id="dob" placeholder="Enter date of birth" class="inpt" />
+                <input type="text" name="dob" id="dob" placeholder="Enter date of birth" class="inpt" />
 
                 <label>
                   Gender<span style="color: red;">*</span>

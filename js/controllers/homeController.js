@@ -635,7 +635,7 @@ function submitClaims_() {
       $.ajax({
         async: true,
         crossDomain: true,
-        url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + scm + '&travelCaseId=' + tcID_l,
+        url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + scm + '&travelCaseId=' + tcID_l + '&uploadedFrom=' + 'Eclaims',
         type: "POST",
         data: fd,
         contentType: false,

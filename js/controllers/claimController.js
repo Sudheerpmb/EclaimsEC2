@@ -157,10 +157,9 @@ $(function () {
             //     }
             // }
 
-
             if (form.elements.incidentDate.value && claimTypeId != 7) {
                 var incDate = form.elements.incidentDate.value.split("-");
-                var incCreateDate = incDate[1] + "-" + incDate[0] + "-" + incDate[2];
+                var incCreateDate = incDate[2] + "-" + incDate[1] + "-" + incDate[0];
                 var varDate = new Date(incCreateDate); //dd-mm-YYYY
                 var today = new Date();
                 today.setHours(0, 0, 0, 0);
@@ -170,7 +169,13 @@ $(function () {
                 }
             } else {
                 var incDate = form.elements.incidentDate.value.split("-");
-                var incCreateDate = incDate[1] + "-" + incDate[0] + "-" + incDate[2];
+                var incCreateDate = incDate[2] + "-" + incDate[1] + "-" + incDate[0];
+            }
+            if (form.elements.dob.value) {
+                console.log("form.elements.dob.value",form.elements.dob.value)
+                var dobDate = form.elements.dob.value.split("-");
+                var dobCreateDate = dobDate[2] + "-" + dobDate[1]  + "-" + dobDate[0]; 
+                console.log("dobCreateDate",dobCreateDate)
             }
             setToStore("policyCopyPrs", 0);
             var access_token = getFromStore("token");
@@ -208,6 +213,8 @@ $(function () {
             customer.name = form.elements.customerName.value;
             let customerJson = JSON.stringify(customer);
             setToStore('customerEmailForInvalid',customerJson);
+            let changeFormatOfGender = form.elements.gender.value
+            let changedFormat = changeFormatOfGender.charAt(0).toUpperCase() + changeFormatOfGender.slice(1).toLowerCase();
             var claimData = JSON.stringify(
                 {
 
@@ -223,14 +230,14 @@ $(function () {
                     "policyNumber": policyNumber,
                     "CreatedByEclaims": createdByEclaims,
                     "CreatedBy": getFromStore('type')==="scan" || getFromStore('type') === "tinyURL" ? firstName +' '+ lastName : "Eclaims",
-                    "dateOfBirth": moment(form.elements.dob.value).format("YYYY-MM-DD"),
-                    "gender": form.elements.gender.value,
+                    "dateOfBirth":dobCreateDate,
+                    "gender": changedFormat,
                     "caseType": "3",
                     "title": "",
                     "ClaimedPersonType": form.elements.ClaimedPersonType.value,
                     "claimDescription": "",
                     "claimEvent": "",
-                    "claimMode": "",
+                    "claimMode": "Reimbursement",
                     "claimNote": "",
                     "claimReported": "Eclaims",
                     "claimType": claimTypeId,
@@ -266,7 +273,7 @@ $(function () {
                     "Remarks": form.elements.Remarks.value,
                     "createdFrom": localStorage.getItem('type'),
                     "customerId": policyDetails ? policyDetails.customerId : '',
-                    "validation": getFromStore("validation")
+                    "validation": "Invalid"
                 });
             if (getFromStore('type') === "scan" || getFromStore('type') === "tinyURL") {
                 var bodyForSignUp = {
@@ -502,34 +509,34 @@ $(function () {
         let url = env.node_api_url + 'api/communicate/sendEmails_new';
         let rel = '';
         var ccAll = [];
-        if (clientIde == 'RELIANCE') {
-            url = env.node_api_url + 'eclaims/sendEmail_forEclaims'
-            rel = `<p>Please find attached the blank Claim forms to be filled, signed & submitted by you</p>`
-            $.ajax({
-                async: false,
-                crossDomain: true,
-                url: env.node_api_url + "eclaims/masters/getMastersEclaims",
-                type: "POST",
-                data: JSON.stringify({
-                    "projectName": "EzTravel",
-                    "generalMasterName": "Eclaim Notification Mail",
-                    "clientName": getFromStore("clientIDE").toUpperCase()
+        // if (clientIde == 'RELIANCE') {
+        //     url = env.node_api_url + 'eclaims/sendEmail_forEclaims'
+        //     rel = `<p>Please find attached the blank Claim forms to be filled, signed & submitted by you</p>`
+        //     $.ajax({
+        //         async: false,
+        //         crossDomain: true,
+        //         url: env.node_api_url + "eclaims/masters/getMastersEclaims",
+        //         type: "POST",
+        //         data: JSON.stringify({
+        //             "projectName": "EzTravel",
+        //             "generalMasterName": "Eclaim Notification Mail",
+        //             "clientName": getFromStore("clientIDE").toUpperCase()
 
-                }),
-                contentType: "application/json",
-                processData: false,
-                headers: {
-                    Authorization: "Bearer " + eclaimToken
-                },
-                success: function (response) {
-                    console.log(response);
-                    ccAll = response.filter(item => item.narratio === 'cc').map(item => item.name);
-                },
-                error: function (error) {
-                    console.error("Error fetching", error);
-                },
-            });
-        }
+        //         }),
+        //         contentType: "application/json",
+        //         processData: false,
+        //         headers: {
+        //             Authorization: "Bearer " + eclaimToken
+        //         },
+        //         success: function (response) {
+        //             console.log(response);
+        //             ccAll = response.filter(item => item.narratio === 'cc').map(item => item.name);
+        //         },
+        //         error: function (error) {
+        //             console.error("Error fetching", error);
+        //         },
+        //     });
+        // }
         if (clientIde == 'TATA AIG') {
             url = env.node_api_url + 'eclaims/sendEmail_forEclaimsTATAAIG'
             ccAll.push('sbompada@europ-assistance.in')
@@ -543,20 +550,20 @@ $(function () {
             body += "<p>Thank you for your following enclosures sent to us. </p>"
             body += "<ul>Policy Copy</ul>"
         }
-        let template=''
-        if(clientIde==='RELIANCE'){
-             user_F = JSON.parse(getFromStore("customerEmailForInvalid"));
-            template = `<div>
-            <p><b>Dear ${user_F.name}</b></p>
-            <p><span><b>CLAIM REFERENCE: ${caseno}</b></span>
-            ${body}
-            <p>Your claim has been successfully created</p>
-            ${rel}
-            <p>Yours sincerely,</p>
-            <p>Claims Team</p>
-            </div>`;
-        }
-        if(clientIde!=='RELIANCE' && clientIde !== 'TATA AIG'){
+        let template = ''
+        // if (clientIde === 'RELIANCE') {
+        //     user_F = JSON.parse(getFromStore("customerEmailForInvalid"));
+        //     template = `<div>
+        //     <p><b>Dear ${user_F.name}</b></p>
+        //     <p><span><b>CLAIM REFERENCE: ${caseno}</b></span>
+        //     ${body}
+        //     <p>Your claim has been successfully created</p>
+        //     ${rel}
+        //     <p>Yours sincerely,</p>
+        //     <p>Claims Team</p>
+        //     </div>`;
+        // }
+        if (clientIde !== 'RELIANCE' && clientIde !== 'TATA AIG') {
             template = `<div>
             <p><b>Dear ${userObj.firstName.charAt(0).toUpperCase() + userObj.firstName.slice(1)} ${userObj.lastName.charAt(0).toUpperCase() + userObj.lastName.slice(1)}</b></p>
             <p><span><b>CLAIM REFERENCE: ${caseno}</b></span>

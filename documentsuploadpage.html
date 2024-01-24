@@ -90,7 +90,7 @@
     $.ajax({
       async: true,
       crossDomain: true,
-      url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + 'Original Claim Form' + '&travelCaseId=' + tkId,
+      url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + 'Original Claim Form' + '&travelCaseId=' + tkId + '&uploadedFrom=' + 'Eclaims',
       type: "POST",
       data: newForm,
       dataType: 'text',
@@ -124,9 +124,9 @@
               </div>
               <div class="col-12 text-right">
                 <a href="claimform.html"><i class="fa fa-arrow-circle-left fa-2x"
-                  style="color: #024695; padding: 10px;"></i> </a>
+                  style="color: #024695; padding: 10px;"></i></a>
               <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
-                  style=" color: #024695; padding: 10px;"></i> </a>
+                  style=" color: #024695; padding: 10px;"></i></a>
               <a href="index.html"><i class="fa fa-home fa-2x"
                   style=" color: #024695; padding: 10px;"></i></a>
               </div>
