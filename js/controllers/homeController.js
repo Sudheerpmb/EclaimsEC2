@@ -1115,6 +1115,11 @@ function updateButtonStyles() {
 
 // function for QR and Bitlink in Claim Status
 function getTableForQrAndBitlink(searchValue) {
+  if (searchValue.trim() === '') {
+    // If searchValue is empty, display a message
+    document.getElementById("claimsListContainer").innerHTML = `<h2 class="text-center" style="color: red!important;">Kindly Enter the Certificate Number/Policy Number/Claim Number</h2>`;
+    return;
+  }
   $('#loader').show();
   $.ajax({
     async: true,
