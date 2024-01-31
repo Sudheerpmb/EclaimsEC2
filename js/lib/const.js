@@ -21,7 +21,7 @@
 
 // Enable for uat
 var env = {
-    "app_url":"https://eclaimsuat.europassistance.in/",
+    "app_url":"http://localhost/EclaimsECNew/",
     "node_api_url":"https://eztraveluatapi.europassistance.in/"    
 }
 
