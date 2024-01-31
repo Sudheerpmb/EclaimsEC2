@@ -1117,14 +1117,15 @@ function updateButtonStyles() {
 function getTableForQrAndBitlink(searchValue) {
   if (searchValue.trim() === '') {
     // If searchValue is empty, display a message
-    document.getElementById("claimsListContainer").innerHTML = `<h2 class="text-center" style="color: red!important;">Kindly Enter the Certificate Number/Policy Number/Claim Number</h2>`;
+    document.getElementById("claimsListContainer").innerHTML = `<h2 class="text-center" style="color: red!important;font-size:13.6px;">Kindly Enter Certificate Number/Policy Number/Claim Number</h2>`;
     return;
   }
+  var insuProvider = getFromStore('clientIDNM')
   $('#loader').show();
   $.ajax({
     async: true,
     crossDomain: true,
-    url: env.node_api_url + `eclaims/searchCaseNumberPolicyNumber?searchString=${searchValue}`,
+    url: env.node_api_url + `eclaims/searchCaseNumberPolicyNumber?searchString=${searchValue}&clientName=${insuProvider}`,
     type: "GET",
     processData: false,
     contentType: false,
@@ -1172,7 +1173,7 @@ function getTableForQrAndBitlink(searchValue) {
         document.getElementById("claimsListContainer").innerHTML = claimDetails;
       }
       else {
-        document.getElementById("claimsListContainer").innerHTML = `<h2>No Results has been found</h2>`;
+        document.getElementById("claimsListContainer").innerHTML = `<h2 class="text-center" style="color: red!important;font-size:16px;">No Results has been found</h2>`;
       }
     },
     error: function (err) {
