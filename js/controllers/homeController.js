@@ -925,7 +925,7 @@ function getCustomerClaims() {
         
         var claimsHtml = `
         <div class="table-responsive">
-          <table class="table table-striped table-hover">
+          <table id= "claimsMainTable" class="table table-striped table-hover">
             <thead>
               <tr>
                 <th>Claim Id</th>
@@ -966,41 +966,42 @@ function getCustomerClaims() {
         // let itemsPerPage = 10;
 
         // Call the functions to create the pagination buttons and show the first page
-        createPageButtons();
-        showPage(0);
-        searchInput.addEventListener("input", function () {
-          var searchValue = this.value.toLowerCase();
+        // createPageButtons();
+        // showPage(0);
+        // searchInput.addEventListener("input", function () {
+        //   var searchValue = this.value.toLowerCase();
         
-          // If the search input is empty, reset the table
-          if (searchValue === '') {
-            document.getElementById("claimsListContainer").innerHTML = claimsHtml;
-            createPageButtons();
-            showPage(0);
-            return;
-          }
+        //   // If the search input is empty, reset the table
+        //   if (searchValue === '') {
+        //     document.getElementById("claimsListContainer").innerHTML = claimsHtml;
+        //     createPageButtons();
+        //     showPage(0);
+        //     return;
+        //   }
         
-          var tableRows = claimsListContainer.querySelectorAll("tbody tr");
+        //   var tableRows = claimsListContainer.querySelectorAll("tbody tr");
         
-          Array.from(tableRows).forEach(function (row) {
-            var rowText = row.innerText.toLowerCase();
+        //   Array.from(tableRows).forEach(function (row) {
+        //     var rowText = row.innerText.toLowerCase();
         
-            if (rowText.includes(searchValue)) {
-              row.style.display = "";
-            } else {
-              row.style.display = "none";
-            }
-          });
+        //     if (rowText.includes(searchValue)) {
+        //       row.style.display = "";
+        //     } else {
+        //       row.style.display = "none";
+        //     }
+        //   });
         
-          // Count the number of visible rows
-          var visibleRows = Array.from(tableRows).filter(function (row) {
-            return row.style.display !== "none";
-          }).length;
+        //   // Count the number of visible rows
+        //   var visibleRows = Array.from(tableRows).filter(function (row) {
+        //     return row.style.display !== "none";
+        //   }).length;
         
-          // If no rows are visible, display a "No results found" message
-          if (visibleRows === 0) {
-            document.getElementById("claimsListContainer").innerHTML = `<h2>No results found</h2>`;
-          }
-        });
+        //   // If no rows are visible, display a "No results found" message
+        //   if (visibleRows === 0) {
+        //     document.getElementById("claimsListContainer").innerHTML = `<h2>No results found</h2>`;
+        //   }
+        // });
+        $('#claimsMainTable').DataTable();
       }
       else {
         document.getElementById("claimsListContainer").innerHTML = `<h2>No claims has been found</h2>`;
@@ -1013,105 +1014,105 @@ function getCustomerClaims() {
   });
 
 // Call createPageButtons to initialize the pagination
- createPageButtons();
+//  createPageButtons();
  }
  
-let itemsPerPage = 10;
-let currentPage = 0;
-let totalPages = 0; // Define totalPages globally
+// let itemsPerPage = 10;
+// let currentPage = 0;
+// let totalPages = 0; // Define totalPages globally
 
-function showPage(pageNumber) {
-  currentPage = pageNumber;
-  var tableRows = claimsListContainer.querySelectorAll("tbody tr");
-  var startItem = pageNumber * itemsPerPage;
-  var endItem = startItem + itemsPerPage;
+// function showPage(pageNumber) {
+//   currentPage = pageNumber;
+//   var tableRows = claimsListContainer.querySelectorAll("tbody tr");
+//   var startItem = pageNumber * itemsPerPage;
+//   var endItem = startItem + itemsPerPage;
 
-  Array.from(tableRows).forEach(function (row, index) {
-    if (index >= startItem && index < endItem) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
-    }
-  });
+//   Array.from(tableRows).forEach(function (row, index) {
+//     if (index >= startItem && index < endItem) {
+//       row.style.display = "";
+//     } else {
+//       row.style.display = "none";
+//     }
+//   });
 
-  // Update the current page button text
-  var currentPageButton = document.querySelector(".pagination-container button:nth-child(2)");
-  currentPageButton.innerText = `${currentPage + 1} of ${totalPages}`;
+//   // Update the current page button text
+//   var currentPageButton = document.querySelector(".pagination-container button:nth-child(2)");
+//   currentPageButton.innerText = `${currentPage + 1} of ${totalPages}`;
 
-  updateButtonStyles();
-}
+//   updateButtonStyles();
+// }
 
-function createPageButtons() {
-  var tableRows = claimsListContainer.querySelectorAll("tbody tr");
-  var totalItems = tableRows.length;
-  totalPages = Math.ceil(totalItems / itemsPerPage); // Update totalPages
+// function createPageButtons() {
+//   var tableRows = claimsListContainer.querySelectorAll("tbody tr");
+//   var totalItems = tableRows.length;
+//   totalPages = Math.ceil(totalItems / itemsPerPage); // Update totalPages
 
-  var paginationContainer = document.createElement("div");
-  paginationContainer.className = "pagination-container";
+//   var paginationContainer = document.createElement("div");
+//   paginationContainer.className = "pagination-container";
 
-  // Previous Button
-  var prevButton = document.createElement("button");
-  prevButton.innerText = "Previous";
-  prevButton.addEventListener("click", function () {
-    if (currentPage > 0) {
-      showPage(currentPage - 1);
-    }
-  });
-  setButtonStyles(prevButton); // Set styles for the button
-  paginationContainer.appendChild(prevButton);
+//   // Previous Button
+//   var prevButton = document.createElement("button");
+//   prevButton.innerText = "Previous";
+//   prevButton.addEventListener("click", function () {
+//     if (currentPage > 0) {
+//       showPage(currentPage - 1);
+//     }
+//   });
+//   setButtonStyles(prevButton); // Set styles for the button
+//   paginationContainer.appendChild(prevButton);
 
-  // Current Page Button
-  var currentPageButton = document.createElement("button");
-  currentPageButton.innerText = `${currentPage + 1} of ${totalPages}`;
-  currentPageButton.addEventListener("click", function () {
-    // You can add functionality here if needed
-  });
-  setButtonStyles(currentPageButton); // Set styles for the button
-  paginationContainer.appendChild(currentPageButton);
+//   // Current Page Button
+//   var currentPageButton = document.createElement("button");
+//   currentPageButton.innerText = `${currentPage + 1} of ${totalPages}`;
+//   currentPageButton.addEventListener("click", function () {
+//     // You can add functionality here if needed
+//   });
+//   setButtonStyles(currentPageButton); // Set styles for the button
+//   paginationContainer.appendChild(currentPageButton);
 
-  // Next Button
-  var nextButton = document.createElement("button");
-  nextButton.innerText = "Next";
-  nextButton.addEventListener("click", function () {
-    if (currentPage < totalPages - 1) {
-      showPage(currentPage + 1);
-    }
-  });
-  setButtonStyles(nextButton); // Set styles for the button
-  paginationContainer.appendChild(nextButton);
+//   // Next Button
+//   var nextButton = document.createElement("button");
+//   nextButton.innerText = "Next";
+//   nextButton.addEventListener("click", function () {
+//     if (currentPage < totalPages - 1) {
+//       showPage(currentPage + 1);
+//     }
+//   });
+//   setButtonStyles(nextButton); // Set styles for the button
+//   paginationContainer.appendChild(nextButton);
 
-  document.getElementById("claimsListContainer").appendChild(paginationContainer);
+//   document.getElementById("claimsListContainer").appendChild(paginationContainer);
 
-  // Set initial styles
-  updateButtonStyles();
-}
+//   // Set initial styles
+//   updateButtonStyles();
+// }
 
-function setButtonStyles(button) {
-  button.style.backgroundColor = "#5272F2"; // Blue background
-  button.style.color = "white"; // White text
-  button.style.border = "none"; // No border
-  button.style.padding = "10px 20px"; // Padding around text
-  button.style.textAlign = "center"; // Center text
-  button.style.textDecoration = "none"; // No underline
-  button.style.display = "inline-block"; // Display as inline block
-  button.style.fontSize = "15px"; // Font size
-  button.style.margin = "4px 2px"; // Margin around button
-  button.style.cursor = "pointer"; // Change cursor to pointer when hovering over button
-  button.style.transition = "background-color 0.3s ease"; // Transition background color
-  button.style.borderRadius = "12px"; // Rounded corners
-}
+// function setButtonStyles(button) {
+//   button.style.backgroundColor = "#5272F2"; // Blue background
+//   button.style.color = "white"; // White text
+//   button.style.border = "none"; // No border
+//   button.style.padding = "10px 20px"; // Padding around text
+//   button.style.textAlign = "center"; // Center text
+//   button.style.textDecoration = "none"; // No underline
+//   button.style.display = "inline-block"; // Display as inline block
+//   button.style.fontSize = "15px"; // Font size
+//   button.style.margin = "4px 2px"; // Margin around button
+//   button.style.cursor = "pointer"; // Change cursor to pointer when hovering over button
+//   button.style.transition = "background-color 0.3s ease"; // Transition background color
+//   button.style.borderRadius = "12px"; // Rounded corners
+// }
 
-function updateButtonStyles() {
-  var buttons = document.querySelectorAll(".pagination-container button");
-  buttons.forEach(function (button, index) {
-    if (index === 1) { // Check if the button is the current page button
-      button.style.backgroundColor = "#4CAF50"; // Green background for the current page
-      button.innerText = `${currentPage + 1} of ${totalPages}`; // Update text for the current page button
-    } else {
-      button.style.backgroundColor = "#5272F2"; // Blue background for other pages
-    }
-  });
-}
+// function updateButtonStyles() {
+//   var buttons = document.querySelectorAll(".pagination-container button");
+//   buttons.forEach(function (button, index) {
+//     if (index === 1) { // Check if the button is the current page button
+//       button.style.backgroundColor = "#4CAF50"; // Green background for the current page
+//       button.innerText = `${currentPage + 1} of ${totalPages}`; // Update text for the current page button
+//     } else {
+//       button.style.backgroundColor = "#5272F2"; // Blue background for other pages
+//     }
+//   });
+// }
 
 // function for QR and Bitlink in Claim Status
 function getTableForQrAndBitlink(searchValue) {
@@ -1139,7 +1140,7 @@ function getTableForQrAndBitlink(searchValue) {
         // Display the claim information
         var claimDetails = `
             <div class="table-responsive">
-              <table class="table table-striped table-hover">
+              <table id="claimsTable" class="table table-striped table-hover">
                 <thead>
                   <tr>
                     <th>Claim Number</th>
@@ -1155,7 +1156,7 @@ function getTableForQrAndBitlink(searchValue) {
         Object.values(json).forEach(value => {
             claimDetails += `
                     <tr>
-                      <td onclick="myFunctionGetTravel('${value.CaseNumber}');sendEmailForQrAndBitlink('${value.email}', '${value.CustomerName}')">${value.CaseNumber}</td>
+                      <td onclick="myFunctionGetTravel('${value.CaseNumber}');sendEmailForQrAndBitlink('${value.email}', '${value.CustomerName}')" style="color:blue;cursor:pointer">${value.CaseNumber}</td>
                       <td>${new Date(value.CreationDate).toLocaleDateString('en-GB')}</td>
                       <td>${value.CustomerName}</td>
                       <td>${value.PolicyNumber}</td>
@@ -1171,6 +1172,7 @@ function getTableForQrAndBitlink(searchValue) {
         </table>
       </div>`;
         document.getElementById("claimsListContainer").innerHTML = claimDetails;
+        $('#claimsTable').DataTable();
       }
       else {
         document.getElementById("claimsListContainer").innerHTML = `<h2 class="text-center" style="color: red!important;font-size:16px;">No Results has been found</h2>`;
