@@ -1001,7 +1001,11 @@ function getCustomerClaims() {
         //     document.getElementById("claimsListContainer").innerHTML = `<h2>No results found</h2>`;
         //   }
         // });
-        $('#claimsMainTable').DataTable();
+        $('#claimsMainTable').DataTable(
+          {
+            ordering: false
+          }
+        );
       }
       else {
         document.getElementById("claimsListContainer").innerHTML = `<h2>No claims has been found</h2>`;
@@ -1172,7 +1176,11 @@ function getTableForQrAndBitlink(searchValue) {
         </table>
       </div>`;
         document.getElementById("claimsListContainer").innerHTML = claimDetails;
-        $('#claimsTable').DataTable();
+        $('#claimsTable').DataTable(
+          {
+            ordering: false
+          }
+        );
       }
       else {
         document.getElementById("claimsListContainer").innerHTML = `<h2 class="text-center" style="color: red!important;font-size:16px;">No Results has been found</h2>`;
