@@ -50,14 +50,14 @@ $(function () {
     rules: {
       signin_email: {
         required: true,
-        email: true,
+        email: false,
       },
       signin_password: {
         required: true,
       },
     },
     messages: {
-      signin_email: "Please enter a valid email address",
+      signin_email: "Please enter a valid email address or mobile number",
     },
     submitHandler: function (form) {
       $.ajax({
