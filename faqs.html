@@ -42,7 +42,7 @@
     $(function () { isAuthenticated(); });
     let cls = getFromStore("clientIDE");
     $(function () {
-      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+      document.getElementById("tataEmg").src = getFromStore('clientLogo');
 
       function toggleForms(clientId) {
         if (clientId === "RELIANCE") {
@@ -86,7 +86,7 @@
             </div>
             <div class="row">
               <div class="col-lg-12 col-md-12">
-                <img id="tataEmg" style="max-height:11vh;float:right;margin-top: 20px;" src="" alt="" />
+                <img id="tataEmg" style="max-height:5vh;float:right;margin-top: 20px;" src="" alt="" />
               </div>
               <div class="col-lg-12 col-md-12">
                 <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"

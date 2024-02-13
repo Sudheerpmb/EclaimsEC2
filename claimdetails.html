@@ -59,7 +59,7 @@
   <script type="text/javascript">
     let cls = getFromStore("clientIDE");
     $(function () {
-      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+      document.getElementById("tataEmg").src = getFromStore('clientLogo');
     })
     var urlParams = new URLSearchParams(window.location.search);
     window.claimId = urlParams.get("claimId");
@@ -98,7 +98,7 @@
               </div>
             <div class="row ">
               <div class="col-12 text-right">
-                <img id="tataEmg" style="max-height:11vh;" src="" alt="" />
+                <img id="tataEmg" style="max-height:5vh;" src="" alt="" />
               </div>
               <div class="col-12 text-right">
                 <a href="claimslist.html"><i class="fa fa-arrow-circle-left fa-2x" style="color: #024695; padding: 10px;"></i></a>

@@ -95,7 +95,7 @@
       $('#baggageLossDiv').hide();
       $('#luggageLossDiv').hide();
       $('#AirportServicecsDiv').hide();
-      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+      document.getElementById("tataEmg").src = getFromStore('clientLogo');
        isAuthenticated();
       var urlParams = new URLSearchParams(window.location.search);
       if (cls == 'TATA AIG') {
@@ -182,7 +182,7 @@
             </div>
             <div class="row">
               <div class="col-12 text-right">
-                <img id="tataEmg" style="max-height:11vh;" src="" alt="" />
+                <img id="tataEmg" style="max-height:5vh;" src="" alt="" />
               </div>
               <div class="col-12 text-right">
                 <a href="coverage.html"><i class="fa fa-arrow-circle-left fa-2x"

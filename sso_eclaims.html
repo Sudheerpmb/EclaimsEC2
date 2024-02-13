@@ -54,6 +54,23 @@
           setToStore("prefix", data[0].prefix);
           setToStore("clientIDNM", clientId);
           setToStore("clientID", data[0].clientId);
+          $.ajax({
+            async: false,
+            crossDomain: true,
+            url: env.logo_url + "api/application/pagesOfRole?roleName=ClientRM&applicationName=Client Dashboard&clientName=" + data[0].clientName,
+            type: "GET",
+            success: function (response) {
+              var encryptedData = response.data;
+              var decryptedData = decryptData(encryptedData);
+              var clientLogoUrl = JSON.parse(decryptedData);
+              setToStore("clientLogo", clientLogoUrl[0].clientData.clientLogo);
+              console.log(clientLogoUrl[0].clientData.clientLogo, "clientLogoUrl");
+            },
+            error: function (err) {
+              console.log(err);
+              toastr.error("Error Occure , Please contact adminstrator");
+            },
+          });
 
         },
         error: function (err) {
@@ -97,6 +114,11 @@
         },
       });
     });
+      function decryptData(encryptedData) {
+        const secretKey = '!hrv7PSJxkzTy#g!+=KzsbLcmU4fW4tgZEr_4WkR'; // Same secret key used for encryption
+        const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+        return bytes.toString(CryptoJS.enc.Utf8);
+      }
   </script>
 
   <div class="main">
