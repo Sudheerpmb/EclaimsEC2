@@ -36,7 +36,7 @@
   <script type="text/javascript">
     let cls = getFromStore("clientIDE");
     $(function () {
-      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+      document.getElementById("tataEmg").src = getFromStore('clientLogo');
       isAuthenticated();
       removeFromStore("nonExistingCustomer");
       removeFromStore("incidentDate");
@@ -118,7 +118,7 @@
 
             <div class="row">
               <div class="col-12">
-                <img id="tataEmg" style="max-height:8vh;float:right;" src="" alt=""
+                <img id="tataEmg" style="max-height:5vh;float:right;" src="" alt=""
                  />
               </div>
               <!-- <div class="col-12 icons"> -->

@@ -174,7 +174,7 @@
 
     let cls = getFromStore("clientIDE");
     $(function () {
-      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+      document.getElementById("tataEmg").src = getFromStore('clientLogo');
       isAuthenticated();
       if(getFromStore('type')=== "null"){
          getCustomerClaims();
@@ -201,7 +201,7 @@
               <div>
                 <div class="row">
                   <div class="col-lg-12 col-md-12">
-                    <img id="tataEmg" style="max-height:11vh;float: right;" src="" alt="" />
+                    <img id="tataEmg" style="max-height:5vh;float: right;" src="" alt="" />
                   </div>
                   <div class="col-lg-12 col-md-12">
                     <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"

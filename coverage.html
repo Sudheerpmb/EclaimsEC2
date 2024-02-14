@@ -33,7 +33,7 @@
     <script type="text/javascript">
       let cls = getFromStore("clientIDE");
       $(function () {
-        document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+        document.getElementById("tataEmg").src = getFromStore('clientLogo');
         isAuthenticated();
         getClaimTypes();
       });
@@ -93,7 +93,7 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <img id="tataEmg" style="max-height:11vh;float:right;" src="" alt="" />
+                  <img id="tataEmg" style="max-height:5vh;float:right;" src="" alt="" />
                 </div>
                 <div class="col-12 text-right">
                   <a href="eligibility.html"><i class="fa fa-arrow-circle-left fa-2x" style="color: #024695; padding: 10px;"></i></a>
