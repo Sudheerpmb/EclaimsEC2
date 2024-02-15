@@ -23,7 +23,7 @@
 var env = {
     "app_url":"https://eclaimsuat.europassistance.in/",
     "node_api_url":"https://eztraveluatapi.europassistance.in/",
-    "logo_url":"https://api.entrustuat.in/"
+    "logo_url":"https://api.entrustuat.in"
 }
 
 

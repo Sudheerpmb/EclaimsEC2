@@ -252,7 +252,7 @@
       getButtons(user.clientId.toUpperCase());
       if (user.clientId.toUpperCase() == 'TATA AIG')
         $("#geoCodingDiv").show();
-      document.getElementById("tataEmg").src = getFromStore('clientLogo')
+      document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
     })
   </script>
 
