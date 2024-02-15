@@ -57,14 +57,17 @@
           $.ajax({
             async: false,
             crossDomain: true,
-            url: env.logo_url + "api/application/pagesOfRole?roleName=ClientRM&applicationName=Client Dashboard&clientName=" + data[0].clientName,
+            url: env.logo_url + "/api/application/pagesOfRole?roleName=ClientRM&applicationName=Eclaims&clientName=" + data[0].clientName,
             type: "GET",
             success: function (response) {
               var encryptedData = response.data;
               var decryptedData = decryptData(encryptedData);
               var clientLogoUrl = JSON.parse(decryptedData);
-              setToStore("clientLogo", clientLogoUrl[0].clientData.clientLogo);
-              console.log(clientLogoUrl[0].clientData.clientLogo, "clientLogoUrl");
+              let urlObject = new URL(clientLogoUrl[0].clientData.clientLogo);
+              let path = urlObject.pathname;
+              console.log("path", path);
+              setToStore("clientLogo", path);
+              // console.log("clientLogoUrl", clientLogoUrl[0].clientData.clientLogo);
             },
             error: function (err) {
               console.log(err);

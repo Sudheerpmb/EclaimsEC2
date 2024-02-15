@@ -28,7 +28,7 @@
 <script type="text/javascript">
 let cls=getFromStore("clientIDE");
  $(function(){
-  document.getElementById("tataEmg").src =getFromStore('clientLogo');
+  document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
   var currentUserDetails = JSON.parse(getFromStore("user"));
  
   let googleLogin=getFromStore("googleLogin")
