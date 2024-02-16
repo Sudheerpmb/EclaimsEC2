@@ -317,7 +317,7 @@ async  function validatePolicy(insuranceProvider, policyNumber, incidentDate) {
     });
     function handlePolicyNotFound(insuranceProvider) {
         console.log("Policy not found");
-        if (insuranceProvider == "EUROP ASSISTANCE" || insuranceProvider == "RELIANCE" || insuranceProvider == 'ASEGO ABHI' || insuranceProvider == 'NIVA BUPA') {
+        if (insuranceProvider == "EUROP ASSISTANCE" || insuranceProvider == "RELIANCE" || insuranceProvider == 'ASEGO ABHI' || insuranceProvider == 'NIVA BUPA' || insuranceProvider == 'MCHI' ) {
           // setToStore('policyExpiry',json[0].policyEndDate);
           window.location = env.app_url + "coverage.html";
         } else {
