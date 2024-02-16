@@ -106,7 +106,10 @@ $(function () {
             EmployeeNumber: "required",
             dob: "required",
             gender: "required",
-            TypeOfCurrency: "required"
+            TypeOfCurrency: "required",
+            Remarks:{
+                required:true
+            }
         },
         messages: {
             incidentDate: "Date of loss is required",
@@ -129,6 +132,9 @@ $(function () {
             {
                 required: "Beneficary email is required",
                 email: "Valid email is required"
+            },
+            Remarks:{
+                required:"Brief description of loss is required"
             }
         },
         submitHandler: function (form, event) {
@@ -235,10 +241,10 @@ $(function () {
                     "caseType": "3",
                     "title": "",
                     "ClaimedPersonType": form.elements.ClaimedPersonType.value,
-                    "claimDescription": "",
+                    "claimDescription": form.elements.Remarks.value,
                     "claimEvent": "",
                     "claimMode": "Reimbursement",
-                    "claimNote": "",
+                    "claimNote": form.elements.Remarks.value,
                     "claimReported": "Eclaims",
                     "claimType": claimTypeId,
                     "contactEmail": form.elements.contactEmail.value,
