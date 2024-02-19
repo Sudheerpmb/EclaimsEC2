@@ -66,7 +66,7 @@
             </div>
             <div>
               <div class="col-12">
-                <img id="tataEmg" style="max-height:11vh;" src="images/MCHI.jpg" alt="" />
+                <img id="tataEmg" style="max-height:5vh;" src="" alt="" />
               </div>
               <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
                   style="float: right; color: #024695; padding: 10px;"></i> </a>
@@ -252,7 +252,7 @@
       getButtons(user.clientId.toUpperCase());
       if (user.clientId.toUpperCase() == 'TATA AIG')
         $("#geoCodingDiv").show();
-      document.getElementById("tataEmg").src = 'images/' + user.clientId + '.jpg'
+      document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
     })
   </script>
 

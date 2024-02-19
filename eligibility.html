@@ -36,7 +36,7 @@
   <script type="text/javascript">
     let cls = getFromStore("clientIDE");
     $(function () {
-      document.getElementById("tataEmg").src = 'images/' + cls + '.jpg';
+      document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
       isAuthenticated();
       removeFromStore("nonExistingCustomer");
       removeFromStore("incidentDate");
@@ -118,7 +118,7 @@
 
             <div class="row">
               <div class="col-12">
-                <img id="tataEmg" style="max-height:8vh;float:right;" src="" alt=""
+                <img id="tataEmg" style="max-height:5vh;float:right;" src="" alt=""
                  />
               </div>
               <!-- <div class="col-12 icons"> -->
@@ -236,18 +236,18 @@
     <!--Footer-end-->
   </div>
   <script>
-    $(document).ready(function () {
-      $('#policyPlace').on('input', function () {
-        var value = $(this).val();
-        var numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
+$(document).ready(function () {
+  $('#policyPlace').on('input', function () {
+    var value = $(this).val();
+    var alphanumericValue = value.replace(/[^a-zA-Z0-9]/g, ''); // Remove non-alphanumeric characters
 
-        if (numericValue.length > 20) {
-          numericValue = numericValue.slice(0, 20); // Truncate the input to 20 digits
-        }
+    if (alphanumericValue.length > 20) {
+      alphanumericValue = alphanumericValue.slice(0, 20); // Truncate the input to 20 characters
+    }
 
-        $(this).val(numericValue); // Update the input value with the numeric value
-      });
-    });
+    $(this).val(alphanumericValue); // Update the input value with the alphanumeric value
+  });
+});
 
   </script>
   <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>

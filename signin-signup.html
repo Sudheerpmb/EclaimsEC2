@@ -37,7 +37,7 @@
   <script src="js/controllers/signinController.js"></script>
   <script src="plugins/toastr/toastr.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 
 </head>
 
@@ -64,10 +64,9 @@
       });
       // console.log("Welcome")
       var type = urlParams.get('type');
-      console.log(type);
+      // console.log(type);
       // getTypeName(type);
       setToStore("type", type);
-
     });
   </script>
 
@@ -83,7 +82,7 @@
                 <img src="images/Europ.jpg" alt="" /></a>
             </div>
             <div style="margin-top: 37px;">
-              <img id="tataEmg" style="height:6vh;margin-top: -29px!important;" src="" alt="" />
+              <img id="tataEmg" style="height:5vh;margin-top: -29px!important;" alt="" />
             </div>
 
           </div>

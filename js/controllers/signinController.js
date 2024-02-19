@@ -13,6 +13,28 @@ function getClientName(uuid) {
           // window.location = env.app_url + "404.html";
         }
       }
+      let path;
+      $.ajax({
+        async: false,
+        crossDomain: true,
+        url: env.logo_url + "/api/application/pagesOfRole?roleName=ClientRM&applicationName=Eclaims&clientName=" + response[0].clientName,
+        type: "GET",
+        success: function (response) {
+          var encryptedData = response.data;
+          var decryptedData = decryptData(encryptedData);
+          var  clientLogoUrl = JSON.parse(decryptedData);
+          console.log("clientLogoUrl",clientLogoUrl[0].clientData.clientLogo);
+          let urlObject = new URL(clientLogoUrl[0].clientData.clientLogo);
+          path = urlObject.pathname;
+          console.log("path",path );
+          setToStore("clientLogo", path);
+
+        },
+        error: function (err) {
+          console.log(err);
+          toastr.error("Error Occure , Please contact adminstrator");
+        },
+      });
       $(document).ready(function () {
         // Get the client ID
         var clientId = response[0].clientName // Replace with your actual client ID retrieval logic
@@ -29,7 +51,7 @@ function getClientName(uuid) {
       setToStore("prefix",response[0].prefix);
       setToStore("clientIDNM", clientId);
       setToStore("clientID", response[0].clientId);
-      document.getElementById("tataEmg").src = 'images/' + clientId + '.jpg';
+      document.getElementById("tataEmg").src = env.logo_url + path ;
       if (!clientId) {
         toastr.error("Invalid url");
         window.location = env.app_url + "404.html";
@@ -40,6 +62,11 @@ function getClientName(uuid) {
       toastr.error("Error Occure , Please contact adminstrator");
     },
   });
+}
+function decryptData(encryptedData) {
+  const secretKey = '!hrv7PSJxkzTy#g!+=KzsbLcmU4fW4tgZEr_4WkR'; // Same secret key used for encryption
+  const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+  return bytes.toString(CryptoJS.enc.Utf8);
 }
 $(function () {
   /**
