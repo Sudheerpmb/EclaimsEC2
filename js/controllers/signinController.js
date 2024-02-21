@@ -13,9 +13,8 @@ function getClientName(uuid) {
           // window.location = env.app_url + "404.html";
         }
       }
-      let path;
       $.ajax({
-        async: false,
+        async: true,
         crossDomain: true,
         url: env.logo_url + "/api/application/pagesOfRole?roleName=ClientRM&applicationName=Eclaims&clientName=" + response[0].clientName,
         type: "GET",
@@ -25,9 +24,10 @@ function getClientName(uuid) {
           var  clientLogoUrl = JSON.parse(decryptedData);
           console.log("clientLogoUrl",clientLogoUrl[0].clientData.clientLogo);
           let urlObject = new URL(clientLogoUrl[0].clientData.clientLogo);
-          path = urlObject.pathname;
+          let path = urlObject.pathname;
           console.log("path",path );
           setToStore("clientLogo", path);
+          document.getElementById("tataEmg").src = env.logo_url + path ;
 
         },
         error: function (err) {
@@ -51,7 +51,6 @@ function getClientName(uuid) {
       setToStore("prefix",response[0].prefix);
       setToStore("clientIDNM", clientId);
       setToStore("clientID", response[0].clientId);
-      document.getElementById("tataEmg").src = env.logo_url + path ;
       if (!clientId) {
         toastr.error("Invalid url");
         window.location = env.app_url + "404.html";

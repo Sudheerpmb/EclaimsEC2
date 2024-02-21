@@ -280,7 +280,8 @@ $(function () {
         let uploadedDocArr = [];
         let totalSize = 0;
         var eclaims_token = getFromStore("eclaimsToken");
-        var userObj = JSON.parse(getFromStore("user"));
+        // var userObj = JSON.parse(getFromStore("user"));
+        var userObj = JSON.parse(getFromStore("customerEmailForInvalid"));
         let uploadDOc ='';
         var html = `<h6><strong> We have saved your claims details.and your reference number is ${claimId}. however, you still need to provide the below mandatory documents </strong> </h6>`
         if(getFromStore('clientIDNM')==='RELIANCE'){
@@ -289,8 +290,8 @@ $(function () {
             Thank you for submitting the below mentioned documents<br/> `
         }
         if(getFromStore('clientIDNM')!=='RELIANCE'){
-            uploadDOc = `<p><b>Dear ${userObj.firstName.charAt(0).toUpperCase() + userObj.firstName.slice(1)} ${userObj.lastName.charAt(0).toUpperCase() + userObj.lastName.slice(1)}</b></p><strong>CLAIM REFERENCE:  ${claimId}</strong><br>
-            Thank you for submitting the below mentioned documents<br/> `
+            uploadDOc = `<p><b>Dear ${userObj.name}</b></p><strong>CLAIM REFERENCE:  ${claimId}</strong><br>
+            Thank you for submitting the below mentioned documents<br/>`
         }
         let policypr = parseInt(getFromStore("policyCopyPrs"))
         // alert(policypr)

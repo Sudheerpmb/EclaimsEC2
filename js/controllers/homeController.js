@@ -666,25 +666,26 @@ function submitClaims_() {
   if (allDocumentsUploaded) {
     sendSeparateEmail();
   } else {
-    var user_F = JSON.parse(getFromStore("user"));
+    // var user_F = JSON.parse(getFromStore("user"));
     var userInfo = JSON.parse(getFromStore('emailObj'));
-    if (getFromStore('clientIDNM') === 'RELIANCE' && userInfo) {
+    if (userInfo) {
       sendmail(userInfo.email, `${claimId} updated`, email);
     } else if (getFromStore('type') === 'scan' ||getFromStore('type') === 'tinyURL') {
       let emailObj = JSON.parse(getFromStore("qrObj"));
       sendmail(emailObj.email, `${claimId} updated`, email);
-    } else {
-      sendmail(user_F.email, `${claimId} updated`, email);
-    }
+    } 
+    // else {
+    //   sendmail(user_F.email, `${claimId} updated`, email);
+    // }
   }
   alert('The documents have been successfully uploaded');
   window.location = env.app_url + "index.html";
 
   function sendSeparateEmail() {
     // Define your separate email content and subject
-    var user_F = JSON.parse(getFromStore("user"));
+    // var user_F = JSON.parse(getFromStore("user"));
     var userInfo = JSON.parse(getFromStore("emailObj"));
-    if (getFromStore('clientIDNM') === 'RELIANCE' && userInfo) {
+    if (userInfo) {
       var separateEmailContent = `Dear ${userInfo.firstName+' '+ userInfo.lastName}<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
       var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
       sendmail(userInfo.email, separateEmailSubject, separateEmailContent);
@@ -695,11 +696,11 @@ function submitClaims_() {
         var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
         sendmail(emailObj.email, separateEmailSubject, separateEmailContent);
       }
-      else{
-        var separateEmailContent = `Dear ${user_F.firstName + ' '+ user_F.lastName }<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
-        var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
-        sendmail(user_F.email, separateEmailSubject, separateEmailContent);
-      }
+      // else{
+      //   var separateEmailContent = `Dear ${user_F.firstName + ' '+ user_F.lastName }<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
+      //   var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
+      //   sendmail(user_F.email, separateEmailSubject, separateEmailContent);
+      // }
     }
 
   }
