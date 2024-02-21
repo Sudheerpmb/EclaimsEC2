@@ -576,8 +576,8 @@
     //   }
     // }
     if (getFromStore("clientIDE") !== "RELIANCE") {
-      if (getFromStore("user")) {
-        var userObj = JSON.parse(getFromStore("user"));
+      // if (getFromStore("user")) {
+        // var userObj = JSON.parse(getFromStore("user"));
         if (getFromStore("policyDetails")) {
           var userObj = JSON.parse(getFromStore("policyDetails"));
           let dateOfLOss = getFromStore('incidentDate');
@@ -608,19 +608,19 @@
           $("#permanent_zip_code").val(userObj.zip);
           $("#gender").val(mapGenderValue(userObj.gender));
         }
-        else {
-          if (getFromStore("clientIDE") != "TATA AIG") {
-            $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
-            $("#gender").val(mapGenderValue(userObj.gender));
-            $("#beneficiaryEmail").val(userObj.email);
-            $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
-            // $("#beneficiarySurName").val(userObj.lastName);
-            $("#beneficiaryEmail").val(userObj.email);
-            $("#beneficiaryNumber").val(userObj.mobile);
+        // else {
+        //   if (getFromStore("clientIDE") != "TATA AIG") {
+        //     $("#dob").val(userObj.dob !== undefined && userObj.dob !== null && userObj.dob !== 'undefined' ? userObj.dob : "");
+        //     $("#gender").val(mapGenderValue(userObj.gender));
+        //     $("#beneficiaryEmail").val(userObj.email);
+        //     $("#beneficiaryName").val(userObj.firstName + ' ' + userObj.lastName);
+        //     // $("#beneficiarySurName").val(userObj.lastName);
+        //     $("#beneficiaryEmail").val(userObj.email);
+        //     $("#beneficiaryNumber").val(userObj.mobile);
 
-          }
-        }
-      }
+        //   }
+        // }
+      // }
     }
     // if (getFromStore("user")) {
     //   var userRefObj = JSON.parse(getFromStore("user"));

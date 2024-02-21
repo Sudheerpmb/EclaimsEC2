@@ -209,11 +209,11 @@ $(function () {
             let firstName = nameParts[0];
             let lastName = nameParts[1]; 
             var createdByEclaims;
-            if (getFromStore('type') === "scan" || getFromStore('type') === "tinyURL") {
-                createdByEclaims = form.elements.contactEmail.value;
-            } else {
-                createdByEclaims = userDetails.email;
-            }
+            // if (getFromStore('type') === "scan" || getFromStore('type') === "tinyURL") {
+            //     createdByEclaims = form.elements.contactEmail.value;
+            // } else {
+            //     createdByEclaims = form.elements.contactEmail.value;
+            // }
             let customer = {}
             customer.email = form.elements.contactEmail.value;
             customer.name = form.elements.customerName.value;
@@ -234,7 +234,7 @@ $(function () {
                     "phone": form.elements.contactNumber.value,
                     "email": form.elements.contactEmail.value,
                     "policyNumber": policyNumber,
-                    "CreatedByEclaims": createdByEclaims,
+                    "CreatedByEclaims": form.elements.contactEmail.value,
                     "CreatedBy": getFromStore('type')==="scan" || getFromStore('type') === "tinyURL" ? firstName +' '+ lastName : "Eclaims",
                     "dateOfBirth":dobCreateDate,
                     "gender": changedFormat,
