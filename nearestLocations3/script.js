@@ -108,13 +108,23 @@ function myFuntion() {
         }
         let locationData = ""
         ObjectData.map((values) => {
+            let location = values.address + ' ' +  values.city + ' ' + values.state + ' ' + values.country
+            location = values.zip ? location + ' zip ' + values.zip : location
             locationData += ` <tr>
         <td>${values.provider}</td>
         <td style="text-align: right;">${values.phone}</td>
-        <td>${values.address}</td>
+        <td>
+            ${values.address}
+        </td>
         <td>${values.country ? values.country : ''}</td>
         <td>${values.state ? values.state : ''}</td>
         <td>${values.city ? values.city : ''}</td>
+        <td>${values.zip ? values.zip : ''}</td>
+        <td align="center">
+            <a href="http://maps.google.com/?q=${location}" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" width="15" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#74C0FC" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+            </a>
+        </td>
       </tr>`
         });
         document.getElementById("tableBody").innerHTML = locationData
