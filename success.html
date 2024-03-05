@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="1057443436801-mekai6m3evfnqs35fbmn9gcfkd3fj5pv.apps.googleusercontent.com">
+  <title>Travel e-claims</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/tabs.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href='css/css-fonts.css' rel='stylesheet'>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+
+  <style type="text/css">
+    .main {
+      padding-bottom: 65px;
+    }
+
+    .navigate a.left-btn {
+      cursor: pointer;
+      color: #0458a0;
+    }
+  </style>
+
+  <script src="js/lib/jquery-1.11.1.min.js"></script>
+  <script src="js/lib/jquery.validate.min.js"></script>
+  <script src="js/lib/additional-methods.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/lib/util.js"></script>
+  <script src="js/lib/const.js"></script>
+  <script src="js/controllers/homeController.js"></script>
+  <script src="js/controllers/commonController.js"></script>
+
+</head>
+
+<body>
+
+  <script type="text/javascript">
+
+    $(function () { 
+
+     });
+    $(function () {
+      document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
+    })
+
+
+  </script>
+<style>
+  @media (max-width: 320px) {
+    #tataEmg{
+      width: 120px;
+    }
+
+  }
+  .bod {
+        /* width: 60vw; */
+        height: 50vh;
+        background-color: #ECF9FF;
+        border: 1px dotted #BEE7FA;
+    }
+
+</style>
+  <div class="main">
+    <!--Header-start-->
+    <div class="header-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="pull-left"> <a href="index.html" title="">
+                <img src="images/Europ.jpg" alt="" /></a>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12">
+                <img id="tataEmg" style="max-height:5vh;float:right;margin-top: 20px;" src="" alt="" />
+              </div>
+              <div class="col-lg-12 col-md-12">
+                <!-- <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                    style="float: right; color: #024695; padding: 10px;"></i> </a>
+                <a href="index.html"><i class="fa fa-home fa-2x"
+                    style="float: right; color: #024695; padding: 10px;"></i></a>
+                <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x"
+                    style="color: #024695; padding: 10px;float:right;"></i> </a>
+                <input type="text" id="searchInput" class="inpt" placeholder="Search.."
+                  style="float: right; margin: 12px;padding: 5px; border-radius: 5px;background-color: #f3f3f3;"> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="body-wraper">
+        <div class="container">
+          <div class="row">
+            <!-- <div class="col-12">
+  
+            </div> -->
+            <div class="claim-entry">
+              <div class="claim-title">
+                <div class="bod">
+                    <div class="row" style="display:flex;justify-content: center;">
+                        <img src="images/Ftick.png" alt="Girl in a jacket" style="height:8vh;margin-top: 105px;">
+                    </div>
+                    <div class="row" style="display:flex;justify-content: center;margin-top:2vh;">
+                        <div style="text-align:center;" class="bodyContent">
+                            <strong><span style="font-size:20px">You have successfully uploaded your documents</span></strong><br>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+              <span> © E-claims. All Rights Reserved</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+              <!-- <div class="feedback-btn"> <a href="#">Feedback</a> </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+    <!--Header-End-->
+
+    <script type="text/javascript">
+
+      function goBack() {
+        window.history.back();
+      }
+
+    </script>
+  </div>
+
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer>
+
+  </script>
+
+</body>
+
+</html>

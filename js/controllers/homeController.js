@@ -464,6 +464,229 @@ function getClaimDetails(claimId) {
   });
 
 }
+function getTokenForCustomer(){
+  $.ajax({
+    async: false,
+    crossDomain: true,
+    url: env.node_api_url + "batchJobs/getTokenInsta",
+    type: "POST",
+    processData: false,
+    contentType: false,
+    contentType: "application/json",
+    data: JSON.stringify({
+      "key": "Ch_2C(f8N{Z.2GEd+Hd",
+    }),
+    success: function (response) {
+      console.log("Came to token");
+      setToStore("googleLogin", 0);
+      setToStore("otpVerified", true);
+      setToStore("eclaimsToken", response.token);
+    },
+    error: function (err) {
+      console.log(err);
+      toastr.error("Incorrect token");
+    },
+  });
+}
+function toGetClientLogo(uuid){
+  $.ajax({
+    async: true,
+    crossDomain: true,
+    url: `${env.node_api_url}batchJobs/insuranceProviders/getByUUID?uuid=${uuid}`,
+    type: "GET",
+    success: function (response) {
+      // console.log(response);
+      if (response.length == 0) {
+        {
+          toastr.error("Invalid url");
+        }
+      }
+      $.ajax({
+        async: true,
+        crossDomain: true,
+        url: env.logo_url + "/api/application/pagesOfRole?roleName=ClientRM&applicationName=Eclaims&clientName=" + response[0].clientName,
+        type: "GET",
+        success: function (response) {
+          var encryptedData = response.data;
+          var decryptedData = decryptData(encryptedData);
+          var clientLogoUrl = JSON.parse(decryptedData);
+          let urlObject = new URL(clientLogoUrl[0].clientData.clientLogo);
+          let path = urlObject.pathname;
+          setToStore("clientLogo", path);
+          document.getElementById("tataEmg").src = env.logo_url + path;
+        },
+        error: function (err) {
+          console.log(err);
+          toastr.error("Error Occure , Please contact adminstrator");
+        },
+      });
+      function decryptData(encryptedData) {
+        const secretKey = '!hrv7PSJxkzTy#g!+=KzsbLcmU4fW4tgZEr_4WkR'; // Same secret key used for encryption
+        const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+        return bytes.toString(CryptoJS.enc.Utf8);
+      }
+      window.clientName = response[0].clientName;
+      setToStore("prefix", response[0].prefix);
+      setToStore("clientName", clientName);
+      setToStore("clientId", response[0].clientId);
+    },
+    error: function (err) {
+      console.log(err);
+      toastr.error("Error Occure , Please contact adminstrator");
+    },
+  });
+}
+function getClaimDetailsForCustomer(claimId, uuid) {
+  getTokenForCustomer();
+  toGetClientLogo(uuid)
+  var eclaims_token = getFromStore("eclaimsToken");
+  var clientId = getFromStore("clientId")
+  var newForm = new FormData();
+  newForm.append("clientId", clientId);
+  newForm.append("eclaimToken", eclaims_token);
+
+  var url = env.node_api_url + "api/cases/getCaseDetailsEclaims?caseNumber=" + claimId;
+
+  $.ajax({
+    async: true,
+    crossDomain: true,
+    url: url,
+    type: "GET",
+    processData: false,
+    contentType: false,
+    // data: newForm,
+    headers: {
+      Authorization: "Bearer " + eclaims_token
+    },
+    success: function (data) {
+      // var json = JSON.parse(data[0]);
+      var json = data[0];
+      if (json != null) {
+        var Status;
+        if (json.Status == 0) {
+          Status = "Open";
+          window.status = "Open";
+        }
+        var type = json.travelCases.claimType;
+        var travelTdocs = json.travelCases.documents;
+        var subtype = json.travelCases.subClaimType;
+        let linkObj = {};
+        linkObj.firstName = json.customers.FirstName
+        linkObj.lastName = json.customers.LastName
+        linkObj.email = json.customers.Email;
+        let customerJson = JSON.stringify(linkObj);
+        setToStore("travelCaseId", json.travelCaseRef);
+        setToStore('linkObj', customerJson);
+        $("#pnumber").html(json.policy.policyNumber);
+        setToStore("polNum", json.policy.policyNumber);
+
+        // $("#status").html(Status);
+        $("#claimDate").html(new Date(json.CreationDate).toLocaleDateString('en-GB'));
+        // if (json.policy.policyIssuedDate)
+        //   $("#policyIssueDate").html(new Date(json.policy.policyIssuedDate).toLocaleDateString('en-GB'))
+        // else
+        // $("#policyIssuelabel").hide()
+        // $("#policyIssueDate").html(`NA`)
+        var urlTo = env.node_api_url + 'eclaims/documents/list?claimtype=' + type;
+        if (subtype) {
+          urlTo += '&claimSubType=' + encodeURIComponent(subtype);
+        }
+
+        $.ajax({
+          async: true,
+          crossDomain: true,
+          url: urlTo,
+          type: "GET",
+          processData: false,
+          contentType: false,
+          // data: newForm,
+          headers: {
+            Authorization: "Bearer " + getFromStore("eclaimsToken")
+          },
+          success: function (data) {
+            let toBeUploaded = [];
+            let result = '';
+            let alreadyUp = '';
+            let docName = '';
+            let allUploadDatas = data[0].Documents;
+            let allUploadData = [];
+            for (let elem of allUploadDatas)
+              if (elem.Eclaims)
+                allUploadData.push(elem)
+            for (var i = 0; i < allUploadData.length; i++) {
+              let flag = 1;
+              for (var j = 0; j < travelTdocs.length; j++) {
+                let trDoc = travelTdocs[j].documentName.split("_")[0];
+                // alert(allUploadData.length+"------------"+allUploadData[i].Name+"-------"+trDoc+"-------"+travelTdocs.length)
+                if (trDoc == allUploadData[i].Name) {
+                  flag = 0;
+                  if (travelTdocs[j].doc_ori_name)
+                    docName = travelTdocs[j].doc_ori_name;
+                  else
+                    docName = travelTdocs[j].documentName;
+                  if (docName.length > 20) {
+                    docName = docName.substring(0, 13) + '....' + docName.substring(docName.length - 6)
+
+                  }
+
+                }
+              }
+              if (flag) {
+                // <-- <i class="fa fa-times-circle-o" id="${allUploadData[i].Name+'__P'}" onclick="subDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>-->
+                result += `
+                <div class="row">
+                    <div class = "col-sm-8 col-12" id="${allUploadData[i].Name + '___'}" style="display: flex;justify-content: space-between;color:blue">
+                      <div onclick="scrollWin()">
+                        <i class="fa fa-plus-square" id="${allUploadData[i].Name + '__'}" onclick="addDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
+                        <a href="javascript:;"  data-id= ${allUploadData[i].Name} class="myLink"  data-toggle="tooltip" title="${allUploadData[i].Name}" > ${allUploadData[i].Name}</a> 
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                      <div class="button-wrapper" style="width: 100px !important;text-align: center;padding:5px; float: right !important;">
+                            <span class="label">Upload</span>
+                            <input type="file" id="${allUploadData[i].Name}" name="${allUploadData[i].Name}"  onchange="showname('${allUploadData[i].Name}','${allUploadData[i].Name + '_'}')" accept="image/jpeg,image/png,application/pdf"
+                        data-msg-accept="File type should be PDF, jpeg or png." class="upload upload-box" placeholder="Attach">
+                        <label id ="${allUploadData[i].Name + '_'}" style="display:none">  </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               `;
+                toBeUploaded.push(allUploadData[i].Name);
+              }
+              else {
+                alreadyUp += `
+                <div class="row">
+                  <div class = "col-sm-8 col-12" style="display: flex;justify-content: space-between;color:#DD31FF">
+                    <div onclick="scrollWin()">
+                      <i class="fa fa-plus-square" id="${allUploadData[i].Name + '__'}" onclick="addDiv('${allUploadData[i].Name}')"  style="font-size:18px;cursor: pointer;"aria-hidden="true;"></i>
+                      <span  data-id= ${allUploadData[i].Name} class="myLink" > ${allUploadData[i].Name}</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-12" style="float: right !important;text-align:center;width:11vw;padding-left: 10px;">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                     <br>
+                    <span>${docName}</span>
+                  </div>
+                </div><br/>`
+              }
+            }
+            console.log(toBeUploaded);
+            let x = 0;
+            result = alreadyUp + result
+            document.getElementById("uploadDocDiv").innerHTML = result;
+          }
+        })
+      }
+      console.log(json);
+
+    },
+    error: function (err) {
+      console.log(err);
+      toastr.error('Whoops! Something went wrong.');
+    }
+  });
+}
 function submitClaims_tw() {
   var fd = new FormData();
   // alert("hi")
@@ -598,6 +821,96 @@ function submitClaims_tw() {
 //   window.location = env.app_url + "index.html";
 
 // }
+function submitClaimsDocuments(){
+    var eclaim_token = getFromStore("eclaimsToken");
+    var tcID_l = getFromStore("travelCaseId");
+    var arr = [];
+    var html = `<h6><strong>We have saved your claims details, and your reference number is ${claimId}. However, you still need to provide the below mandatory documents</strong></h6>`;
+    var submitedDoc = ``;
+    var email = `<strong>CLAIM REFERENCE:${claimId}</strong><br>
+    Thank you for your following enclosures sent to us. {Policy_Copy_}
+    <br/><span>In order for us to proceed with our assessment, we will require the following additional information/documentation:</span>`;
+  
+    $(".upload").each(function () {
+      var fd = new FormData();
+      let scm = $(this).attr('name');
+  
+      if (typeof $(this)[0].files[0] === 'undefined' && !scm.includes("Other Document")) {
+        html += `<div class="col-xs-12 pull-left" style="width: 100%;">
+        <div class="col-xs-6 pull-left">
+        <li style="margin-left:20px">${scm} &nbsp; 
+        </li>`;
+        email += `<strong> <li style="margin-left:20px">${scm} &nbsp; 
+        </li></strong>`;
+      } else {
+        if (scm.includes("Other Document")) {
+          if (typeof $(this)[0].files[0] !== 'undefined')
+            submitedDoc += `<br><strong><li>${scm}</li></strong>`;
+        } else {
+          submitedDoc += `<br><strong><li>${scm}</li></strong>`;
+        }
+      }
+  
+      let kj = $(this)[0].files[0];
+  
+      fd.append('imgUploader', $(this)[0].files[0]);
+      if (typeof $(this)[0].files[0] !== 'undefined') {
+        $.ajax({
+          async: true,
+          crossDomain: true,
+          url: env.node_api_url + 'api/uploadDocuments?docTypeId=' + scm + '&travelCaseId=' + tcID_l + '&uploadedFrom=' + 'Eclaims',
+          type: "POST",
+          data: fd,
+          contentType: false,
+          processData: false,
+          headers: {
+            Authorization: "Bearer " + eclaim_token
+          },
+          success: function (data) {
+            // alert(`${scm} inserted`)
+          }
+        });
+      }
+    });
+  
+    let display = html + `<br/><h6>We will be sending you the claim form to your registered email id. Claim forms to be filled, signed & submitted along with the requested claim documents.</h6>`;
+    email += `<br/><br/>We look forward to hearing from you in due course.<br/><br/>
+    Yours sincerely,<br/>
+    Claims Team<br/>
+    eclaims<br/> 
+    Europ Assistance India`;
+    email = email.replace('{Policy_Copy_}', submitedDoc);
+    
+    // Check if all documents are uploaded
+    var allDocumentsUploaded = $(".upload").toArray().every(function (elem) {
+      return $(elem)[0].files.length > 0;
+    });
+  
+    if (allDocumentsUploaded) {
+      sendSeparateEmail();
+    } else {
+      // var user_F = JSON.parse(getFromStore("user"));
+      var userInfo = JSON.parse(getFromStore('linkObj'));
+      if (userInfo) {
+        sendmail(userInfo.email, `${claimId} updated`, email);
+      } 
+    }
+    alert('The documents have been successfully uploaded');
+    window.location = env.app_url + "success.html";
+    function sendSeparateEmail() {
+      // Define your separate email content and subject
+      // var user_F = JSON.parse(getFromStore("user"));
+      var userInfo = JSON.parse(getFromStore("linkObj"));
+      if (userInfo) {
+        var separateEmailContent = `Dear ${userInfo.firstName+' '+ userInfo.lastName}<br/>CLAIM REFERENCE:${claimId}<br/><br/>Thank you for submitting the below mentioned all documents.<br/>Our team will get back to you if anything required from your end.<br/><br/>Yours sincerely,<br/>Claims Team<br/>Europ Assistance India`;
+        var separateEmailSubject = `E-Claim Alerts: All Documents Received`;
+        sendmail(userInfo.email, separateEmailSubject, separateEmailContent);
+      }
+  
+    }
+  
+
+}
 function submitClaims_() {
   var eclaim_token = getFromStore("eclaimsToken");
   var tcID_l = getFromStore("CTrvelCaseId");
