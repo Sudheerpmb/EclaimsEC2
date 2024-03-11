@@ -28,7 +28,7 @@
     function toggleForms(clientId) {
       if (clientId === "RELIANCE") {
         $("#downloadRel").show();
-      } else {
+      } else if(clientId !== "EUROP ASSISTANCE") {
         $("#downloadOther").show();
       }
     }
