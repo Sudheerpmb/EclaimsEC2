@@ -19,19 +19,20 @@
   <script src="js/lib/const.js"></script>
   <script src="js/controllers/homeController.js"></script>
   <script src="js/controllers/commonController.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
 <script type="text/javascript">
   let cls = getFromStore("clientIDE");
   $(function () {
     document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
 
-    function toggleForms(clientId) {
-      if (clientId === "RELIANCE") {
-        $("#downloadRel").show();
-      } else if(clientId !== "EUROP ASSISTANCE") {
-        $("#downloadOther").show();
-      }
-    }
+    // function toggleForms(clientId) {
+    //   if (clientId === "RELIANCE") {
+    //     $("#downloadRel").show();
+    //   } else if(clientId !== "EUROP ASSISTANCE") {
+    //     $("#downloadOther").show();
+    //   }
+    // }
 
     // Show/hide forms on page load
     let client = getFromStore("clientIDNM");
@@ -89,9 +90,9 @@
             <div class="claim-entry">
               <h2><span><i style="font-size:24px" class="fa">&#xf0ed;</i> Download</span> your policy and other
                 documents</h2>
-              <h2><span>Documents related to your Policy</span> </h2>
-              <div id="downloadRel" style="display: none;">
-                <div class="coverage">
+              <h2><span>Documents related to your Policy</span></h2>
+              <div id="downloadRel">
+                <!-- <div class="coverage">
                   <h5>Travel Claim From (A)</h5>
                   <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_A.pdf"
                     download="Travel_Claim_From_A.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
@@ -105,17 +106,15 @@
                   <h5>Travel Claim From Main</h5>
                   <a href="https://eclaimsuat.europassistance.in/images/Travel_Claim_From_Main.pdf"
                     download="Travel_Claim_From_Main.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
-                </div>
+                </div> -->
               </div>
-
-              <div id="downloadOther" style="display: none;">
+              <!-- <div id="downloadOther" style="display: none;">
                 <div class="coverage">
                   <h5>Travel Policy Claim Form</h5>
                   <a href="https://eclaimsuat.europassistance.in/images/ABHI_Travel_Policy_Claim_Form.pdf"
                     download="ABHI_Travel_Policy_Claim_Form.pdf"> <i class="fa fa-download" aria-hidden="true"></i></a>
-                </div>
-
-              </div>
+                </div> 
+              </div>-->
 
               <!--
                 <div class="coverage">
