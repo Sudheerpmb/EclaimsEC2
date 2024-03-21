@@ -2,7 +2,7 @@
 var homePage = document.getElementById("homePage");
 var authPage = document.getElementById("authPage");
 var invalidUser = document.getElementById("invalidUser");
-var baseUrl = 'https://eztraveluatapi.europassistance.in'
+var baseUrl = 'https://eztravelapi2.europassistance.in'
 // var baseUrl = 'https://localhost:3000'
 var ssoAPIUrl = 'https://api.entrustuat.in'
 var ssoUrl = 'https://entrustuat.in'
