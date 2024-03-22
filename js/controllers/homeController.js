@@ -1556,7 +1556,7 @@ function downloadDoc(id){
     },
     success: function (data, status, xhr) { 
       var blob = new Blob([data], { type: "application/pdf" });
-      saveAs(blob, id + ".pdf");
+      saveAs(blob, id);
       // // Check if the content type is application/pdf
       // var contentType = xhr.getResponseHeader('Content-Type');
       // if (contentType.toLowerCase().indexOf("application/pdf") !== -1) {
