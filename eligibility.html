@@ -36,7 +36,7 @@
   <script type="text/javascript">
     let cls = getFromStore("clientIDE");
     $(function () {
-      document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
+      // document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
       isAuthenticated();
       removeFromStore("nonExistingCustomer");
       removeFromStore("incidentDate");
@@ -115,23 +115,30 @@
               <!-- Use it instead (edited-17/06/2023) -->
 
             </div>
-
-            <div class="row">
+            <div class="div">
               <div class="col-12">
-                <img id="tataEmg" style="max-height:12vh;float:right;" src="" alt=""
-                 />
-              </div>
-              <!-- <div class="col-12 icons"> -->
-              <div class="col-12 text-right">
-                <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x"
-                  style="color: #024695; padding: 10px; "></i> </a>
-                  <a href="index.html"><i class="fa fa-home fa-2x"
-                    style=" color: #024695; padding: 10px; "></i></a>
-              <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
-                  style="color: #024695; padding: 10px; "></i> </a>
-              
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <img id="tataEmg" style="max-height:12vh;float:right;" src="" alt="" /> -->
+                    <div style="width: 80%;">
+                      <div style="background-image:url('https://api.entrustuat.in/uploads/GnfCocwNK2Gl4ZRb3XFb3igBw06w0nkw1708082583125_download.png'); width:300px; height:75px; background-position:center;">&nbsp;</div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-12 icons"> -->
+                  <div class="col-sm-9">
+                    <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x"
+                      style="color: #024695; padding: 10px; "></i> </a>
+                      <a href="index.html"><i class="fa fa-home fa-2x"
+                        style=" color: #024695; padding: 10px; "></i></a>
+                  <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                      style="color: #024695; padding: 10px; "></i> </a>
+                  
+                  </div>
+                </div>
               </div>
             </div>
+
+
           </div>  
         </div>
       </div>

@@ -39,7 +39,7 @@
 
     let cls = getFromStore("clientIDE");
     $(function () {
-      document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
+      // document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
 
     })
   </script>
@@ -49,23 +49,32 @@
     <div class="header-sec">
       <div class="container">
         <div class="row">
-          <div class="col-12">
+          <div class="col-12" style="display:flex; justify-content: space-between;">
             <div class="pull-left">
               <a href="index.html" title=""><img src="images/Europ.jpg" alt="" class="img" /></a>
             </div>
-            <div class="row">
-              <div class="col-12 text-right">
-                <img id="tataEmg" style="max-height:12vh;float:right;" src="" alt="" class="img2" />
-              </div>
+            <div>
               <div class="col-12">
-                <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
-                  style="float: right; color: #024695; padding: 10px;"></i> </a>
-              <a href="index.html"><i class="fa fa-home fa-2x"
-                  style="float: right; color: #024695; padding: 10px;"></i></a>
-              <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x"
-                  style="color: #024695; padding: 10px;float: right;margin-right: 10px;"></i> </a>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <img id="tataEmg" style="max-height:12vh;float:right;" src="" alt="" class="img2" /> -->
+                    <div style="width: 80%;">
+                      <div style="background-image:url('https://api.entrustuat.in/uploads/GnfCocwNK2Gl4ZRb3XFb3igBw06w0nkw1708082583125_download.png'); width:300px; height:75px; background-position:center;">&nbsp;</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-9">
+                    <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                      style="float: right; color: #024695; padding: 10px;"></i> </a>
+                  <a href="index.html"><i class="fa fa-home fa-2x"
+                      style="float: right; color: #024695; padding: 10px;"></i></a>
+                  <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x"
+                      style="color: #024695; padding: 10px;float: right;margin-right: 10px;"></i> </a>
+                  </div>
+                </div>
               </div>
+  
             </div>
+
           </div>
         </div>
       </div>

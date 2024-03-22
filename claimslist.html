@@ -174,7 +174,7 @@
 
     let cls = getFromStore("clientIDE");
     $(function () {
-      document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
+      // document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
       isAuthenticated();
       if(getFromStore('type')=== "null"){
          getCustomerClaims();
@@ -199,24 +199,30 @@
               </a>
             </div>
               <div>
-                <div class="row">
-                  <div class="col-lg-12 col-md-12">
-                    <img id="tataEmg" style="max-height:12vh;float: right;" src="" alt="" />
-                  </div>
-                  <div class="col-lg-12 col-md-12">
-                    <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
-                      style="float: right; color: #024695; padding: 10px;"></i>
-                    </a>
-                    <a href="index.html"><i class="fa fa-home fa-2x"
-                      style="float: right; color: #024695; padding: 10px;"></i>
-                    </a>
-                    <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x"
-                      style="color: #024695; padding: 10px;float:right;"></i>
-                    </a>
-                      <!-- <input type="text" id="searchInput" class="inpt searchForTable" placeholder="Search..."
-                      style="float: right; margin: 12px;padding: 5px; border-radius: 5px;background-color: #f3f3f3; display: none;"> -->
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <!-- <img id="tataEmg" style="max-height:12vh;float: right;" src="" alt="" /> -->
+                      <div style="width: 80%;">
+                        <div style="background-image:url('https://api.entrustuat.in/uploads/GnfCocwNK2Gl4ZRb3XFb3igBw06w0nkw1708082583125_download.png'); width:300px; height:75px; background-position:center;">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-sm-9 ">
+                      <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
+                        style="float: right; color: #024695; padding: 10px;"></i>
+                      </a>
+                      <a href="index.html"><i class="fa fa-home fa-2x"
+                        style="float: right; color: #024695; padding: 10px;"></i>
+                      </a>
+                      <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x"
+                        style="color: #024695; padding: 10px;float:right;"></i>
+                      </a>
+                        <!-- <input type="text" id="searchInput" class="inpt searchForTable" placeholder="Search..."
+                        style="float: right; margin: 12px;padding: 5px; border-radius: 5px;background-color: #f3f3f3; display: none;"> -->
+                    </div>
                   </div>
                 </div>
+
               
             
                   <!-- <select id="searchSelect" style="margin-top: 12px; margin-right: 15px;padding: 2px 2px">
