@@ -1533,7 +1533,10 @@ function toggleForms(clientId){
         document.getElementById("downloadRel").innerHTML = claimDetails;
       }
       else {
-        document.getElementById("downloadRel").innerHTML = `<h5 class="text-center">No documents has been found</h5>`;
+        document.getElementById("downloadRel").innerHTML = `
+        <div class="coverage">
+          <h5 class="text-center">No documents has been found</h5>
+        </div>`;
       }
     },
     error: function (err) {
