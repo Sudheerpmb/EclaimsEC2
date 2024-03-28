@@ -1527,7 +1527,7 @@ function toggleForms(clientId){
         json.forEach(value => {
           claimDetails += `<div class="coverage">
           <h5>${value.nameofthedocument}</h5>
-          <i class="fa fa-download" aria-hidden="true" onclick="downloadDoc('${value.documentName}')" style="cursor:pointer;"></i>
+          <a href="${env.node_api_url}auth/travelCases/getDocuments?file=${value.documentName}" target="_blank"  download="${value.documentName}"><i class="fa fa-download" aria-hidden="true"></i></a>
         </div> `
         });
         document.getElementById("downloadRel").innerHTML = claimDetails;
@@ -1546,36 +1546,36 @@ function toggleForms(clientId){
   })
 }
 
-function downloadDoc(id){
-  // window.location = env.node_api_url + `auth/travelCases/getDocuments?file=${id}`
-  $.ajax({
-    async: true,
-    crossDomain: true,
-    url: env.node_api_url + `auth/travelCases/getDocuments?file=${id}`,
-    type: "GET",
-    responseType: "blob",
-    headers: {
-      Authorization: "Bearer " + getFromStore("eclaimsToken")
-    },
-    success: function (data, status, xhr) { 
-      var blob = new Blob([data], { type: "application/pdf" });
-      saveAs(blob, id);
-      // // Check if the content type is application/pdf
-      // var contentType = xhr.getResponseHeader('Content-Type');
-      // if (contentType.toLowerCase().indexOf("application/pdf") !== -1) {
-      //   var blob = new Blob([data], { type: "application/pdf" });
-      //   saveAs(blob, id + ".pdf");
-      // } else {
-      //   console.error("Received content is not a PDF.");
-      //   // Handle the case where the received file is not a PDF
-      // }
-    },
-    error: function (xhr, status, error) {
-      console.error("Error fetching PDF:", error);
-    }
-  });
-  
-}
+// function downloadDoc(id){
+//   // window.location = env.node_api_url + `auth/travelCases/getDocuments?file=${id}`
+//   $.ajax({
+//     async: true,
+//     crossDomain: true,
+//     url: env.node_api_url + `auth/travelCases/getDocuments?file=${id}`,
+//     type: "GET",
+//     responseType: "blob",
+//     headers: {
+//       Authorization: "Bearer " + getFromStore("eclaimsToken")
+//     },
+//     success: function (data, status, xhr) { 
+//       var blob = new Blob([data], { type: "application/pdf" });
+//       saveAs(blob, id);
+//       // // Check if the content type is application/pdf
+//       // var contentType = xhr.getResponseHeader('Content-Type');
+//       // if (contentType.toLowerCase().indexOf("application/pdf") !== -1) {
+//       //   var blob = new Blob([data], { type: "application/pdf" });
+//       //   saveAs(blob, id + ".pdf");
+//       // } else {
+//       //   console.error("Received content is not a PDF.");
+//       //   // Handle the case where the received file is not a PDF
+//       // }
+//     },
+//     error: function (xhr, status, error) {
+//       console.error("Error fetching PDF:", error);
+//     }
+//   });
+
+// }
 function getCustomerRecentClaim() {
 
 

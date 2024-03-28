@@ -95,7 +95,7 @@
       $('#baggageLossDiv').hide();
       $('#luggageLossDiv').hide();
       $('#AirportServicecsDiv').hide();
-      // document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
+      document.getElementById("tataEmg").src = env.logo_url + getFromStore('clientLogo');
        isAuthenticated();
       var urlParams = new URLSearchParams(window.location.search);
       if (cls == 'TATA AIG') {
@@ -163,41 +163,29 @@
     });
   </script>
   <style>
-        @media only screen and (max-width:328px) {
+        @media only screen and (max-width:470px) {
       #img2 {
         width: 80px;
       }
+      #tataEmg {
+                width: 100px;
+            }
+      
     }
   </style>
   <div class="main">
     <!--Header-start-->
-    <div class="header-sec">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display:flex; justify-content: space-between;">
-            <div class="pull-left">
-              <a href="#" title="">
-                <img src="images/Europ.jpg" alt="" id="img2" /></a>
-              <!-- <a href="coverage.html"><button type="btn" class="btn" style="margin-top:63px;margin-left:28px;background-color: #00459a;color: white;">Back</button></a> -->
-            </div>
-            <div class="row">
-              <div class="col-12 text-right">
-                <img id="tataEmg" style="max-height:8vh;" src="" alt="" />
-              </div>
-              <div class="col-12 text-right">
-                <a href="coverage.html"><i class="fa fa-arrow-circle-left fa-2x"
-                  style="color: #024695; padding: 10px;"></i></a>
-                  <a href="index.html"><i class="fa fa-home fa-2x"
-                    style=" color: #024695; padding: 10px;"></i></a>
-              <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x"
-                  style=" color: #024695; padding: 10px;"></i></a>
-              
-              </div>
-            </div>
-
-            
-          </div>
-        </div>
+    <nav class="navbar navbar-expand-lg static-top">
+      <div class="container-fluid" style="width: 80%;">
+        <a class="navbar-brand" href="#" title=""><img src="images/Europ.jpg" alt="" id="img2" /></a>
+        <a class="navbar-brand" href="#"><img id="tataEmg" height="130vh" src="" alt="" /></a>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col-10 text-right">
+        <a href="coverage.html"><i class="fa fa-arrow-circle-left fa-2x" style="color: #024695; padding: 8px;"></i></a>
+        <a href="index.html"><i class="fa fa-home fa-2x" style=" color: #024695; padding: 8px;"></i></a>
+        <a href="#" onclick="javascript:signOut()"><i class="fa fa-sign-out fa-2x" style=" color: #024695; padding: 8px;"></i></a>
       </div>
     </div>
     <!--Header-End-->

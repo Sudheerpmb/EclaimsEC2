@@ -19,7 +19,7 @@
   <script src="js/lib/const.js"></script>
   <script src="js/controllers/homeController.js"></script>
   <script src="js/controllers/commonController.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 </head>
 <script type="text/javascript">
   let cls = getFromStore("clientIDE");
@@ -42,12 +42,12 @@
 
 </script>
 <style>
-      @media only screen and (max-width:328px) {
+      @media only screen and (max-width:470px) {
       .img {
         width: 62px;
       }
       .img2{
-        width: 130px;
+        width: 100px;
       }
     }
 </style>
@@ -55,28 +55,15 @@
 
   <div class="main">
     <!--Header-start-->
-    <div class="header-sec">
-      <div class="container">
-        <div class="row">
-          <div class="col-12" style="display:flex; justify-content: space-between;">
-            <div class="pull-left"> <a href="index.html" title="">
-                <img src="images/Europ.jpg" alt="" class="img"/></a>
-            </div>
-            <div class="div">
-              <div class="col-12">
-                <img id="tataEmg" style="max-height:8vh;float: right;" src="" alt="" class="img2"/>
-              </div>
-              <div class="col-12">
-                <a href="index.html">
-                  <i class="fa fa-arrow-circle-left fa-2x icon"
-                    style="color:rgb(30, 49, 146);float: right;">
-                  </i>
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
+    <nav class="navbar navbar-expand-lg static-top">
+      <div class="container-fluid" style="width: 80%;">
+        <a class="navbar-brand" href="index.html" title=""><img src="images/Europ.jpg" alt="" class="img" /></a>
+        <a class="navbar-brand" href="#"><img id="tataEmg" height="130vh" src="" alt="" class="img2" /></a>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col-10 text-right">
+        <a href="index.html"><i class="fa fa-arrow-circle-left fa-2x icon" style="color:rgb(30, 49, 146);"></i></a>
       </div>
     </div>
 
