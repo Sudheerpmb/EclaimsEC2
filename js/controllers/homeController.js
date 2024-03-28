@@ -1527,7 +1527,7 @@ function toggleForms(clientId){
         json.forEach(value => {
           claimDetails += `<div class="coverage">
           <h5>${value.nameofthedocument}</h5>
-          <i class="fa fa-download" aria-hidden="true" onclick="downloadDoc('${value.documentName}','${value.nameofthedocument}')" style="cursor:pointer;"></i>
+          <i class="fa fa-download" aria-hidden="true" onclick="downloadDoc('${value.documentName}','${value.nameofthedocument}')"></i>
         </div> `
         });
         document.getElementById("downloadRel").innerHTML = claimDetails;
